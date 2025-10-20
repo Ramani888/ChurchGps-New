@@ -1,0 +1,9 @@
+{
+  "errorLens.enabled": true,
+  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "errorLens.followCursor": "activeLine",
+  "errorLens.underlineEnabled": true,
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.messageTemplate": "$severity: $message",
+  "errorLens.exclude": ["**/node_modules/**", "**/dist/**", "**/build/**"]
+}
