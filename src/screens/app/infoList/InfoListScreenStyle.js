@@ -3,10 +3,13 @@ import Color from '../../../utils/Color';
 import { scale, verticalScale } from '../../../utils/Responsive';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Color.Gray1 },
+  container: {
+    flex: 1,
+    backgroundColor: Color.Gray1,
+    paddingHorizontal: scale(15),
+  },
   iconContainer: {
-    marginTop: verticalScale(60),
-    marginHorizontal: scale(15),
+    marginTop: verticalScale(30),
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -20,4 +23,11 @@ export const styles = StyleSheet.create({
     marginRight: scale(8),
   },
   icon: { width: scale(24), height: scale(24) },
+  topButtonView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: verticalScale(30),
+  },
+  savedIcon: { width: scale(20), height: verticalScale(20) },
 });

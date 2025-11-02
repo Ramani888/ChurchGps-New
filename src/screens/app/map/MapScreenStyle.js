@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     borderRadius: scale(8),
   },
   iconContainer: {
-    marginTop: verticalScale(60),
+    marginTop: verticalScale(30),
     marginHorizontal: scale(15),
     flexDirection: 'row',
     alignItems: 'center',

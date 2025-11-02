@@ -20,6 +20,7 @@ import SwitchModeBottomsheetContent from '../../../components/bottomSheetContent
 import CustomBottomsheet from '../../../custome/CustomBottomsheet';
 import { useNavigation } from '@react-navigation/native';
 import { screenName } from '../../../utils/NavigationKey';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 let Img = Image;
 let IMG_PRIORITY = undefined;
@@ -203,7 +204,7 @@ const MapScreen = () => {
   const initialRegion = firstPlaceRegion;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={Color.transparent} />
       <MapViewClustering
         ref={mapRef}
@@ -214,7 +215,7 @@ const MapScreen = () => {
         extent={512}
         spiralEnabled
         animationEnabled
-        customMapStyle={mapStyle}
+        // customMapStyle={mapStyle}
         onMapReady={() => {
           if (initialRegion) {
             mapRef.current?.animateToRegion(initialRegion, 400);
@@ -235,21 +236,26 @@ const MapScreen = () => {
         </Pressable>
         <Pressable
           style={[styles.iconView, { marginRight: scale(60) }]}
-          onPress={() => navigation.navigate(screenName.info)}
+          onPress={() => navigation.navigate(screenName.infoList)}
         >
           <Image source={Images.infoIcon} style={styles.icon} />
         </Pressable>
-        <Pressable style={styles.iconView}>
-          <Image source={Images.switchIcon} style={styles.icon} />
+        <Pressable
+          style={styles.iconView}
+          onPress={() =>
+            navigation.navigate(screenName.infoList, { saved: true })
+          }
+        >
+          <Image source={Images.savedIcon} style={styles.icon} />
         </Pressable>
         <Pressable style={styles.iconView}>
-          <Image source={Images.switchIcon} style={styles.icon} />
+          <Image source={Images.informationIcon} style={styles.icon} />
         </Pressable>
         <Pressable style={styles.iconView}>
-          <Image source={Images.switchIcon} style={styles.icon} />
+          <Image source={Images.createIcon} style={styles.icon} />
         </Pressable>
         <Pressable style={styles.iconView}>
-          <Image source={Images.switchIcon} style={styles.icon} />
+          <Image source={Images.filterIcon} style={styles.icon} />
         </Pressable>
       </View>
 
@@ -258,7 +264,7 @@ const MapScreen = () => {
         onBottomsheetClose={closeSwitchModeSheet}
         bottomSheetContent={<SwitchModeBottomsheetContent />}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

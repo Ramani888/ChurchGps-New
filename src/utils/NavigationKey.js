@@ -1,4 +1,4 @@
-import InfoScreen from '../screens/app/info/InfoScreen';
+import InfoListScreen from '../screens/app/infoList/InfoListScreen';
 import IntroVideo from '../screens/app/introVideo/IntroVideo';
 import MapScreen from '../screens/app/map/MapScreen';
 import MessageScreen from '../screens/app/message/MessageScreen';
@@ -30,7 +30,7 @@ export const screenName = {
   // TabScreen
   message: 'Message',
   map: 'Map',
-  info: 'Info',
+  infoList: 'Info',
   profile: 'Profile',
 };
 
@@ -51,6 +51,6 @@ export const screen = {
   // Tabscreen
   MessageScreen,
   MapScreen,
-  InfoScreen,
+  InfoListScreen,
   ProfileScreen,
 };

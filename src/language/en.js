@@ -186,6 +186,8 @@ export default {
   local: 'Local',
   online: 'Online',
   confirm: 'Confirm',
+  saved: 'Saved',
+  removed: 'Removed',
 };
 
 // userNameRequired; biji language ma baki che
