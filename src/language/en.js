@@ -181,6 +181,11 @@ export default {
   undo: 'Undo',
   accountInfoText:
     'Completing the sections below, helps community quickly identify core doctrine beliefs for better user experience',
+  switch: 'Switch',
+  selectMode: 'Select the mode you want.',
+  local: 'Local',
+  online: 'Online',
+  confirm: 'Confirm',
 };
 
 // userNameRequired; biji language ma baki che

@@ -18,6 +18,7 @@ const baseColors = {
   Black: '#000000',
   White: '#FFFFFF',
   Gray: '#9F9F9F',
+  Gray1: '#BABABA',
   Red: '#FF0000',
   Pink: '#FF7D7D',
   transparent: 'transparent',

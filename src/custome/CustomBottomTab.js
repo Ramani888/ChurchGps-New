@@ -59,8 +59,8 @@ const CustomBottomTab = memo(({ state, descriptors, navigation }) => {
                   styles.tile,
                   {
                     backgroundColor: isFocused
-                      ? Color.theme1
-                      : Color.rgba.Gray[1],
+                      ? Color.rgba.theme1[2]
+                      : Color.White,
                   },
                 ]}
               >
@@ -85,9 +85,9 @@ const getTabIcon = name => {
   switch (name) {
     case 'Message':
       return Images.chatIcon;
-    case 'Search':
+    case 'Map':
       return Images.searchIcon;
-    case 'DashBoard':
+    case 'Info':
       return Images.gridcon;
     case 'Profile':
       return Images.profileIcon;
@@ -100,9 +100,9 @@ const getDarkTabIcon = name => {
   switch (name) {
     case 'Message':
       return Images.darkChatIcon;
-    case 'Search':
+    case 'Map':
       return Images.darkSearchIcon;
-    case 'DashBoard':
+    case 'Info':
       return Images.darkGridcon;
     case 'Profile':
       return Images.darkProfileIcon;
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
     backgroundColor: Color.White,
+    height: verticalScale(80),
   },
   bar: {
     flexDirection: 'row',
@@ -128,11 +129,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tile: {
-    borderRadius: scale(6),
+    borderRadius: scale(46),
     width: scale(87),
     height: scale(56),
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: verticalScale(-25),
   },
   icon: {
     width: scale(32),

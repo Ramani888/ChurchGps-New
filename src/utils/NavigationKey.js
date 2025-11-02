@@ -1,9 +1,9 @@
-import DashBoardScreen from '../screens/app/dashboard/DashBoardScreen';
+import InfoScreen from '../screens/app/info/InfoScreen';
 import IntroVideo from '../screens/app/introVideo/IntroVideo';
+import MapScreen from '../screens/app/map/MapScreen';
 import MessageScreen from '../screens/app/message/MessageScreen';
 import ProfileScreen from '../screens/app/profile/ProfileScreen';
 import RecordVideoScreen from '../screens/app/recordVideo/RecordVideoScreen';
-import SearchScreen from '../screens/app/search/SearchScreen';
 import TermsAndPrivacy from '../screens/app/termsAndPrivacy/TermsAndPrivacy';
 import ForgotPasswordScreen from '../screens/auth/forgotPassword/ForgotPasswordScreen';
 import LoginScreen from '../screens/auth/login/LoginScreen';
@@ -29,8 +29,8 @@ export const screenName = {
 
   // TabScreen
   message: 'Message',
-  search: 'Search',
-  dashBoard: 'DashBoard',
+  map: 'Map',
+  info: 'Info',
   profile: 'Profile',
 };
 
@@ -50,7 +50,7 @@ export const screen = {
 
   // Tabscreen
   MessageScreen,
-  SearchScreen,
-  DashBoardScreen,
+  MapScreen,
+  InfoScreen,
   ProfileScreen,
 };

@@ -35,7 +35,10 @@ const SplashScreen = () => {
         );
 
         if (accountSetupComplete === 'true') {
-          LottieSplashScreen.hide();
+          setTimeout(() => {
+            LottieSplashScreen.hide();
+          }, 1000);
+
           if (token) {
             navigation.reset({
               index: 0,
@@ -48,14 +51,18 @@ const SplashScreen = () => {
             });
           }
         } else {
-          LottieSplashScreen.hide();
+          setTimeout(() => {
+            LottieSplashScreen.hide();
+          }, 1000);
           navigation.reset({
             index: 0,
             routes: [{ name: screenName.myAccount }],
           });
         }
       } else {
-        LottieSplashScreen.hide();
+        setTimeout(() => {
+          LottieSplashScreen.hide();
+        }, 1000);
         navigation.reset({
           index: 0,
           routes: [{ name: screenName.onBoarding }],
@@ -65,7 +72,9 @@ const SplashScreen = () => {
       console.log('error in checkLoggedIn', error);
       // Fallback: hide splash and send to onboarding
       try {
-        await LottieSplashScreen.hide();
+        setTimeout(() => {
+          LottieSplashScreen.hide();
+        }, 1000);
       } catch {}
       navigation.reset({
         index: 0,

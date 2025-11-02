@@ -111,7 +111,6 @@ const SignUpScreen = () => {
 
   const goToNext = useCallback(
     async user => {
-      console.log('user 00000000000000000000000000000000000000000000000', user);
       await AsyncStorage.setItem('USER', JSON.stringify(user));
       signIn();
       openSuccessBottomsheet();

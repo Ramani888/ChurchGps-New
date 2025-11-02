@@ -9,16 +9,13 @@ const Tab = createBottomTabNavigator();
 const BottomTabNav = () => {
   return (
     <Tab.Navigator
-      initialRouteName={screenName.profile}
+      initialRouteName={screenName.map}
       tabBar={props => <CustomBottomTab {...props} />}
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen name={screenName.message} component={screen.MessageScreen} />
-      <Tab.Screen name={screenName.search} component={screen.SearchScreen} />
-      <Tab.Screen
-        name={screenName.dashBoard}
-        component={screen.DashBoardScreen}
-      />
+      <Tab.Screen name={screenName.map} component={screen.MapScreen} />
+      <Tab.Screen name={screenName.info} component={screen.InfoScreen} />
       <Tab.Screen name={screenName.profile} component={screen.ProfileScreen} />
     </Tab.Navigator>
   );

@@ -36,4 +36,9 @@ export const Images = {
   refferalBadgesIcon: require('../assets/image/refferalBadges.png'),
   infoIcon: require('../assets/image/info.png'),
   rightIcon: require('../assets/image/right.png'),
+  switchIcon: require('../assets/image/switchIcon.png'),
+  infoIcon: require('../assets/image/infoIcon.png'),
+  infoIcon1: require('../assets/image/infoIcon1.png'),
+  localImage: require('../assets/image/localImage.png'),
+  onlineImage: require('../assets/image/onlineImage.png'),
 };

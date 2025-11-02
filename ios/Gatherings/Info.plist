@@ -87,6 +87,10 @@
 	<string>Need photo library access to select photos</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Need to save photos</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app uses your location to show your position on the map.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Location access helps us show relevant map data.</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     	<false/>
     </dict>
