@@ -1,8 +1,18 @@
 import { Image, Pressable, Text, View } from 'react-native';
-import React, { memo, useCallback, useRef, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { styles } from './InfoListScreenStyle';
 import { screenName } from '../../../utils/NavigationKey';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import CustomBottomsheet from '../../../custome/CustomBottomsheet';
 import SwitchModeBottomsheetContent from '../../../components/bottomSheetContent/SwitchModeBottomsheetContent';
 import { Images } from '../../../utils/Images';
@@ -13,6 +23,14 @@ import { strings } from '../../../language/strings';
 import Color from '../../../utils/Color';
 import { Fonts } from '../../../utils/Font';
 
+const IconComponent = ({ onPress, content, customStyle }) => {
+  return (
+    <Pressable style={[styles.iconView, customStyle]} onPress={onPress}>
+      {content}
+    </Pressable>
+  );
+};
+
 const InfoListScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -22,7 +40,10 @@ const InfoListScreen = () => {
   const [clickOnSavedIcon, setClickOnSavedIcon] = useState(false);
 
   const { saved } = route.params ?? false;
-  const showTopButton = clickOnSavedIcon || saved;
+
+  useLayoutEffect(() => {
+    setClickOnSavedIcon(saved);
+  }, [route]);
 
   const openSwitchModeSheet = useCallback(() => {
     SheetRef.current.show();
@@ -35,38 +56,36 @@ const InfoListScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.iconContainer}>
-        <Pressable
-          style={styles.iconView}
-          onPress={() => openSwitchModeSheet()}
-        >
-          <Image source={Images.switchIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable
-          style={[styles.iconView, { marginRight: scale(60) }]}
+        <IconComponent
+          onPress={openSwitchModeSheet}
+          content={<Image source={Images.switchIcon} style={styles.icon} />}
+        />
+        <IconComponent
           onPress={() => navigation.navigate(screenName.map)}
-        >
-          <Image source={Images.infoIcon1} style={styles.icon} />
-        </Pressable>
-        <Pressable
-          style={styles.iconView}
-          onPress={() => {
-            setClickOnSavedIcon(!clickOnSavedIcon);
-          }}
-        >
-          <Image source={Images.savedIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable style={styles.iconView}>
-          <Image source={Images.informationIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable style={styles.iconView}>
-          <Image source={Images.createIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable style={styles.iconView}>
-          <Image source={Images.filterIcon} style={styles.icon} />
-        </Pressable>
+          content={<Image source={Images.infoIcon1} style={styles.icon} />}
+          customStyle={{ marginRight: scale(60) }}
+        />
+        <IconComponent
+          onPress={() => setClickOnSavedIcon(!clickOnSavedIcon)}
+          content={<Image source={Images.savedIcon} style={styles.icon} />}
+        />
+        <IconComponent
+          onPress={() => navigation.navigate(screenName.information)}
+          content={
+            <Image source={Images.informationIcon} style={styles.icon} />
+          }
+        />
+        <IconComponent
+          onPress={() => navigation.navigate(screenName.createGathering)}
+          content={<Image source={Images.createIcon} style={styles.icon} />}
+        />
+        <IconComponent
+          onPress={() => navigation.navigate(screenName.filter)}
+          content={<Image source={Images.filterIcon} style={styles.icon} />}
+        />
       </View>
 
-      {showTopButton && (
+      {clickOnSavedIcon && (
         <View style={styles.topButtonView}>
           <CustomButton
             title={strings.saved}

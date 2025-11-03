@@ -168,6 +168,14 @@ const PhotoMarker = memo(function PhotoMarker({ place, onPress }) {
   );
 });
 
+const IconComponent = ({ onPress, content, customStyle }) => {
+  return (
+    <Pressable style={[styles.iconView, customStyle]} onPress={onPress}>
+      {content}
+    </Pressable>
+  );
+};
+
 const MapScreen = () => {
   const navigation = useNavigation();
   const mapRef = useRef(null);
@@ -228,35 +236,37 @@ const MapScreen = () => {
       </MapViewClustering>
 
       <View style={styles.iconContainer}>
-        <Pressable
-          style={styles.iconView}
-          onPress={() => openSwitchModeSheet()}
-        >
-          <Image source={Images.switchIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable
-          style={[styles.iconView, { marginRight: scale(60) }]}
-          onPress={() => navigation.navigate(screenName.infoList)}
-        >
-          <Image source={Images.infoIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable
-          style={styles.iconView}
+        <IconComponent
+          onPress={openSwitchModeSheet}
+          content={<Image source={Images.switchIcon} style={styles.icon} />}
+        />
+        <IconComponent
+          onPress={() =>
+            navigation.navigate(screenName.infoList, { saved: false })
+          }
+          content={<Image source={Images.infoIcon} style={styles.icon} />}
+          customStyle={{ marginRight: scale(60) }}
+        />
+        <IconComponent
           onPress={() =>
             navigation.navigate(screenName.infoList, { saved: true })
           }
-        >
-          <Image source={Images.savedIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable style={styles.iconView}>
-          <Image source={Images.informationIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable style={styles.iconView}>
-          <Image source={Images.createIcon} style={styles.icon} />
-        </Pressable>
-        <Pressable style={styles.iconView}>
-          <Image source={Images.filterIcon} style={styles.icon} />
-        </Pressable>
+          content={<Image source={Images.savedIcon} style={styles.icon} />}
+        />
+        <IconComponent
+          onPress={() => navigation.navigate(screenName.information)}
+          content={
+            <Image source={Images.informationIcon} style={styles.icon} />
+          }
+        />
+        <IconComponent
+          onPress={() => navigation.navigate(screenName.createGathering)}
+          content={<Image source={Images.createIcon} style={styles.icon} />}
+        />
+        <IconComponent
+          onPress={() => navigation.navigate(screenName.filter)}
+          content={<Image source={Images.filterIcon} style={styles.icon} />}
+        />
       </View>
 
       <CustomBottomsheet

@@ -1,4 +1,7 @@
+import CreateGatheringScreen from '../screens/app/createGathering/CreateGatheringScreen';
+import FilterScreen from '../screens/app/filter/FilterScreen';
 import InfoListScreen from '../screens/app/infoList/InfoListScreen';
+import InformationScreen from '../screens/app/information/InformationScreen';
 import IntroVideo from '../screens/app/introVideo/IntroVideo';
 import MapScreen from '../screens/app/map/MapScreen';
 import MessageScreen from '../screens/app/message/MessageScreen';
@@ -26,6 +29,9 @@ export const screenName = {
   termsAndPrivacy: 'TermsAndPrivacy',
   introVideo: 'IntroVideo',
   recordVideo: 'RecordVideo',
+  information: 'Information',
+  createGathering: 'CreateGathering',
+  filter: 'Filter',
 
   // TabScreen
   message: 'Message',
@@ -47,6 +53,9 @@ export const screen = {
   TermsAndPrivacy,
   IntroVideo,
   RecordVideoScreen,
+  InformationScreen,
+  CreateGatheringScreen,
+  FilterScreen,
 
   // Tabscreen
   MessageScreen,

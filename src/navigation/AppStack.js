@@ -41,6 +41,15 @@ const AppStack = () => {
         name={screenName.recordVideo}
         component={screen.RecordVideoScreen}
       />
+      <Stack.Screen
+        name={screenName.information}
+        component={screen.InformationScreen}
+      />
+      <Stack.Screen
+        name={screenName.createGathering}
+        component={screen.CreateGatheringScreen}
+      />
+      <Stack.Screen name={screenName.filter} component={screen.FilterScreen} />
     </Stack.Navigator>
   );
 };
