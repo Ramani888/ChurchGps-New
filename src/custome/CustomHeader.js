@@ -5,6 +5,7 @@ import GradientText from '../components/GradientText';
 import Color from '../utils/Color';
 import AntDesign from '@react-native-vector-icons/ant-design';
 import { useNavigation } from '@react-navigation/native';
+import { Fonts } from '../utils/Font';
 
 const CustomHeader = ({
   backArrowVisible,
@@ -39,8 +40,8 @@ const CustomHeader = ({
               styles.title,
               {
                 titleStyle,
-                fontSize: titleFontSize ? titleFontSize : scale(30),
-                fontFamily: titleFontFamily,
+                fontSize: titleFontSize ?? scale(32),
+                fontFamily: titleFontFamily ?? Fonts.spaceGroteskBold,
               },
             ]}
           />

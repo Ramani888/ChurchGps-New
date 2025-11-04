@@ -188,6 +188,7 @@ export default {
   confirm: 'Confirm',
   saved: 'Saved',
   removed: 'Removed',
+  createGathering: 'Create Gathering',
 };
 
 // userNameRequired; biji language ma baki che

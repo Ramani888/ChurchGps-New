@@ -6,6 +6,7 @@ import {
   Pressable,
   useWindowDimensions,
   Animated,
+  Image,
 } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { moderateScale, scale, verticalScale } from '../utils/Responsive';
@@ -37,6 +38,8 @@ const CustomTabView = ({
     inactiveColor = Color.Gray,
     activeFontFamily = Fonts.interSemiBold,
     inactiveFontFamily = Fonts.interRegular,
+
+    leftImage,
 
     indicatorColor = Color.theme1,
     indicatorHeight = verticalScale(36),
@@ -155,6 +158,7 @@ const CustomTabView = ({
                         tabStyle,
                       ]}
                     >
+                      {isActive ? leftImage ?? '' : ''}
                       <Text
                         numberOfLines={1}
                         style={[
@@ -201,8 +205,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   tab: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    gap: scale(5),
     paddingHorizontal: scale(14),
   },
   label: {

@@ -47,4 +47,5 @@ export const Images = {
   onlineImage: require('../assets/image/onlineImage.png'),
   savedAllIcon: require('../assets/image/savedAllIcon.png'),
   removedAllIcon: require('../assets/image/removedAllIcon.png'),
+  checkIcon: require('../assets/image/checkIcon.png'),
 };
