@@ -18,6 +18,8 @@ const CustomHeader = ({
   languageIconPress,
   editIcon,
   editIconPress,
+  searchIcon,
+  searchIconPress,
 }) => {
   const navigation = useNavigation();
 
@@ -56,7 +58,12 @@ const CustomHeader = ({
         )}
         {editIcon && (
           <Pressable onPress={editIconPress}>
-            <Image source={editIcon} style={styles.editIcon} />
+            <Image source={editIcon} style={styles.icon} />
+          </Pressable>
+        )}
+        {searchIcon && (
+          <Pressable onPress={searchIconPress}>
+            <Image source={searchIcon} style={styles.icon} />
           </Pressable>
         )}
       </View>
@@ -79,11 +86,11 @@ const styles = StyleSheet.create({
   title: { textAlign: 'center', paddingBottom: verticalScale(3) },
   rightIconView: {
     position: 'absolute',
-    right: scale(10),
+    right: scale(15),
     flexDirection: 'row',
     alignItems: 'center',
     gap: scale(15),
   },
   languageIcon: { width: scale(30), height: scale(24) },
-  editIcon: { width: scale(24), height: scale(24) },
+  icon: { width: scale(24), height: scale(24) },
 });

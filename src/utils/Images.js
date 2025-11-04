@@ -48,4 +48,5 @@ export const Images = {
   savedAllIcon: require('../assets/image/savedAllIcon.png'),
   removedAllIcon: require('../assets/image/removedAllIcon.png'),
   checkIcon: require('../assets/image/checkIcon.png'),
+  searchIcon1: require('../assets/image/searchIcon1.png'),
 };

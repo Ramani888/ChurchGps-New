@@ -189,6 +189,7 @@ export default {
   saved: 'Saved',
   removed: 'Removed',
   createGathering: 'Create Gathering',
+  filter: 'Filter',
 };
 
 // userNameRequired; biji language ma baki che

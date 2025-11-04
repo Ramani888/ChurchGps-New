@@ -24,8 +24,6 @@ const Local = memo(() => (
 ));
 
 const CreateGatheringScreen = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const tabDims = useMemo(
     () => ({
       height: verticalScale(48),
@@ -89,7 +87,6 @@ const CreateGatheringScreen = () => {
         tabs={tabs}
         initialIndex={0}
         swipeEnabled
-        onIndexChange={index => setActiveIndex(index)}
         tabBar={tabBar}
       />
     </SafeAreaView>
