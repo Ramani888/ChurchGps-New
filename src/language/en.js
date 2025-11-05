@@ -190,6 +190,9 @@ export default {
   removed: 'Removed',
   createGathering: 'Create Gathering',
   filter: 'Filter',
+  communityBoard: 'Community Board',
+  createCommunityBoard: 'Create Community Board',
+  create: 'Create',
 };
 
 // userNameRequired; biji language ma baki che

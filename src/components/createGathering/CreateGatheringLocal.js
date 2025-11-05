@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 
 const CreateGatheringLocal = () => {
   return (
@@ -9,6 +9,6 @@ const CreateGatheringLocal = () => {
   );
 };
 
-export default CreateGatheringLocal;
+export default memo(CreateGatheringLocal);
 
 const styles = StyleSheet.create({});

@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { memo } from 'react';
 
-const CreateGatheringOnline = () => {
+const CommunityBoardOnline = () => {
   return (
     <View>
-      <Text>CreateGatheringOnline</Text>
+      <Text>CommunityBoardOnline</Text>
     </View>
   );
 };
 
-export default memo(CreateGatheringOnline);
+export default memo(CommunityBoardOnline);
 
 const styles = StyleSheet.create({});

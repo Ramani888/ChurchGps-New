@@ -9,17 +9,21 @@ import { Fonts } from '../utils/Font';
 
 const CustomHeader = ({
   backArrowVisible,
+  firstLineTitle,
   gradientTitle,
   gradientTitleColor,
   titleFontSize,
   titleFontFamily,
   titleStyle,
+  titleViewStyle,
   languageIcon,
   languageIconPress,
   editIcon,
   editIconPress,
   searchIcon,
   searchIconPress,
+  infoIcon,
+  infoIconPress,
 }) => {
   const navigation = useNavigation();
 
@@ -31,22 +35,39 @@ const CustomHeader = ({
         </Pressable>
       )}
 
-      <View style={styles.titleView}>
+      <View style={[styles.titleView, titleViewStyle]}>
         {gradientTitle && (
-          <GradientText
-            text={gradientTitle}
-            colors={
-              gradientTitleColor ? gradientTitleColor : Color.gradientColor1
-            }
-            style={[
-              styles.title,
-              {
-                titleStyle,
-                fontSize: titleFontSize ?? scale(32),
-                fontFamily: titleFontFamily ?? Fonts.spaceGroteskBold,
-              },
-            ]}
-          />
+          <>
+            {firstLineTitle && (
+              <Text
+                style={[
+                  styles.title,
+                  {
+                    fontSize: titleFontSize ?? scale(32),
+                    fontFamily: titleFontFamily ?? Fonts.spaceGroteskBold,
+                    color: Color.Black,
+                  },
+                ]}
+              >
+                {firstLineTitle}
+              </Text>
+            )}
+            <GradientText
+              text={gradientTitle}
+              colors={
+                gradientTitleColor ? gradientTitleColor : Color.gradientColor1
+              }
+              style={[
+                styles.title,
+                {
+                  titleStyle,
+                  fontSize: titleFontSize ?? scale(32),
+                  fontFamily: titleFontFamily ?? Fonts.spaceGroteskBold,
+                  marginTop: firstLineTitle ? verticalScale(-10) : 0,
+                },
+              ]}
+            />
+          </>
         )}
       </View>
 
@@ -64,6 +85,11 @@ const CustomHeader = ({
         {searchIcon && (
           <Pressable onPress={searchIconPress}>
             <Image source={searchIcon} style={styles.icon} />
+          </Pressable>
+        )}
+        {infoIcon && (
+          <Pressable onPress={infoIconPress}>
+            <Image source={infoIcon} style={styles.infoIcon} />
           </Pressable>
         )}
       </View>
@@ -86,11 +112,12 @@ const styles = StyleSheet.create({
   title: { textAlign: 'center', paddingBottom: verticalScale(3) },
   rightIconView: {
     position: 'absolute',
-    right: scale(15),
+    right: scale(12),
     flexDirection: 'row',
     alignItems: 'center',
     gap: scale(15),
   },
   languageIcon: { width: scale(30), height: scale(24) },
   icon: { width: scale(24), height: scale(24) },
+  infoIcon: { width: scale(22.79), height: scale(22.79) },
 });

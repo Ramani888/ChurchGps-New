@@ -50,6 +50,10 @@ const AppStack = () => {
         component={screen.CreateGatheringScreen}
       />
       <Stack.Screen name={screenName.filter} component={screen.FilterScreen} />
+      <Stack.Screen
+        name={screenName.createCommunityBoard}
+        component={screen.CreateCommunityBoardScreen}
+      />
     </Stack.Navigator>
   );
 };

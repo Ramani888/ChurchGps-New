@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 
 const FilterOnline = () => {
   return (
@@ -9,6 +9,6 @@ const FilterOnline = () => {
   );
 };
 
-export default FilterOnline;
+export default memo(FilterOnline);
 
 const styles = StyleSheet.create({});
