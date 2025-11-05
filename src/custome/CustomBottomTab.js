@@ -87,7 +87,7 @@ const getTabIcon = name => {
       return Images.chatIcon;
     case 'Map':
       return Images.searchIcon;
-    case 'Info':
+    case 'CommunityBoard':
       return Images.gridcon;
     case 'Profile':
       return Images.profileIcon;
@@ -102,7 +102,7 @@ const getDarkTabIcon = name => {
       return Images.darkChatIcon;
     case 'Map':
       return Images.darkSearchIcon;
-    case 'Info':
+    case 'CommunityBoard':
       return Images.darkGridcon;
     case 'Profile':
       return Images.darkProfileIcon;

@@ -1,6 +1,6 @@
+import CommunityBoardScreen from '../screens/app/communityBoardScreen/CommunityBoardScreen';
 import CreateGatheringScreen from '../screens/app/createGathering/CreateGatheringScreen';
 import FilterScreen from '../screens/app/filter/FilterScreen';
-import InfoListScreen from '../screens/app/infoList/InfoListScreen';
 import InformationScreen from '../screens/app/information/InformationScreen';
 import IntroVideo from '../screens/app/introVideo/IntroVideo';
 import MapScreen from '../screens/app/map/MapScreen';
@@ -36,7 +36,7 @@ export const screenName = {
   // TabScreen
   message: 'Message',
   map: 'Map',
-  infoList: 'Info',
+  communityBoard: 'CommunityBoard',
   profile: 'Profile',
 };
 
@@ -60,6 +60,6 @@ export const screen = {
   // Tabscreen
   MessageScreen,
   MapScreen,
-  InfoListScreen,
+  CommunityBoardScreen,
   ProfileScreen,
 };

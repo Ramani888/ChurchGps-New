@@ -19,7 +19,11 @@ const App = () => {
 
   return (
     <ErrorBoundary onError={errorHandler}>
-      <StatusBar backgroundColor={Color.White} />
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="light-content"
+      />
       <KeyboardProvider>
         <NavigationContainer ref={navigationRef} onReady={flushQueue}>
           <AppProvider>

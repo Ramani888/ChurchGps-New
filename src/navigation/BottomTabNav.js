@@ -16,8 +16,8 @@ const BottomTabNav = () => {
       <Tab.Screen name={screenName.message} component={screen.MessageScreen} />
       <Tab.Screen name={screenName.map} component={screen.MapScreen} />
       <Tab.Screen
-        name={screenName.infoList}
-        component={screen.InfoListScreen}
+        name={screenName.communityBoard}
+        component={screen.CommunityBoardScreen}
       />
       <Tab.Screen name={screenName.profile} component={screen.ProfileScreen} />
     </Tab.Navigator>

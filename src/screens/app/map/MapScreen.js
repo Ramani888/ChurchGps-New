@@ -1,26 +1,16 @@
 import React, { useMemo, useRef, useState, memo, useCallback } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Platform,
-  TouchableOpacity,
-  StatusBar,
-  Pressable,
-} from 'react-native';
-import MapView, { Marker, Callout } from 'react-native-maps';
-import MapViewClustering from 'react-native-map-clustering';
+import { View, Image, StatusBar, Pressable } from 'react-native';
 import { styles } from './MapScreenStyle';
 import { Images } from '../../../utils/Images';
 import Color from '../../../utils/Color';
 import { scale } from '../../../utils/Responsive';
-import ActionSheet from 'react-native-actions-sheet';
 import SwitchModeBottomsheetContent from '../../../components/bottomSheetContent/SwitchModeBottomsheetContent';
 import CustomBottomsheet from '../../../custome/CustomBottomsheet';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { screenName } from '../../../utils/NavigationKey';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MapComponent from '../../../components/showGathering/MapComponent';
+import GatheringListView from '../../../components/showGathering/GatheringListView';
 
 let Img = Image;
 let IMG_PRIORITY = undefined;
@@ -118,56 +108,6 @@ const mapStyle = [
   },
 ];
 
-const PhotoMarker = memo(function PhotoMarker({ place, onPress }) {
-  const [pinLoaded, setPinLoaded] = useState(false);
-  const [calloutLoaded, setCalloutLoaded] = useState(false);
-
-  const tracksViewChanges = !(pinLoaded && calloutLoaded);
-
-  return (
-    <Marker
-      coordinate={{ latitude: place.lat, longitude: place.lng }}
-      title={place.title}
-      tracksViewChanges={tracksViewChanges}
-      anchor={{ x: 0.5, y: 0.5 }}
-      onPress={() => {
-        onPress?.(place);
-        setCalloutLoaded(false);
-      }}
-    >
-      <Img
-        source={{
-          uri: place.image,
-          ...(IMG_PRIORITY ? { priority: IMG_PRIORITY.high } : {}),
-        }}
-        style={styles.pinImage}
-        onLoad={() => setPinLoaded(true)}
-      />
-      <View style={styles.pinDots} />
-
-      {/* CALLOUT */}
-      <Callout tooltip>
-        <View
-          style={styles.popup}
-          renderToHardwareTextureAndroid
-          shouldRasterizeIOS
-        >
-          <Text style={styles.popupTitle}>{place.title}</Text>
-          {place.type ? (
-            <Text style={styles.popupSub}>{place.type}</Text>
-          ) : null}
-          <Img
-            source={{ uri: place.image }}
-            style={styles.popupImage}
-            resizeMode="cover"
-            onLoad={() => setCalloutLoaded(true)}
-          />
-        </View>
-      </Callout>
-    </Marker>
-  );
-});
-
 const IconComponent = ({ onPress, content, customStyle }) => {
   return (
     <Pressable style={[styles.iconView, customStyle]} onPress={onPress}>
@@ -182,7 +122,14 @@ const MapScreen = () => {
   const SheetRef = useRef();
 
   const [selected, setSelected] = useState(null);
-  const [infoIcon, setInfoIcon] = useState(false);
+  const [changeView, setChangeView] = useState('MapView');
+  const [showTopBtnView, setShowTopBtnView] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      setChangeView('MapView');
+    }, []),
+  );
 
   const openSwitchModeSheet = useCallback(() => {
     SheetRef.current.show();
@@ -204,7 +151,7 @@ const MapScreen = () => {
     return {
       latitude: p.lat,
       longitude: p.lng,
-      latitudeDelta: 0.15, // tweak zoom as you like
+      latitudeDelta: 0.15,
       longitudeDelta: 0.15,
     };
   }, []);
@@ -213,27 +160,22 @@ const MapScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar translucent backgroundColor={Color.transparent} />
-      <MapViewClustering
-        ref={mapRef}
-        style={StyleSheet.absoluteFill}
-        MapView={MapView}
-        initialRegion={initialRegion}
-        radius={Platform.select({ ios: 40, android: 50 })}
-        extent={512}
-        spiralEnabled
-        animationEnabled
-        // customMapStyle={mapStyle}
-        onMapReady={() => {
-          if (initialRegion) {
-            mapRef.current?.animateToRegion(initialRegion, 400);
-          }
-        }}
-      >
-        {PLACES.map(p => (
-          <PhotoMarker key={p.id} place={p} onPress={setSelected} />
-        ))}
-      </MapViewClustering>
+      <StatusBar
+        translucent
+        backgroundColor={Color.transparent}
+        barStyle={changeView === 'MapView' ? 'light-content' : 'dark-content'}
+      />
+      {changeView === 'MapView' ? (
+        <MapComponent
+          ref={mapRef}
+          places={PLACES}
+          initialRegion={initialRegion}
+          onMarkerPress={setSelected}
+          styles={styles}
+        />
+      ) : (
+        <GatheringListView showTopBtnView={showTopBtnView} />
+      )}
 
       <View style={styles.iconContainer}>
         <IconComponent
@@ -241,16 +183,24 @@ const MapScreen = () => {
           content={<Image source={Images.switchIcon} style={styles.icon} />}
         />
         <IconComponent
-          onPress={() =>
-            navigation.navigate(screenName.infoList, { saved: false })
+          onPress={() => {
+            setShowTopBtnView(false);
+            setChangeView(changeView === 'MapView' ? 'ListView' : 'MapView');
+          }}
+          content={
+            changeView === 'MapView' ? (
+              <Image source={Images.infoIcon} style={styles.icon} />
+            ) : (
+              <Image source={Images.infoIcon1} style={styles.icon} />
+            )
           }
-          content={<Image source={Images.infoIcon} style={styles.icon} />}
           customStyle={{ marginRight: scale(60) }}
         />
         <IconComponent
-          onPress={() =>
-            navigation.navigate(screenName.infoList, { saved: true })
-          }
+          onPress={() => {
+            setShowTopBtnView(!showTopBtnView);
+            setChangeView('ListView');
+          }}
           content={<Image source={Images.savedIcon} style={styles.icon} />}
         />
         <IconComponent
