@@ -119,7 +119,7 @@ const IconComponent = ({ onPress, content, customStyle }) => {
 const MapScreen = () => {
   const navigation = useNavigation();
   const mapRef = useRef(null);
-  const SheetRef = useRef();
+  // const SheetRef = useRef();
 
   const [selected, setSelected] = useState(null);
   const [changeView, setChangeView] = useState('MapView');
@@ -131,13 +131,13 @@ const MapScreen = () => {
     }, []),
   );
 
-  const openSwitchModeSheet = useCallback(() => {
-    SheetRef.current.show();
-  }, []);
+  // const openSwitchModeSheet = useCallback(() => {
+  //   SheetRef.current.show();
+  // }, []);
 
-  const closeSwitchModeSheet = useCallback(() => {
-    SheetRef.current.hide();
-  }, []);
+  // const closeSwitchModeSheet = useCallback(() => {
+  //   SheetRef.current.hide();
+  // }, []);
 
   const firstPlaceRegion = useMemo(() => {
     const p = PLACES[0];
@@ -178,10 +178,10 @@ const MapScreen = () => {
       )}
 
       <View style={styles.iconContainer}>
-        <IconComponent
+        {/* <IconComponent
           onPress={openSwitchModeSheet}
           content={<Image source={Images.switchIcon} style={styles.icon} />}
-        />
+        /> */}
         <IconComponent
           onPress={() => {
             setShowTopBtnView(false);
@@ -194,7 +194,6 @@ const MapScreen = () => {
               <Image source={Images.infoIcon1} style={styles.icon} />
             )
           }
-          customStyle={{ marginRight: scale(60) }}
         />
         <IconComponent
           onPress={() => {
@@ -202,6 +201,7 @@ const MapScreen = () => {
             setChangeView('ListView');
           }}
           content={<Image source={Images.savedIcon} style={styles.icon} />}
+          customStyle={{ marginRight: scale(110) }}
         />
         <IconComponent
           onPress={() => navigation.navigate(screenName.information)}
@@ -219,11 +219,11 @@ const MapScreen = () => {
         />
       </View>
 
-      <CustomBottomsheet
+      {/* <CustomBottomsheet
         ref={SheetRef}
         onBottomsheetClose={closeSwitchModeSheet}
         bottomSheetContent={<SwitchModeBottomsheetContent />}
-      />
+      /> */}
     </SafeAreaView>
   );
 };

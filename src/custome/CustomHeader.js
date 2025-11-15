@@ -16,6 +16,7 @@ const CustomHeader = ({
   titleFontFamily,
   titleStyle,
   titleViewStyle,
+  titleImageIcon,
   languageIcon,
   languageIconPress,
   editIcon,
@@ -36,7 +37,7 @@ const CustomHeader = ({
       )}
 
       <View style={[styles.titleView, titleViewStyle]}>
-        {gradientTitle && (
+        {(gradientTitle || titleImageIcon) && (
           <>
             {firstLineTitle && (
               <Text
@@ -52,21 +53,27 @@ const CustomHeader = ({
                 {firstLineTitle}
               </Text>
             )}
-            <GradientText
-              text={gradientTitle}
-              colors={
-                gradientTitleColor ? gradientTitleColor : Color.gradientColor1
-              }
-              style={[
-                styles.title,
-                {
-                  titleStyle,
-                  fontSize: titleFontSize ?? scale(32),
-                  fontFamily: titleFontFamily ?? Fonts.spaceGroteskBold,
-                  marginTop: firstLineTitle ? verticalScale(-10) : 0,
-                },
-              ]}
-            />
+            {titleImageIcon ? (
+              <View style={{ alignSelf: 'center' }}>
+                <Image source={titleImageIcon} style={styles.titleImageIcon} />
+              </View>
+            ) : (
+              <GradientText
+                text={gradientTitle}
+                colors={
+                  gradientTitleColor ? gradientTitleColor : Color.gradientColor1
+                }
+                style={[
+                  styles.title,
+                  {
+                    titleStyle,
+                    fontSize: titleFontSize ?? scale(32),
+                    fontFamily: titleFontFamily ?? Fonts.spaceGroteskBold,
+                    marginTop: firstLineTitle ? verticalScale(-10) : 0,
+                  },
+                ]}
+              />
+            )}
           </>
         )}
       </View>
@@ -120,4 +127,5 @@ const styles = StyleSheet.create({
   languageIcon: { width: scale(30), height: scale(24) },
   icon: { width: scale(24), height: scale(24) },
   infoIcon: { width: scale(22.79), height: scale(22.79) },
+  titleImageIcon: { width: scale(40), height: scale(40) },
 });

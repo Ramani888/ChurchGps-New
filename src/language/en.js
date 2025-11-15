@@ -193,6 +193,13 @@ export default {
   communityBoard: 'Community Board',
   createCommunityBoard: 'Create Community Board',
   create: 'Create',
+  gathering: 'Gathering',
+  music: 'Music',
+  bibleStudy: 'Bible Study',
+  publicHelp: 'Public Help',
+  fullService: 'Full Service',
+  casual: 'Casual',
+  evangelize: 'Evangelize',
 };
 
 // userNameRequired; biji language ma baki che

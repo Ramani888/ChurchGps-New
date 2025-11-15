@@ -8,8 +8,8 @@ import { strings } from '../../../language/strings';
 import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
 import CustomTabView from '../../../custome/CustomTabView';
 import Color from '../../../utils/Color';
-import CommunityBoardOnline from '../../../components/communityBoard/communityBoardOnline';
-import CommunityBoardLocal from '../../../components/communityBoard/communityBoardLocal';
+import CommunityBoardOnline from '../../../components/communityBoard/CommunityBoardOnline';
+import CommunityBoardLocal from '../../../components/communityBoard/CommunityBoardLocal';
 import { useNavigation } from '@react-navigation/native';
 import { screenName } from '../../../utils/NavigationKey';
 
