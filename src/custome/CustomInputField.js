@@ -55,7 +55,7 @@ const CustomInputField = ({
   errorTextStyle,
 }) => {
   return (
-    <View style={containerStyle}>
+    <View style={[containerStyle, { marginBottom: verticalScale(7) }]}>
       {label && (
         <Text
           style={[

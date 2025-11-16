@@ -200,6 +200,21 @@ export default {
   fullService: 'Full Service',
   casual: 'Casual',
   evangelize: 'Evangelize',
+  location: 'Location',
+  outdors: 'Outdors',
+  home: 'Home',
+  churchBuilding: 'Church Building',
+  other: 'Other',
+  gatheringInfoText1: `If selecting multiple, the first gathering you choose will be primary icon shown in GPS marker`,
+  gatheringInfoText2: `Only select church building, if you are part of the churchleadership there. Also, precise GPS is mandatory for church building option. ONLY create this gathering if you are currently at the exact location.`,
+  description: 'Description',
+  descriptionPlaceholder: 'Enter a short detailed summary',
+  groupName: 'Group Name',
+  groupNamePlaceholder: 'Enter Group name',
+  groupNameRequired: 'Group name is required',
+  groupPicture: 'Group Picture',
+  myPicture: 'My Picture',
+  locationType: 'Location Type',
 };
 
 // userNameRequired; biji language ma baki che

@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     marginTop: verticalScale(20),
   },
   shadowView: {
+    height: verticalScale(655),
     backgroundColor: Color.White,
     padding: scale(12),
     width: scale(343),
@@ -23,7 +24,7 @@ export const styles = StyleSheet.create({
     color: Color.Black,
     fontFamily: Fonts.interSemiBold,
   },
-  gatheringOptionStyle: {
+  optionViewStyle: {
     width: scale(319),
     height: verticalScale(132),
     paddingVertical: verticalScale(12),
@@ -33,17 +34,69 @@ export const styles = StyleSheet.create({
     marginTop: verticalScale(10),
   },
   checkboxView: {
-    width: '33%',
+    // width: '33.33%',
     alignItems: 'center',
     marginVertical: verticalScale(4),
   },
   checkboxTitleStyle: {
     fontSize: moderateScale(12),
     color: Color.Black,
-    marginLeft: scale(10),
     fontFamily: Fonts.interRegular,
     paddingBottom: verticalScale(5),
     paddingTop: verticalScale(3),
     textAlign: 'center',
+  },
+  informText: {
+    fontSize: moderateScale(11.89),
+    fontFamily: Fonts.interRegular,
+    color: Color.Gray,
+    lineHeight: verticalScale(18),
+    paddingVertical: verticalScale(10),
+  },
+  inputFieldView: { marginBottom: verticalScale(10) },
+  inputStyle: {
+    backgroundColor: Color.fieldColor,
+    marginTop: verticalScale(7),
+    borderRadius: scale(16),
+    height: verticalScale(46),
+    // marginBottom: verticalScale(7),
+  },
+  groupPictureContainerStyle: { flexDirection: 'row', width: '100%' },
+  groupPictureViewStyle: {
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: verticalScale(10),
+  },
+  groupPictureStyle: { width: scale(44), height: scale(44) },
+  myPictureText: {
+    fontSize: moderateScale(12),
+    color: Color.Black,
+    fontFamily: Fonts.interRegular,
+    paddingTop: verticalScale(5),
+  },
+  dropdownView: { marginBottom: verticalScale(8) },
+  dropdownStyle: {
+    backgroundColor: Color.fieldColor,
+    height: verticalScale(46),
+    paddingHorizontal: scale(15),
+    marginTop: verticalScale(10),
+    borderRadius: scale(16),
+  },
+  dropdownMenuContianerStyle: {
+    borderRadius: scale(10),
+  },
+  dropdownItemStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: scale(5),
+    borderBottomWidth: scale(0.5),
+    borderColor: Color.rgba.Gray[2],
+    gap: scale(10),
+  },
+  checkboxTitleStyle: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    color: Color.Black,
   },
 });

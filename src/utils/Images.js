@@ -50,4 +50,6 @@ export const Images = {
   checkIcon: require('../assets/image/checkIcon.png'),
   searchIcon1: require('../assets/image/searchIcon1.png'),
   plusFabIcon: require('../assets/image/plusFabIcon.png'),
+  groupPictureImageIcon: require('../assets/image/groupPictureIcon.png'),
+  uploadImageIcon: require('../assets/image/uploadImage.png'),
 };
