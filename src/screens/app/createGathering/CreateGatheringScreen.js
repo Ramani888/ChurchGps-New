@@ -45,6 +45,18 @@ const CreateGatheringScreen = () => {
   const [protestantDenominations, setProtestantDenominations] = useState('');
   const [otherDenomination, setOtherDenomination] = useState('');
 
+  const precizetext = strings.precizeLocationText.replace(
+    '{title}',
+    strings.precizeLocationTitle,
+  );
+  const approximatetext = strings.approximateLocationText.replace(
+    '{title}',
+    strings.approximateLocationTitle,
+  );
+
+  const [precizetitle, precizevalue] = precizetext.split(' - ');
+  const [approximatetitle, approximatevalue] = approximatetext.split(' - ');
+
   const gatheringData = useMemo(
     () => [
       { key: 'Music', value: strings.music },
@@ -377,6 +389,39 @@ const CreateGatheringScreen = () => {
                       <Text style={styles.headingStyle}>
                         {strings.locationType}
                       </Text>
+                      <Text style={styles.precizeText}>
+                        <Text style={styles.title}>{precizetitle}</Text>
+                        <Text> - </Text>
+                        <Text style={styles.value}>{precizevalue}</Text>
+                      </Text>
+
+                      <Text style={styles.precizeText}>
+                        <Text style={styles.title}>{approximatetitle}</Text>
+                        <Text> - </Text>
+                        <Text style={styles.value}>{approximatevalue}</Text>
+                      </Text>
+
+                      <View>
+                        <View style={styles.locationView}>
+                          <Image
+                            source={Images.precizeLocationImage}
+                            style={styles.locationImage}
+                          />
+                          <CustomButton
+                            title={strings.precize}
+                            buttonWidth={scale(153.5)}
+                            buttonHeight={verticalScale(34)}
+                            backgroundColor={Color.rgba.Gray[1]}
+                            borderRadius={scale(16)}
+                            fontSize={moderateScale(16)}
+                            fontColor={Color.Black}
+                            fontFamily={Fonts.sfProBold}
+                            marginTop={verticalScale(15)}
+                            marginBottom={verticalScale(20)}
+                            onPress={handleSubmit}
+                          />
+                        </View>
+                      </View>
                     </View>
                   </View>
                 </KeyboardAwareScrollView>

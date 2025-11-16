@@ -52,4 +52,6 @@ export const Images = {
   plusFabIcon: require('../assets/image/plusFabIcon.png'),
   groupPictureImageIcon: require('../assets/image/groupPictureIcon.png'),
   uploadImageIcon: require('../assets/image/uploadImage.png'),
+  precizeLocationImage: require('../assets/image/precizeLocationImage.png'),
+  approximateLocationImage: require('../assets/image/approximateLocationImage.png'),
 };

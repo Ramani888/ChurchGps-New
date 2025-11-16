@@ -215,6 +215,13 @@ export default {
   groupPicture: 'Group Picture',
   myPicture: 'My Picture',
   locationType: 'Location Type',
+  precizeLocationTitle: 'Precise Location',
+  precizeLocationText:
+    '{title} - Shows your exact meetup spot so others can easily find you.',
+  approximateLocationTitle: 'Approximate Location',
+  approximateLocationText: `{title} - Shares only your general area to keep your privacy.`,
+  precize: 'Precize',
+  approximate: 'Approximate',
 };
 
 // userNameRequired; biji language ma baki che

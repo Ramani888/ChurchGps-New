@@ -99,4 +99,21 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.interRegular,
     color: Color.Black,
   },
+  precizeText: { marginTop: verticalScale(5) },
+  title: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interMedium,
+    color: Color.Black,
+  },
+  value: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    color: Color.Gray,
+  },
+  locationView: { alignItems: 'center' },
+  locationImage: {
+    width: scale(105.36),
+    height: scale(100),
+    borderRadius: scale(72),
+  },
 });
