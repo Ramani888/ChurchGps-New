@@ -222,6 +222,10 @@ export default {
   approximateLocationText: `{title} - Shares only your general area to keep your privacy.`,
   precize: 'Precize',
   approximate: 'Approximate',
+  or: 'or',
+  getLocationPermission: 'Get Location Permission',
+  distancetext:
+    'Select a distance radius so others can see your approximate location.',
 };
 
 // userNameRequired; biji language ma baki che

@@ -21,6 +21,7 @@ const baseColors = {
   Gray1: '#BABABA',
   Red: '#FF0000',
   Pink: '#FF7D7D',
+  Green: '#008000',
   transparent: 'transparent',
   fieldColor: '#9F9F9F1A',
   linkColor: '#0429FF',
@@ -38,6 +39,7 @@ const Color = {
     White: buildRgba(baseColors.White),
     Gray: buildRgba(baseColors.Gray),
     Pink: buildRgba(baseColors.Pink),
+    Green: buildRgba(baseColors.Green),
   },
 };
 

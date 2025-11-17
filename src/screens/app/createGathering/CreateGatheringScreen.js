@@ -44,6 +44,8 @@ const CreateGatheringScreen = () => {
   const [denomination, setDenomination] = useState('');
   const [protestantDenominations, setProtestantDenominations] = useState('');
   const [otherDenomination, setOtherDenomination] = useState('');
+  const [locationImageType, setLocationImageType] = useState('');
+  const [selectMile, setSelectMile] = useState('');
 
   const precizetext = strings.precizeLocationText.replace(
     '{title}',
@@ -118,6 +120,17 @@ const CreateGatheringScreen = () => {
       { label: strings.other, value: 'Other' },
     ],
     [strings],
+  );
+
+  const milesData = useMemo(
+    () => [
+      { distance: '1 miles' },
+      { distance: '3 miles' },
+      { distance: '5 miles' },
+      { distance: '10 miles' },
+      { distance: '25 miles' },
+    ],
+    [],
   );
 
   const handleFormSubmit = values => {
@@ -209,6 +222,31 @@ const CreateGatheringScreen = () => {
       );
     },
     [gatheringOption, locationOption],
+  );
+
+  const renderMiles = useCallback(
+    ({ item }) => {
+      return (
+        <View style={styles.mileCheckboxStyle}>
+          <CheckBox
+            onPress={() => setSelectMile(item?.distance)}
+            isChecked={selectMile === item?.distance}
+            checkboxColor={Color.theme1}
+            checkboxSize={scale(24)}
+            size={scale(18.5)}
+          />
+          <Text
+            style={[
+              styles.checkboxTitleStyle,
+              { paddingTop: verticalScale(5) },
+            ]}
+          >
+            {item?.distance}
+          </Text>
+        </View>
+      );
+    },
+    [selectMile],
   );
 
   const gatheringSchema = useMemo(() => CreateGatheringSchema(), []);
@@ -401,7 +439,7 @@ const CreateGatheringScreen = () => {
                         <Text style={styles.value}>{approximatevalue}</Text>
                       </Text>
 
-                      <View>
+                      <View style={styles.locationImageView}>
                         <View style={styles.locationView}>
                           <Image
                             source={Images.precizeLocationImage}
@@ -411,16 +449,91 @@ const CreateGatheringScreen = () => {
                             title={strings.precize}
                             buttonWidth={scale(153.5)}
                             buttonHeight={verticalScale(34)}
-                            backgroundColor={Color.rgba.Gray[1]}
+                            backgroundColor={
+                              locationImageType === 'Precize'
+                                ? Color.rgba.Green[1]
+                                : Color.rgba.Gray[1]
+                            }
                             borderRadius={scale(16)}
-                            fontSize={moderateScale(16)}
+                            fontSize={moderateScale(12)}
                             fontColor={Color.Black}
-                            fontFamily={Fonts.sfProBold}
+                            fontFamily={Fonts.interRegular}
                             marginTop={verticalScale(15)}
                             marginBottom={verticalScale(20)}
-                            onPress={handleSubmit}
+                            borderWidth={
+                              locationImageType === 'Precize' ? scale(1) : 0
+                            }
+                            borderColor={
+                              locationImageType === 'Precize'
+                                ? Color.theme1
+                                : Color.rgba.Gray[1]
+                            }
+                            onPress={() => setLocationImageType('Precize')}
                           />
                         </View>
+                        <Text
+                          style={[
+                            styles.title,
+                            { fontFamily: Fonts.interRegular },
+                          ]}
+                        >
+                          {strings.or}
+                        </Text>
+                        <View style={styles.locationView}>
+                          <Image
+                            source={Images.precizeLocationImage}
+                            style={styles.locationImage}
+                          />
+                          <CustomButton
+                            title={strings.approximate}
+                            buttonWidth={scale(153.5)}
+                            buttonHeight={verticalScale(34)}
+                            backgroundColor={
+                              locationImageType === 'Approximate'
+                                ? Color.rgba.Green[1]
+                                : Color.rgba.Gray[1]
+                            }
+                            borderRadius={scale(16)}
+                            fontSize={moderateScale(12)}
+                            fontColor={Color.Black}
+                            fontFamily={Fonts.interRegular}
+                            marginTop={verticalScale(15)}
+                            marginBottom={verticalScale(20)}
+                            borderWidth={
+                              locationImageType === 'Approximate' ? scale(1) : 0
+                            }
+                            borderColor={
+                              locationImageType === 'Approximate'
+                                ? Color.theme1
+                                : Color.rgba.Gray[1]
+                            }
+                            onPress={() => setLocationImageType('Approximate')}
+                          />
+                        </View>
+                      </View>
+
+                      <CustomButton
+                        title={strings.getLocationPermission}
+                        buttonHeight={verticalScale(53)}
+                        backgroundColor={Color.Black}
+                        borderRadius={scale(30)}
+                        fontSize={moderateScale(16)}
+                        fontColor={Color.White}
+                        fontFamily={Fonts.sfProBold}
+                        marginBottom={verticalScale(20)}
+                        onPress={() => {}}
+                      />
+
+                      <View>
+                        <Text style={styles.distanceText}>
+                          {strings.distancetext}
+                        </Text>
+
+                        <FlatList
+                          data={milesData}
+                          renderItem={renderMiles}
+                          horizontal
+                        />
                       </View>
                     </View>
                   </View>

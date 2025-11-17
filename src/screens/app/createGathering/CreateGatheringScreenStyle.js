@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   checkboxView: {
     // width: '33.33%',
     alignItems: 'center',
-    marginVertical: verticalScale(4),
+    marginVertical: verticalScale(7),
   },
   checkboxTitleStyle: {
     fontSize: moderateScale(12),
@@ -110,10 +110,28 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.interRegular,
     color: Color.Gray,
   },
+  locationImageView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: verticalScale(20),
+    marginBottom: verticalScale(5),
+  },
   locationView: { alignItems: 'center' },
   locationImage: {
     width: scale(105.36),
     height: scale(100),
     borderRadius: scale(72),
+  },
+  distanceText: {
+    fontSize: moderateScale(14),
+    color: Color.Black,
+    fontFamily: Fonts.interRegular,
+    textAlign: 'center',
+  },
+  mileCheckboxStyle: {
+    marginRight: scale(18),
+    alignItems: 'center',
+    marginTop: verticalScale(15),
+    marginHorizontal: scale(5),
   },
 });
