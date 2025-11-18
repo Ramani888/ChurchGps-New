@@ -17,7 +17,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { GestureScrollView } from 'react-native-gesture-handler';
 import { Images } from '../../../utils/Images';
 import CustomDropdown from '../../../custome/CustomDropdown';
-import { keyboardDismiss } from '../../../utils/ReusableFunctions';
+import {
+  keyboardDismiss,
+  requestLocationPermission,
+} from '../../../utils/ReusableFunctions';
 
 const DropdownItem = memo(({ label, value, selected, onSelect }) => {
   const onPress = useCallback(() => {
@@ -521,7 +524,9 @@ const CreateGatheringScreen = () => {
                         fontColor={Color.White}
                         fontFamily={Fonts.sfProBold}
                         marginBottom={verticalScale(20)}
-                        onPress={() => {}}
+                        onPress={() => {
+                          requestLocationPermission();
+                        }}
                       />
 
                       <View>

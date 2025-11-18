@@ -377,9 +377,9 @@ const MyAccountScreen = () => {
           {item.id}. {item.text}
         </Text>
         <View style={styles.optionsRow}>
-          {options.map(({ key, value }) => {
+          {options?.map(({ key, value }) => {
             const isSelected = answers.some(
-              a => a.questionId === Number(item.id) && a.answer === key,
+              a => a?.questionId === Number(item.id) && a.answer === key,
             );
 
             return (

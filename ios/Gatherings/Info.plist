@@ -1,97 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>Gatherings</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSAllowsLocalNetworking</key>
-		<true/>
-	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>RCTNewArchEnabled</key>
-	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SpaceGrotesk-Bold.ttf</string>
-		<string>SpaceGrotesk-Medium.ttf</string>
-		<string>SpaceGrotesk-Regular.ttf</string>
-		<string>SpaceGrotesk-SemiBold.ttf</string>
-		<string>SF-Pro-Display-Bold.otf</string>
-		<string>SF-Pro-Display-Medium.otf</string>
-		<string>SF-Pro-Display-Regular.otf</string>
-		<string>SF-Pro-Display-Semibold.otf</string>
-		<string>Inter_24pt-Bold.ttf</string>
-		<string>Inter_24pt-Medium.ttf</string>
-		<string>Inter_24pt-Regular.ttf</string>
-		<string>Inter_24pt-SemiBold.ttf</string>
-		<string>AntDesign.ttf</string>
-        <string>Entypo.ttf</string>
-        <string>FontAwesome.ttf</string>
-        <string>FontAwesome5_Brands.ttf</string>
-        <string>FontAwesome5_Regular.ttf</string>
-        <string>FontAwesome5_Solid.ttf</string>
-        <string>FontAwesome6Brands-Regular-400.ttf</string>
-        <string>FontAwesome6Free-Regular-400.ttf</string>
-        <string>FontAwesome6Free-Solid-900.ttf</string>
-        <string>Ionicons.ttf</string>
-        <string>MaterialIcons.ttf</string>
-        <string>MaterialCommunityIcons.ttf</string>
-		<string>MaterialDesignIcons.ttf</string>
-	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>arm64</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>NSCameraUsageDescription</key>
+  <dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleDisplayName</key>
+    <string>Gatherings</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(MARKETING_VERSION)</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleVersion</key>
+    <string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>LSRequiresIPhoneOS</key>
+    <true />
+    <key>NSAppTransportSecurity</key>
+    <dict>
+      <key>NSAllowsArbitraryLoads</key>
+      <false />
+      <key>NSAllowsLocalNetworking</key>
+      <true />
+    </dict>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string></string>
+    <key>RCTNewArchEnabled</key>
+    <true />
+    <key>UIAppFonts</key>
+    <array>
+      <string>SpaceGrotesk-Bold.ttf</string>
+      <string>SpaceGrotesk-Medium.ttf</string>
+      <string>SpaceGrotesk-Regular.ttf</string>
+      <string>SpaceGrotesk-SemiBold.ttf</string>
+      <string>SF-Pro-Display-Bold.otf</string>
+      <string>SF-Pro-Display-Medium.otf</string>
+      <string>SF-Pro-Display-Regular.otf</string>
+      <string>SF-Pro-Display-Semibold.otf</string>
+      <string>Inter_24pt-Bold.ttf</string>
+      <string>Inter_24pt-Medium.ttf</string>
+      <string>Inter_24pt-Regular.ttf</string>
+      <string>Inter_24pt-SemiBold.ttf</string>
+      <string>AntDesign.ttf</string>
+      <string>Entypo.ttf</string>
+      <string>FontAwesome.ttf</string>
+      <string>FontAwesome5_Brands.ttf</string>
+      <string>FontAwesome5_Regular.ttf</string>
+      <string>FontAwesome5_Solid.ttf</string>
+      <string>FontAwesome6Brands-Regular-400.ttf</string>
+      <string>FontAwesome6Free-Regular-400.ttf</string>
+      <string>FontAwesome6Free-Solid-900.ttf</string>
+      <string>Ionicons.ttf</string>
+      <string>MaterialIcons.ttf</string>
+      <string>MaterialCommunityIcons.ttf</string>
+      <string>MaterialDesignIcons.ttf</string>
+    </array>
+    <key>UILaunchStoryboardName</key>
+    <string>LaunchScreen</string>
+    <key>UIRequiredDeviceCapabilities</key>
+    <array>
+      <string>arm64</string>
+    </array>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>NSCameraUsageDescription</key>
     <string>$(PRODUCT_NAME) needs access to your Camera.</string>
-    
+
     <!-- optionally, if you want to record audio: -->
     <key>NSMicrophoneUsageDescription</key>
     <string>$(PRODUCT_NAME) needs access to your Microphone.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Need camera to take photos</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Need camera to take photos</string>
     <key>NSPhotoLibraryUsageDescription</key>
-	<string>Need photo library access to select photos</string>
+    <string>Need photo library access to select photos</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Need to save photos</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need to save photos</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
     <string>This app uses your location to show your position on the map.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>Location access helps us show relevant map data.</string>
-    <key>UIViewControllerBasedStatusBarAppearance</key>
-    	<false/>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We use your location to show nearby content.</string>
+
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We use your location in background to keep features updated.</string>
+
+    <!-- Optional but recommended for iOS 14+ temporary precise access -->
+    <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+    <dict>
+      <key>Default</key>
+      <string>We temporarily need precise location for better suggestions.</string>
     </dict>
-    </plist>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false />
+  </dict>
+</plist>
