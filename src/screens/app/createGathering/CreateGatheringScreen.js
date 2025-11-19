@@ -1,4 +1,4 @@
-import { FlatList, Image, Text, View } from 'react-native';
+import { Alert, FlatList, Image, Text, View } from 'react-native';
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './CreateGatheringScreenStyle';
@@ -18,14 +18,15 @@ import { GestureScrollView } from 'react-native-gesture-handler';
 import { Images } from '../../../utils/Images';
 import CustomDropdown from '../../../custome/CustomDropdown';
 import {
+  getCurrentLocation,
   keyboardDismiss,
   requestLocationPermission,
 } from '../../../utils/ReusableFunctions';
+import Geolocation from '@react-native-community/geolocation';
 
 const DropdownItem = memo(({ label, value, selected, onSelect }) => {
   const onPress = useCallback(() => {
     onSelect(value);
-    dropdownRef.current?.close();
   }, [onSelect, value]);
   return (
     <View style={styles.dropdownItemStyle}>
@@ -49,6 +50,8 @@ const CreateGatheringScreen = () => {
   const [otherDenomination, setOtherDenomination] = useState('');
   const [locationImageType, setLocationImageType] = useState('');
   const [selectMile, setSelectMile] = useState('');
+  const [currentLocation, setCurrentLocation] = useState({});
+  console.log('currentLocation', currentLocation);
 
   const precizetext = strings.precizeLocationText.replace(
     '{title}',
@@ -135,6 +138,21 @@ const CreateGatheringScreen = () => {
     ],
     [],
   );
+
+  const getCurrentLocation = async (options = {}) => {
+    const hasPermission = await requestLocationPermission();
+    if (!hasPermission) {
+      Alert.alert(
+        'Permission Required',
+        'Location permission is required to get your current location.',
+      );
+      return null;
+    }
+
+    Geolocation.getCurrentPosition(info => {
+      setCurrentLocation(info.coords);
+    });
+  };
 
   const handleFormSubmit = values => {
     console.log('Formik values:', values);
@@ -525,7 +543,7 @@ const CreateGatheringScreen = () => {
                         fontFamily={Fonts.sfProBold}
                         marginBottom={verticalScale(20)}
                         onPress={() => {
-                          requestLocationPermission();
+                          getCurrentLocation();
                         }}
                       />
 

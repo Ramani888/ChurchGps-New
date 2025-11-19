@@ -54,6 +54,7 @@ const LoginScreen = () => {
       await AsyncStorage.multiSet([
         ['TOKEN', token],
         ['USER', JSON.stringify(user)],
+        [`SETUP_ACCOUNT_${user?._id}`, 'true'],
       ]);
       global.token = token;
       ToastMessage(message);
