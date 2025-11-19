@@ -11,6 +11,7 @@ import { screenName } from '../../../utils/NavigationKey';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MapComponent from '../../../components/showGathering/MapComponent';
 import GatheringListView from '../../../components/showGathering/GatheringListView';
+import { requestLocationPermission } from '../../../utils/ReusableFunctions';
 
 let Img = Image;
 let IMG_PRIORITY = undefined;
@@ -127,6 +128,7 @@ const MapScreen = () => {
 
   useFocusEffect(
     useCallback(() => {
+      requestLocationPermission();
       setChangeView('MapView');
     }, []),
   );

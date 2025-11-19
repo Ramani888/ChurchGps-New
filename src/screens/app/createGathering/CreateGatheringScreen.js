@@ -1,5 +1,12 @@
-import { Alert, FlatList, Image, Text, View } from 'react-native';
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import {
+  Alert,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './CreateGatheringScreenStyle';
 import CustomHeader from '../../../custome/CustomHeader';
@@ -11,18 +18,22 @@ import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
 import CustomInputField from '../../../custome/CustomInputField';
 import { Formik } from 'formik';
 import CustomButton from '../../../custome/CustomButton';
-import { CreateGatheringSchema } from './useCreateGathering';
+import {
+  createGatheringApi,
+  CreateGatheringSchema,
+  uploadGroupPictureApi,
+} from './useCreateGathering';
 import { Fonts } from '../../../utils/Font';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { GestureScrollView } from 'react-native-gesture-handler';
 import { Images } from '../../../utils/Images';
 import CustomDropdown from '../../../custome/CustomDropdown';
 import {
-  getCurrentLocation,
   keyboardDismiss,
   requestLocationPermission,
 } from '../../../utils/ReusableFunctions';
 import Geolocation from '@react-native-community/geolocation';
+import ImagePickerBottomsheet from '../../../components/bottomsheet/ImagePickerBottomsheet';
 
 const DropdownItem = memo(({ label, value, selected, onSelect }) => {
   const onPress = useCallback(() => {
@@ -50,8 +61,10 @@ const CreateGatheringScreen = () => {
   const [otherDenomination, setOtherDenomination] = useState('');
   const [locationImageType, setLocationImageType] = useState('');
   const [selectMile, setSelectMile] = useState('');
-  const [currentLocation, setCurrentLocation] = useState({});
-  console.log('currentLocation', currentLocation);
+  const [groupPicture, setGroupPicture] = useState({});
+  console.log('groupPicture', groupPicture);
+
+  const sheetRef = useRef();
 
   const precizetext = strings.precizeLocationText.replace(
     '{title}',
@@ -139,7 +152,80 @@ const CreateGatheringScreen = () => {
     [],
   );
 
-  const getCurrentLocation = async (options = {}) => {
+  // const showLocationSettingsAlert = () => {
+  //   Alert.alert(
+  //     'Enable Location Permission',
+  //     'Location permission is blocked. Please enable it from app settings.',
+  //     [
+  //       { text: 'Cancel', style: 'cancel' },
+  //       { text: 'Open Settings', onPress: () => openSettings() },
+  //     ],
+  //   );
+  // };
+
+  // ======================================== Api ======================================== //
+
+  const uploadGroupPicture = useCallback(async gatheringId => {
+    const body = new FormData();
+    body.append('image', groupPicture);
+
+    try {
+      const response = await uploadGroupPictureApi(gatheringId, body);
+      console.log('group picture api response', response);
+      if (response.status) {
+      }
+    } catch (error) {
+      console.log('error in upload group picture api', error);
+    }
+  }, []);
+
+  const createGathering = useCallback(
+    async (values, coordinates) => {
+      const radiusNumber = selectMile
+        ? Number(selectMile.split(' ')[0])
+        : undefined;
+
+      const body = {
+        categories: gatheringOption,
+        locationTypes: locationOption,
+        description: values.description,
+        groupName: values.groupName,
+        denomination: values.denomination,
+        protestantDenomination: values.protestantDenomination,
+        otherDenomination: values.otherDenomination,
+        locationPrivacy: locationImageType,
+        radius: radiusNumber,
+        coordinates: coordinates,
+      };
+
+      console.log('create gathering body:', body);
+
+      try {
+        const response = await createGatheringApi(body);
+        console.log('create gathering response:', response);
+
+        if (response?.status) {
+          if (Object.keys(groupPicture).length > 0) {
+            uploadGroupPicture();
+          }
+        } else {
+          Alert.alert('Error', response?.message || 'Something went wrong.');
+        }
+      } catch (error) {
+        console.log('error in create gathering api', error);
+        Alert.alert('Error', 'Failed to create gathering. Please try again.');
+      }
+    },
+    [gatheringOption, locationOption, locationImageType, selectMile],
+  );
+
+  // ======================================== End ======================================== //
+
+  const openImagePickersheet = useCallback(() => {
+    sheetRef.current.show();
+  }, []);
+
+  const getCurrentLocation = async values => {
     const hasPermission = await requestLocationPermission();
     if (!hasPermission) {
       Alert.alert(
@@ -148,16 +234,54 @@ const CreateGatheringScreen = () => {
       );
       return null;
     }
-
-    Geolocation.getCurrentPosition(info => {
-      setCurrentLocation(info.coords);
-    });
+    if (hasPermission) {
+      Geolocation.getCurrentPosition(info => {
+        const coordinates = {
+          latitude: info?.coords?.latitude,
+          longitude: info?.coords?.longitude,
+        };
+        createGathering(values, coordinates);
+      });
+    }
   };
+
+  // const handleGetCurrentLocation = async values => {
+  //   const hasPermission = await requestLocationPermission();
+
+  //   if (!hasPermission) {
+  //     Alert.alert(
+  //       'Permission Required',
+  //       'Location permission is required to get your current location.',
+  //     );
+  //     return;
+  //   }
+
+  //   Geolocation.getCurrentPosition(
+  //     info => {
+  //       const coordinates = {
+  //         latitude: info?.coords?.latitude,
+  //         longitude: info?.coords?.longitude,
+  //       };
+  //       createGathering(values, coordinates);
+  //     },
+  //     error => {
+  //       console.log('Error getting location', error);
+  //       Alert.alert(
+  //         'Location Error',
+  //         error?.message || 'Unable to get location.',
+  //       );
+  //     },
+  //     {
+  //       enableHighAccuracy: true,
+  //       timeout: 15000,
+  //       maximumAge: 10000,
+  //     },
+  //   );
+  // };
 
   const handleFormSubmit = values => {
     console.log('Formik values:', values);
-    console.log('Selected gatheringOption:', gatheringOption);
-    console.log('Selected locationOption:', locationOption);
+    getCurrentLocation(values);
   };
 
   const toggleGatheringOption = (item, isGathering) => {
@@ -389,10 +513,12 @@ const CreateGatheringScreen = () => {
                         </View>
 
                         <View style={styles.groupPictureViewStyle}>
-                          <Image
-                            source={Images.uploadImageIcon}
-                            style={styles.groupPictureStyle}
-                          />
+                          <TouchableOpacity onPress={openImagePickersheet}>
+                            <Image
+                              source={Images.uploadImageIcon}
+                              style={styles.groupPictureStyle}
+                            />
+                          </TouchableOpacity>
                           <Text style={styles.myPictureText}>
                             {strings.upload}
                           </Text>
@@ -502,7 +628,7 @@ const CreateGatheringScreen = () => {
                         </Text>
                         <View style={styles.locationView}>
                           <Image
-                            source={Images.precizeLocationImage}
+                            source={Images.approximateLocationImage}
                             style={styles.locationImage}
                           />
                           <CustomButton
@@ -532,20 +658,6 @@ const CreateGatheringScreen = () => {
                           />
                         </View>
                       </View>
-
-                      <CustomButton
-                        title={strings.getLocationPermission}
-                        buttonHeight={verticalScale(53)}
-                        backgroundColor={Color.Black}
-                        borderRadius={scale(30)}
-                        fontSize={moderateScale(16)}
-                        fontColor={Color.White}
-                        fontFamily={Fonts.sfProBold}
-                        marginBottom={verticalScale(20)}
-                        onPress={() => {
-                          getCurrentLocation();
-                        }}
-                      />
 
                       <View>
                         <Text style={styles.distanceText}>
@@ -579,6 +691,8 @@ const CreateGatheringScreen = () => {
           )}
         </Formik>
       </View>
+
+      <ImagePickerBottomsheet ref={sheetRef} onImagePicked={setGroupPicture} />
     </SafeAreaView>
   );
 };

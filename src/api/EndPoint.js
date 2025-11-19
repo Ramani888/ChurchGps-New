@@ -8,4 +8,6 @@ export const Api = {
   saveAccount: 'profile/setup',
   getProfileData: 'profile',
   uploadIntroVideo: 'profile/video/upload',
+  gathering: 'gathering',
+  uploadGroupPicture: 'gathering/profile/upload',
 };
