@@ -68,7 +68,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: verticalScale(10),
   },
-  groupPictureStyle: { width: scale(44), height: scale(44) },
+  groupPictureStyle: {
+    width: scale(44),
+    height: scale(44),
+    borderRadius: scale(22),
+  },
   myPictureText: {
     fontSize: moderateScale(12),
     color: Color.Black,

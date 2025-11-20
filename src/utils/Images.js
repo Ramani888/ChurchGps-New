@@ -54,4 +54,9 @@ export const Images = {
   uploadImageIcon: require('../assets/image/uploadImage.png'),
   precizeLocationImage: require('../assets/image/precizeLocationImage.png'),
   approximateLocationImage: require('../assets/image/approximateLocationImage.png'),
+  userGroupImageIcon: require('../assets/image/userGroupImageIcon.png'),
+  musicImage: require('../assets/image/musicImage.png'),
+  bibleStudyImage: require('../assets/image/bibleStudyImage.png'),
+  outDorsImage: require('../assets/image/outDorsImage.png'),
+  milesImage: require('../assets/image/milesImage.png'),
 };

@@ -34,6 +34,8 @@ import {
 } from '../../../utils/ReusableFunctions';
 import Geolocation from '@react-native-community/geolocation';
 import ImagePickerBottomsheet from '../../../components/bottomsheet/ImagePickerBottomsheet';
+import ToastMessage from '../../../utils/ToastMessage';
+import Loader from '../../../utils/Loader';
 
 const DropdownItem = memo(({ label, value, selected, onSelect }) => {
   const onPress = useCallback(() => {
@@ -54,6 +56,7 @@ const DropdownItem = memo(({ label, value, selected, onSelect }) => {
 });
 
 const CreateGatheringScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [gatheringOption, setGatheringOption] = useState([]);
   const [locationOption, setLocationOption] = useState([]);
   const [denomination, setDenomination] = useState('');
@@ -165,19 +168,30 @@ const CreateGatheringScreen = () => {
 
   // ======================================== Api ======================================== //
 
-  const uploadGroupPicture = useCallback(async gatheringId => {
-    const body = new FormData();
-    body.append('image', groupPicture);
+  const uploadGroupPicture = useCallback(
+    async (gatheringId, message) => {
+      // If no picture selected, just skip
+      if (!groupPicture || Object.keys(groupPicture).length === 0) return;
 
-    try {
-      const response = await uploadGroupPictureApi(gatheringId, body);
-      console.log('group picture api response', response);
-      if (response.status) {
+      const body = new FormData();
+      body.append('image', groupPicture);
+
+      try {
+        const response = await uploadGroupPictureApi(gatheringId, body);
+        console.log('group picture api response', response);
+
+        if (response?.success) {
+          ToastMessage(message);
+        } else {
+          ToastMessage(response?.message);
+        }
+      } catch (error) {
+        console.log('error in upload group picture api', error);
+        ToastMessage(error?.message);
       }
-    } catch (error) {
-      console.log('error in upload group picture api', error);
-    }
-  }, []);
+    },
+    [groupPicture],
+  );
 
   const createGathering = useCallback(
     async (values, coordinates) => {
@@ -195,29 +209,107 @@ const CreateGatheringScreen = () => {
         otherDenomination: values.otherDenomination,
         locationPrivacy: locationImageType,
         radius: radiusNumber,
-        coordinates: coordinates,
+        coordinates,
       };
 
-      console.log('create gathering body:', body);
-
       try {
+        setIsLoading(true);
+
+        // 1. Create gathering
         const response = await createGatheringApi(body);
         console.log('create gathering response:', response);
 
-        if (response?.status) {
-          if (Object.keys(groupPicture).length > 0) {
-            uploadGroupPicture();
-          }
+        if (!response?.success) {
+          ToastMessage(response?.message);
+          return;
+        }
+
+        const gatheringId = response?.data?._id;
+
+        if (
+          gatheringId &&
+          groupPicture &&
+          Object.keys(groupPicture).length > 0
+        ) {
+          await uploadGroupPicture(gatheringId, response?.message);
         } else {
-          Alert.alert('Error', response?.message || 'Something went wrong.');
+          ToastMessage(response?.message);
         }
       } catch (error) {
         console.log('error in create gathering api', error);
-        Alert.alert('Error', 'Failed to create gathering. Please try again.');
+        ToastMessage(error?.message || 'Error creating gathering');
+      } finally {
+        // Loader stops only after everything above is done
+        setIsLoading(false);
       }
     },
-    [gatheringOption, locationOption, locationImageType, selectMile],
+    [
+      gatheringOption,
+      locationOption,
+      locationImageType,
+      selectMile,
+      uploadGroupPicture,
+      groupPicture,
+    ],
   );
+
+  // const uploadGroupPicture = useCallback(async (gatheringId, message) => {
+  //   const body = new FormData();
+  //   body.append('image', groupPicture);
+
+  //   try {
+  //     const response = await uploadGroupPictureApi(gatheringId, body);
+  //     console.log('group picture api response', response);
+  //     if (response?.success) {
+  //       ToastMessage(message);
+  //     } else {
+  //       ToastMessage(response?.message);
+  //     }
+  //   } catch (error) {
+  //     ToastMessage(error?.message);
+  //     console.log('error in upload group picture api', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }, []);
+
+  // const createGathering = useCallback(
+  //   async (values, coordinates) => {
+  //     const radiusNumber = selectMile
+  //       ? Number(selectMile.split(' ')[0])
+  //       : undefined;
+
+  //     const body = {
+  //       categories: gatheringOption,
+  //       locationTypes: locationOption,
+  //       description: values.description,
+  //       groupName: values.groupName,
+  //       denomination: values.denomination,
+  //       protestantDenomination: values.protestantDenomination,
+  //       otherDenomination: values.otherDenomination,
+  //       locationPrivacy: locationImageType,
+  //       radius: radiusNumber,
+  //       coordinates: coordinates,
+  //     };
+
+  //     try {
+  //       setIsLoading(true);
+  //       const response = await createGatheringApi(body);
+  //       console.log('create gathering response:', response);
+
+  //       if (response?.success) {
+  //         if (Object.keys(groupPicture).length > 0) {
+  //           uploadGroupPicture(response?.data?._id, response?.message);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.log('error in create gathering api', error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   },
+  //   [gatheringOption, locationOption, locationImageType, selectMile],
+  // );
 
   // ======================================== End ======================================== //
 
@@ -398,6 +490,7 @@ const CreateGatheringScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Loader visible={isLoading} />
       <CustomHeader backArrowVisible gradientTitle={strings.createGathering} />
 
       <View style={styles.childContainer}>
@@ -504,7 +597,11 @@ const CreateGatheringScreen = () => {
                       <View style={styles.groupPictureContainerStyle}>
                         <View style={styles.groupPictureViewStyle}>
                           <Image
-                            source={Images.groupPictureImageIcon}
+                            source={
+                              Object.keys(groupPicture).length > 0
+                                ? { uri: groupPicture?.uri }
+                                : Images.groupPictureImageIcon
+                            }
                             style={styles.groupPictureStyle}
                           />
                           <Text style={styles.myPictureText}>

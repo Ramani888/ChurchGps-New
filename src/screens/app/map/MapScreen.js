@@ -4,14 +4,14 @@ import { styles } from './MapScreenStyle';
 import { Images } from '../../../utils/Images';
 import Color from '../../../utils/Color';
 import { scale } from '../../../utils/Responsive';
-import SwitchModeBottomsheetContent from '../../../components/bottomSheetContent/SwitchModeBottomsheetContent';
-import CustomBottomsheet from '../../../custome/CustomBottomsheet';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { screenName } from '../../../utils/NavigationKey';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MapComponent from '../../../components/showGathering/MapComponent';
 import GatheringListView from '../../../components/showGathering/GatheringListView';
 import { requestLocationPermission } from '../../../utils/ReusableFunctions';
+import { getGatheringApi } from './useMap';
+import ToastMessage from '../../../utils/ToastMessage';
 
 let Img = Image;
 let IMG_PRIORITY = undefined;
@@ -64,51 +64,6 @@ const PLACES = [
   },
 ];
 
-const mapStyle = [
-  {
-    elementType: 'geometry',
-    stylers: [{ color: '#ebe3cd' }], // overall land color
-  },
-  {
-    elementType: 'labels.text.fill',
-    stylers: [{ color: '#523735' }],
-  },
-  {
-    elementType: 'labels.text.stroke',
-    stylers: [{ color: '#f5f1e6' }],
-  },
-  {
-    featureType: 'water',
-    elementType: 'geometry.fill',
-    stylers: [{ color: '#a0c4ff' }], // 💧 river/lake color
-  },
-  {
-    featureType: 'road',
-    elementType: 'geometry',
-    stylers: [{ color: '#ffffff' }], // 🛣 road color
-  },
-  {
-    featureType: 'road.highway',
-    elementType: 'geometry',
-    stylers: [{ color: '#ffd6a5' }], // highlight highways
-  },
-  {
-    featureType: 'road.arterial',
-    elementType: 'geometry',
-    stylers: [{ color: '#ffb5a7' }],
-  },
-  {
-    featureType: 'landscape',
-    elementType: 'geometry',
-    stylers: [{ color: '#fefae0' }], // 🌿 land color
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'geometry.fill',
-    stylers: [{ color: '#b7e4c7' }], // 🌳 park color
-  },
-];
-
 const IconComponent = ({ onPress, content, customStyle }) => {
   return (
     <Pressable style={[styles.iconView, customStyle]} onPress={onPress}>
@@ -120,26 +75,38 @@ const IconComponent = ({ onPress, content, customStyle }) => {
 const MapScreen = () => {
   const navigation = useNavigation();
   const mapRef = useRef(null);
-  // const SheetRef = useRef();
 
   const [selected, setSelected] = useState(null);
   const [changeView, setChangeView] = useState('MapView');
   const [showTopBtnView, setShowTopBtnView] = useState(false);
+  const [gatheringData, setGatheringData] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
-      requestLocationPermission();
+      setTimeout(() => {
+        requestLocationPermission();
+      }, 1500);
+
       setChangeView('MapView');
+      getGatheringData();
     }, []),
   );
 
-  // const openSwitchModeSheet = useCallback(() => {
-  //   SheetRef.current.show();
-  // }, []);
+  // =========================================== Api ========================================== //
 
-  // const closeSwitchModeSheet = useCallback(() => {
-  //   SheetRef.current.hide();
-  // }, []);
+  const getGatheringData = useCallback(async () => {
+    try {
+      const response = await getGatheringApi();
+      if (response?.success) {
+        setGatheringData(response?.data);
+      }
+    } catch (error) {
+      ToastMessage(error?.message);
+      console.log('error in get gathering api', error);
+    }
+  }, []);
+
+  // =========================================== Api ========================================== //
 
   const firstPlaceRegion = useMemo(() => {
     const p = PLACES[0];
@@ -176,14 +143,13 @@ const MapScreen = () => {
           styles={styles}
         />
       ) : (
-        <GatheringListView showTopBtnView={showTopBtnView} />
+        <GatheringListView
+          showTopBtnView={showTopBtnView}
+          gatheringData={gatheringData}
+        />
       )}
 
       <View style={styles.iconContainer}>
-        {/* <IconComponent
-          onPress={openSwitchModeSheet}
-          content={<Image source={Images.switchIcon} style={styles.icon} />}
-        /> */}
         <IconComponent
           onPress={() => {
             setShowTopBtnView(false);
@@ -220,12 +186,6 @@ const MapScreen = () => {
           content={<Image source={Images.filterIcon} style={styles.icon} />}
         />
       </View>
-
-      {/* <CustomBottomsheet
-        ref={SheetRef}
-        onBottomsheetClose={closeSwitchModeSheet}
-        bottomSheetContent={<SwitchModeBottomsheetContent />}
-      /> */}
     </SafeAreaView>
   );
 };

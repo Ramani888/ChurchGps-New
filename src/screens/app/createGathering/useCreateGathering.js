@@ -20,5 +20,5 @@ export const createGatheringApi = async body => {
 };
 
 export const uploadGroupPictureApi = (gatheringId, body) => {
-  return apiPost(`${Api.uploadProfileImage}?gatheringId=${gatheringId}`, body);
+  return apiPost(`${Api.uploadGroupPicture}?gatheringId=${gatheringId}`, body);
 };
