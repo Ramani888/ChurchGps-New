@@ -23,11 +23,7 @@ import { strings } from '../../../language/strings';
 import { Images } from '../../../utils/Images';
 import CustomButton from '../../../custome/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Color from '../../../utils/Color';
 import { screenName } from '../../../utils/NavigationKey';
 import CustomBottomsheet from '../../../custome/CustomBottomsheet';
@@ -41,15 +37,14 @@ import { useStateContext } from '../../../context/StateContext';
 import CancelSubscriptionBottomsheetContent from '../../../components/bottomSheetContent/CancelSubscriptionBottomsheetContent';
 import RefferalBottomsheetContent from '../../../components/bottomSheetContent/RefferalBottomsheetContent';
 import { getProfileData } from './useProfile';
-import Loader from '../../../utils/Loader';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const languageSheetRef = useRef();
   const cancelSubscriptionSheetRef = useRef();
   const refferalSheetRef = useRef();
 
-  const [visible, setVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [profileName, setProfileName] = useState('');
   const [userName, setUserName] = useState('');
@@ -90,17 +85,14 @@ const ProfileScreen = () => {
     { id: 5, image: Images.refferalBadgesIcon, referalCount: 50 },
   ];
 
-  useFocusEffect(
-    useCallback(() => {
-      getProfileDataApi();
-    }, []),
-  );
+  useLayoutEffect(() => {
+    getProfileDataApi();
+  }, [isFocused, getProfileDataApi]);
 
   // ========================================== Api =========================================== //
 
   const getProfileDataApi = useCallback(async () => {
     try {
-      setVisible(true);
       const response = await getProfileData();
       if (response?.success) {
         setEmail(response?.user?.email || '');
@@ -112,8 +104,6 @@ const ProfileScreen = () => {
       }
     } catch (error) {
       console.log('error in get profile data', error);
-    } finally {
-      setVisible(false);
     }
   }, []);
 
@@ -126,7 +116,7 @@ const ProfileScreen = () => {
     } catch (error) {
       console.error('Logout Error:', error);
     }
-  });
+  }, [navigation]);
 
   const handleTermsAndPrivacy = useCallback(() => {
     navigation.navigate(screenName.termsAndPrivacy);
@@ -176,7 +166,7 @@ const ProfileScreen = () => {
         text: strings[`question${id}`], // will map question1, question2, … question21
       };
     });
-  }, [strings]);
+  }, []);
 
   const options = useMemo(
     () => [
@@ -184,7 +174,7 @@ const ProfileScreen = () => {
       { key: 'no', value: strings.no },
       { key: 'skip', value: strings.skip },
     ],
-    [strings],
+    [],
   );
 
   const renderQuestion = useCallback(
@@ -270,7 +260,6 @@ const ProfileScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Loader visible={visible} />
       <CustomHeader
         backArrowVisible={true}
         gradientTitle={strings.profile}

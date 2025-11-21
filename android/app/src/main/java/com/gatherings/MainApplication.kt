@@ -1,4 +1,4 @@
-package com.gatherings
+package com.church.gps
 
 import android.app.Application
 import com.facebook.react.PackageList

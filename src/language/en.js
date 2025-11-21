@@ -38,8 +38,7 @@ export default {
   emailRequired: 'Email is required',
   passwordMin: 'Minimum 8 characters',
   passwordRequired: 'Password is required',
-  strongPassword:
-    'Minimum 8 characters with uppercase and lowercase letters, numbers and symbols',
+  strongPassword: 'Minimum 8 characters with uppercase and lowercase letters, numbers and symbols',
   passwordMustMatch: 'Passwords must match',
   confirmPasswordRequired: 'Confirm password is required',
   acceptTNC: 'Accept the Terms & Conditions',
@@ -87,18 +86,15 @@ export default {
   messianicJew: 'messianic Jew',
   other: 'Other',
   questionnaire: 'Questionnaire',
-  question1:
-    'Jesus is God and eternally existent with the Father and the Holy Spirit.',
+  question1: 'Jesus is God and eternally existent with the Father and the Holy Spirit.',
   question2: 'God is one Being in three Persons (the Trinity).',
-  question3:
-    'The Bible is inspired by God and is the final authority for faith and practice.',
+  question3: 'The Bible is inspired by God and is the final authority for faith and practice.',
   question4: 'Jesus physically rose from the dead.',
   question5: 'We are saved by grace through faith alone, not by works.',
   question6: 'Genuine saving faith results in a life of obedience to God.',
   question7: 'Heaven and hell are real, eternal destinies.',
   question8: 'Humans die once and then face judgment (no reincarnation).',
-  question9:
-    'The Ten Commandments remain morally binding for Christians today.',
+  question9: 'The Ten Commandments remain morally binding for Christians today.',
   question10: ` It's still a commandment for Christians to observe the Sabbath from Friday sundown to Saturday sundown.`,
   question11: 'Christians today should follow the laws of Moses in the Torah.',
   question12:
@@ -106,18 +102,15 @@ export default {
   question13:
     'Water baptism is a commandment and must be done when an individual decides to give their life to Christ.',
   question14: 'Infant baptism is a valid form of Christian baptism.',
-  question15:
-    'The Lord’s Supper is primarily a memorial (symbolic remembrance).',
+  question15: 'The Lord’s Supper is primarily a memorial (symbolic remembrance).',
   question16:
     'All spiritual gifts continue today, and should be normally expected in the church today.',
-  question17:
-    ' Women may serve in church leadership roles but cannot be Bishops.',
+  question17: ' Women may serve in church leadership roles but cannot be Bishops.',
   question18: ' “Once saved, always saved” (eternal security) is true.',
   question19:
     'There will be a literal, physical 1,000-year earthly reign of Christ (millennial reign).',
   question20: 'The millennial reign is a future event.',
-  question21:
-    'There will be a pre-tribulation rapture distinct from Christ’s visible return.',
+  question21: 'There will be a pre-tribulation rapture distinct from Christ’s visible return.',
   save: 'Save',
   somethingWentWrong: 'Something went wrong',
   logout: 'Logout',
@@ -156,8 +149,7 @@ export default {
   autoRenewInfo: 'Automatically renews monthly. Cancel anytime.',
   cancelSubscription: 'Cancel Subscription',
   refferalBadges: 'Refferal Badges',
-  refferalBottomsheetText:
-    'Referral Badges get displayed at the end of your Profile name.',
+  refferalBottomsheetText: 'Referral Badges get displayed at the end of your Profile name.',
   introVideo: 'Intro Video',
   playCurrent: 'Play Current',
   recordNew: 'Record New',
@@ -216,16 +208,15 @@ export default {
   myPicture: 'My Picture',
   locationType: 'Location Type',
   precizeLocationTitle: 'Precise Location',
-  precizeLocationText:
-    '{title} - Shows your exact meetup spot so others can easily find you.',
+  precizeLocationText: '{title} - Shows your exact meetup spot so others can easily find you.',
   approximateLocationTitle: 'Approximate Location',
   approximateLocationText: `{title} - Shares only your general area to keep your privacy.`,
   precize: 'Precize',
   approximate: 'Approximate',
   or: 'or',
   getLocationPermission: 'Get Location Permission',
-  distancetext:
-    'Select a distance radius so others can see your approximate location.',
+  distancetext: 'Select a distance radius so others can see your approximate location.',
+  openDirectionInMap: 'Open Directions In Map',
 };
 
 // userNameRequired; biji language ma baki che

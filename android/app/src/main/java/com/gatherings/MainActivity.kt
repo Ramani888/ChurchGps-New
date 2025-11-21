@@ -1,4 +1,4 @@
-package com.gatherings
+package com.church.gps
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -6,6 +6,7 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnable
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 import android.os.Bundle;
 import org.devio.rn.splashscreen.SplashScreen;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 class MainActivity : ReactActivity() {
 
@@ -18,6 +19,7 @@ class MainActivity : ReactActivity() {
    override fun onCreate(savedInstanceState: Bundle?) {
     SplashScreen.show(this, R.id.lottie); // here
     SplashScreen.setAnimationFinished(true);
+    FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
     super.onCreate(null)
   }
 

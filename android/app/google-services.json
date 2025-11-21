@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "289025779568",
+    "project_id": "church-gps-6ae61",
+    "storage_bucket": "church-gps-6ae61.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289025779568:android:e87835d16ce0825ae551b5",
+        "android_client_info": {
+          "package_name": "com.church.gps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3o-dnmKeDzmp7ICSWcD2wdk8Q3ENOUiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

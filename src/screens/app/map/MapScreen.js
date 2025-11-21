@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState, memo, useCallback } from 'react';
-import { View, Image, StatusBar, Pressable } from 'react-native';
+import { View, Image, StatusBar, Pressable, StyleSheet } from 'react-native';
 import { styles } from './MapScreenStyle';
 import { Images } from '../../../utils/Images';
 import Color from '../../../utils/Color';
@@ -12,14 +12,6 @@ import GatheringListView from '../../../components/showGathering/GatheringListVi
 import { requestLocationPermission } from '../../../utils/ReusableFunctions';
 import { getGatheringApi } from './useMap';
 import ToastMessage from '../../../utils/ToastMessage';
-
-let Img = Image;
-let IMG_PRIORITY = undefined;
-try {
-  const F = reqstylesre('react-native-fast-image');
-  Img = F.default || F;
-  IMG_PRIORITY = F.priority;
-} catch {}
 
 const PLACES = [
   {
@@ -92,8 +84,6 @@ const MapScreen = () => {
     }, []),
   );
 
-  // =========================================== Api ========================================== //
-
   const getGatheringData = useCallback(async () => {
     try {
       const response = await getGatheringApi();
@@ -105,8 +95,6 @@ const MapScreen = () => {
       console.log('error in get gathering api', error);
     }
   }, []);
-
-  // =========================================== Api ========================================== //
 
   const firstPlaceRegion = useMemo(() => {
     const p = PLACES[0];
@@ -129,25 +117,43 @@ const MapScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
+      {/* <StatusBar
         translucent
         backgroundColor={Color.transparent}
         barStyle={changeView === 'MapView' ? 'light-content' : 'dark-content'}
-      />
-      {changeView === 'MapView' ? (
-        <MapComponent
-          ref={mapRef}
-          places={PLACES}
-          initialRegion={initialRegion}
-          onMarkerPress={setSelected}
-          styles={styles}
-        />
-      ) : (
-        <GatheringListView
-          showTopBtnView={showTopBtnView}
-          gatheringData={gatheringData}
-        />
-      )}
+      /> */}
+
+      {/* BOTH VIEWS MOUNTED, ONLY ONE VISIBLE */}
+      <View style={{ flex: 1 }}>
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { opacity: changeView === 'MapView' ? 1 : 0 },
+          ]}
+          pointerEvents={changeView === 'MapView' ? 'auto' : 'none'}
+        >
+          <MapComponent
+            ref={mapRef}
+            places={PLACES}
+            initialRegion={initialRegion}
+            onMarkerPress={setSelected}
+            styles={styles}
+          />
+        </View>
+
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { opacity: changeView === 'ListView' ? 1 : 0 },
+          ]}
+          pointerEvents={changeView === 'ListView' ? 'auto' : 'none'}
+        >
+          <GatheringListView
+            showTopBtnView={showTopBtnView}
+            gatheringData={gatheringData}
+          />
+        </View>
+      </View>
 
       <View style={styles.iconContainer}>
         <IconComponent

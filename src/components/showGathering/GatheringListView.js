@@ -1,12 +1,5 @@
-import {
-  FlatList,
-  Image,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
+import { FlatList, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Color from '../../utils/Color';
 import { moderateScale, scale, verticalScale } from '../../utils/Responsive';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,13 +7,127 @@ import CustomButton from '../../custome/CustomButton';
 import { strings } from '../../language/strings';
 import { Fonts } from '../../utils/Font';
 import { Images } from '../../utils/Images';
-import { useIsFocused } from '@react-navigation/native';
 import { Shadow } from 'react-native-shadow-2';
+import LocationPreview from '../LocationPreview';
+
+const CARD_WIDTH = scale(155.5);
+const CARD_HEIGHT = scale(70);
+
+// ===================== Small Item Card (Category / Location) ===================== //
+
+const SmallCard = memo(({ label, imageSource }) => {
+  return (
+    <Shadow
+      offset={[0, 0]}
+      distance={24}
+      startColor="rgba(0,0,0,0.04)"
+      finalColor="rgba(0,0,0,0)"
+      radius={12}
+      style={styles.cardBox}
+    >
+      {imageSource && <Image source={imageSource} style={styles.categoryImage} />}
+      <Text style={styles.categoryText}>{label}</Text>
+    </Shadow>
+  );
+});
+
+// ===================== Gathering Item (one row in the list) ===================== //
+
+const GatheringItem = memo(({ item, getCategoryImage, getLocationImage }) => {
+  const renderCategory = useCallback(
+    ({ item: category }) => {
+      const img = getCategoryImage(category);
+      return <SmallCard label={category} imageSource={img} />;
+    },
+    [getCategoryImage],
+  );
+
+  const renderLocationType = useCallback(
+    ({ item: loc }) => {
+      const img = getLocationImage(loc);
+      return <SmallCard label={loc} imageSource={img} />;
+    },
+    [getLocationImage],
+  );
+
+  return (
+    <View style={styles.gatheringListView}>
+      <View style={styles.groupNameView}>
+        <View style={styles.groupNameView}>
+          <Image
+            source={item?.groupPicture ? { uri: item?.groupPicture } : Images.groupPictureImageIcon}
+            style={styles.image}
+          />
+          <Text style={styles.heading}>{item?.groupName}</Text>
+        </View>
+
+        <View style={[styles.groupNameView, { gap: scale(4) }]}>
+          <Text style={styles.groupMemberLength}>{'(36)'}</Text>
+          <Image source={Images.userGroupImageIcon} style={styles.userGroupIcon} />
+        </View>
+      </View>
+
+      <Text style={styles.heading}>{strings.gathering}</Text>
+      <FlatList
+        data={item?.categories || []}
+        renderItem={renderCategory}
+        keyExtractor={(cat, index) => `${cat}-${index}`}
+        numColumns={2}
+        key={'categories'}
+        columnWrapperStyle={styles.flatlistColumnStyle}
+        scrollEnabled={false}
+        removeClippedSubviews
+      />
+
+      <Text style={styles.heading}>{strings.location}</Text>
+      <FlatList
+        data={item?.locationTypes || []}
+        renderItem={renderLocationType}
+        keyExtractor={(loc, index) => `${loc}-${index}`}
+        numColumns={2}
+        key={'locations'}
+        columnWrapperStyle={styles.flatlistColumnStyle}
+        scrollEnabled={false}
+        removeClippedSubviews
+      />
+
+      <View style={styles.locationPreview}>
+        <LocationPreview
+          latitude={item?.coordinates?.latitude}
+          longitude={item?.coordinates?.longitude}
+        />
+
+        {item?.coordinates?.latitude && item?.coordinates?.longitude && (
+          <CustomButton
+            title={strings.openDirectionInMap}
+            buttonWidth={scale(155)}
+            buttonHeight={verticalScale(34)}
+            backgroundColor={Color.rgba.Green[1]}
+            borderRadius={scale(16)}
+            fontSize={moderateScale(12)}
+            fontColor={Color.Black}
+            fontFamily={Fonts.interRegular}
+            marginTop={verticalScale(15)}
+            marginBottom={verticalScale(10)}
+            borderWidth={scale(1)}
+            borderColor={Color.theme1}
+            onPress={() => {}}
+          />
+        )}
+      </View>
+
+      <Text style={styles.heading}>{strings.description}</Text>
+      <Text style={styles.descriptionText}>{item?.description}</Text>
+    </View>
+  );
+});
+
+// ===================== Main List Component ===================== //
 
 const GatheringListView = ({ showTopBtnView, gatheringData }) => {
-  const isFocused = useIsFocused();
+  console.log('gatheringData', gatheringData);
 
-  const getCategoryImage = name => {
+  const getCategoryImage = useCallback(name => {
     switch (name) {
       case 'Music':
         return Images.musicImage;
@@ -29,9 +136,9 @@ const GatheringListView = ({ showTopBtnView, gatheringData }) => {
       default:
         return null;
     }
-  };
+  }, []);
 
-  const getLocationImage = name => {
+  const getLocationImage = useCallback(name => {
     switch (name) {
       case 'Outdors':
         return Images.outDorsImage;
@@ -40,97 +147,26 @@ const GatheringListView = ({ showTopBtnView, gatheringData }) => {
       default:
         return null;
     }
-  };
-
-  const renderCategories = useCallback(({ item }) => {
-    const img = getCategoryImage(item);
-
-    return (
-      <Shadow
-        offset={[0, 0]}
-        distance={24}
-        startColor="rgba(0,0,0,0.04)"
-        finalColor="rgba(0,0,0,0)"
-        radius={12}
-        style={styles.cardBox}
-      >
-        {img && <Image source={img} style={styles.categoryImage} />}
-        <Text style={styles.categoryText}>{item}</Text>
-      </Shadow>
-    );
-  }, []);
-
-  const renderLocationType = useCallback(({ item }) => {
-    const img = getLocationImage(item);
-
-    return (
-      <Shadow
-        offset={[0, 0]}
-        distance={24}
-        startColor="rgba(0,0,0,0.04)"
-        finalColor="rgba(0,0,0,0)"
-        radius={12}
-        style={styles.cardBox}
-      >
-        {img && <Image source={img} style={styles.categoryImage} />}
-        <Text style={styles.categoryText}>{item}</Text>
-      </Shadow>
-    );
   }, []);
 
   const renderGatheringList = useCallback(
-    ({ item }) => {
-      return (
-        <View style={styles.gatheringListView}>
-          <View style={styles.groupNameView}>
-            <View style={styles.groupNameView}>
-              <Image
-                source={
-                  item?.groupPicture
-                    ? { uri: item?.groupPicture }
-                    : Images.groupPictureImageIcon
-                }
-                style={styles.image}
-              />
-              <Text style={styles.heading}>{item?.groupName}</Text>
-            </View>
-            <View style={[styles.groupNameView, { gap: scale(4) }]}>
-              <Text style={styles.groupMemberLength}>{'(36)'}</Text>
-              <Image
-                source={Images.userGroupImageIcon}
-                style={styles.userGroupIcon}
-              />
-            </View>
-          </View>
-
-          <Text style={styles.heading}>{strings.gathering}</Text>
-          <FlatList
-            data={item?.categories}
-            renderItem={renderCategories}
-            keyExtractor={(cat, index) => `${cat}-${index}`}
-            numColumns={2}
-            key={'_'}
-            columnWrapperStyle={styles.flatlistColumnStyle}
-          />
-
-          <Text style={styles.heading}>{strings.location}</Text>
-          <FlatList
-            data={item?.locationTypes}
-            renderItem={renderLocationType}
-            keyExtractor={(loc, index) => `${loc}-${index}`}
-            numColumns={2}
-            key={'__'}
-            columnWrapperStyle={styles.flatlistColumnStyle}
-          />
-        </View>
-      );
-    },
-    [renderCategories, renderLocationType],
+    ({ item }) => (
+      <GatheringItem
+        item={item}
+        getCategoryImage={getCategoryImage}
+        getLocationImage={getLocationImage}
+      />
+    ),
+    [getCategoryImage, getLocationImage],
   );
+
+  const keyExtractor = useCallback((item, index) => item._id?.toString() || index.toString(), []);
 
   return (
     <SafeAreaView style={styles.container}>
-      {isFocused && <StatusBar backgroundColor={Color.Gray1} />}
+      {/* {isFocused && <StatusBar backgroundColor={Color.Gray1} />} */}
+
+      {/* Top buttons (Saved / Removed) */}
       {showTopBtnView && (
         <View style={styles.topButtonView}>
           <CustomButton
@@ -144,9 +180,7 @@ const GatheringListView = ({ showTopBtnView, gatheringData }) => {
             fontFamily={Fonts.interMedium}
             marginTop={verticalScale(0)}
             marginBottom={verticalScale(20)}
-            leftIcon={
-              <Image source={Images.savedAllIcon} style={styles.checkIcon} />
-            }
+            leftIcon={<Image source={Images.savedAllIcon} style={styles.checkIcon} />}
             gap={scale(5)}
             onPress={() => {}}
           />
@@ -161,36 +195,39 @@ const GatheringListView = ({ showTopBtnView, gatheringData }) => {
             fontFamily={Fonts.interMedium}
             marginTop={verticalScale(0)}
             marginBottom={verticalScale(20)}
-            leftIcon={
-              <Image source={Images.removedAllIcon} style={styles.checkIcon} />
-            }
+            leftIcon={<Image source={Images.removedAllIcon} style={styles.checkIcon} />}
             gap={scale(5)}
             onPress={() => {}}
           />
         </View>
       )}
 
-      <View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          marginTop: showTopBtnView ? verticalScale(0) : verticalScale(65),
+        }}
+      >
         <FlatList
-          data={gatheringData}
+          data={gatheringData || []}
           renderItem={renderGatheringList}
-          keyExtractor={(item, index) =>
-            item._id?.toString() || index.toString()
-          }
-          style={[
-            styles.flatlist,
-            {
-              marginTop: showTopBtnView ? verticalScale(0) : verticalScale(65),
-            },
-          ]}
-          showsVerticalScrollIndicator={false}
+          keyExtractor={keyExtractor}
+          initialNumToRender={2}
+          maxToRenderPerBatch={2}
+          windowSize={3}
+          removeClippedSubviews
+          decelerationRate="fast"
+          scrollEnabled={false}
+          viewabilityConfig={{ itemVisiblePercentThreshold: 10 }}
         />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default GatheringListView;
+export default memo(GatheringListView);
+
+// ===================== Styles ===================== //
 
 const styles = StyleSheet.create({
   container: {
@@ -231,8 +268,8 @@ const styles = StyleSheet.create({
   },
   userGroupIcon: { width: scale(20), height: scale(20) },
   cardBox: {
-    width: scale(155.5),
-    height: scale(70),
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT,
     borderRadius: scale(16),
     backgroundColor: Color.White,
     alignItems: 'center',
@@ -248,5 +285,12 @@ const styles = StyleSheet.create({
   flatlistColumnStyle: {
     justifyContent: 'space-between',
     marginVertical: verticalScale(6),
+  },
+  locationImage: { width: scale(319), height: verticalScale(140) },
+  locationPreview: { marginTop: verticalScale(15) },
+  descriptionText: {
+    fontSize: moderateScale(13),
+    fontFamily: Fonts.interRegular,
+    color: Color.rgba.Black[4],
   },
 });

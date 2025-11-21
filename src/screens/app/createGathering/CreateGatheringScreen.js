@@ -1,11 +1,4 @@
-import {
-  Alert,
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './CreateGatheringScreenStyle';
@@ -28,10 +21,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { GestureScrollView } from 'react-native-gesture-handler';
 import { Images } from '../../../utils/Images';
 import CustomDropdown from '../../../custome/CustomDropdown';
-import {
-  keyboardDismiss,
-  requestLocationPermission,
-} from '../../../utils/ReusableFunctions';
+import { keyboardDismiss, requestLocationPermission } from '../../../utils/ReusableFunctions';
 import Geolocation from '@react-native-community/geolocation';
 import ImagePickerBottomsheet from '../../../components/bottomsheet/ImagePickerBottomsheet';
 import ToastMessage from '../../../utils/ToastMessage';
@@ -43,11 +33,7 @@ const DropdownItem = memo(({ label, value, selected, onSelect }) => {
   }, [onSelect, value]);
   return (
     <View style={styles.dropdownItemStyle}>
-      <CheckBox
-        onPress={onPress}
-        isChecked={value === selected}
-        checkboxColor={Color.theme1}
-      />
+      <CheckBox onPress={onPress} isChecked={value === selected} checkboxColor={Color.theme1} />
       <Text style={styles.checkboxTitleStyle} onPress={onPress}>
         {label}
       </Text>
@@ -69,10 +55,7 @@ const CreateGatheringScreen = () => {
 
   const sheetRef = useRef();
 
-  const precizetext = strings.precizeLocationText.replace(
-    '{title}',
-    strings.precizeLocationTitle,
-  );
+  const precizetext = strings.precizeLocationText.replace('{title}', strings.precizeLocationTitle);
   const approximatetext = strings.approximateLocationText.replace(
     '{title}',
     strings.approximateLocationTitle,
@@ -155,22 +138,10 @@ const CreateGatheringScreen = () => {
     [],
   );
 
-  // const showLocationSettingsAlert = () => {
-  //   Alert.alert(
-  //     'Enable Location Permission',
-  //     'Location permission is blocked. Please enable it from app settings.',
-  //     [
-  //       { text: 'Cancel', style: 'cancel' },
-  //       { text: 'Open Settings', onPress: () => openSettings() },
-  //     ],
-  //   );
-  // };
-
   // ======================================== Api ======================================== //
 
   const uploadGroupPicture = useCallback(
     async (gatheringId, message) => {
-      // If no picture selected, just skip
       if (!groupPicture || Object.keys(groupPicture).length === 0) return;
 
       const body = new FormData();
@@ -195,9 +166,7 @@ const CreateGatheringScreen = () => {
 
   const createGathering = useCallback(
     async (values, coordinates) => {
-      const radiusNumber = selectMile
-        ? Number(selectMile.split(' ')[0])
-        : undefined;
+      const radiusNumber = selectMile ? Number(selectMile.split(' ')[0]) : undefined;
 
       const body = {
         categories: gatheringOption,
@@ -226,11 +195,7 @@ const CreateGatheringScreen = () => {
 
         const gatheringId = response?.data?._id;
 
-        if (
-          gatheringId &&
-          groupPicture &&
-          Object.keys(groupPicture).length > 0
-        ) {
+        if (gatheringId && groupPicture && Object.keys(groupPicture).length > 0) {
           await uploadGroupPicture(gatheringId, response?.message);
         } else {
           ToastMessage(response?.message);
@@ -252,64 +217,6 @@ const CreateGatheringScreen = () => {
       groupPicture,
     ],
   );
-
-  // const uploadGroupPicture = useCallback(async (gatheringId, message) => {
-  //   const body = new FormData();
-  //   body.append('image', groupPicture);
-
-  //   try {
-  //     const response = await uploadGroupPictureApi(gatheringId, body);
-  //     console.log('group picture api response', response);
-  //     if (response?.success) {
-  //       ToastMessage(message);
-  //     } else {
-  //       ToastMessage(response?.message);
-  //     }
-  //   } catch (error) {
-  //     ToastMessage(error?.message);
-  //     console.log('error in upload group picture api', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, []);
-
-  // const createGathering = useCallback(
-  //   async (values, coordinates) => {
-  //     const radiusNumber = selectMile
-  //       ? Number(selectMile.split(' ')[0])
-  //       : undefined;
-
-  //     const body = {
-  //       categories: gatheringOption,
-  //       locationTypes: locationOption,
-  //       description: values.description,
-  //       groupName: values.groupName,
-  //       denomination: values.denomination,
-  //       protestantDenomination: values.protestantDenomination,
-  //       otherDenomination: values.otherDenomination,
-  //       locationPrivacy: locationImageType,
-  //       radius: radiusNumber,
-  //       coordinates: coordinates,
-  //     };
-
-  //     try {
-  //       setIsLoading(true);
-  //       const response = await createGatheringApi(body);
-  //       console.log('create gathering response:', response);
-
-  //       if (response?.success) {
-  //         if (Object.keys(groupPicture).length > 0) {
-  //           uploadGroupPicture(response?.data?._id, response?.message);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.log('error in create gathering api', error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   },
-  //   [gatheringOption, locationOption, locationImageType, selectMile],
-  // );
 
   // ======================================== End ======================================== //
 
@@ -336,40 +243,6 @@ const CreateGatheringScreen = () => {
       });
     }
   };
-
-  // const handleGetCurrentLocation = async values => {
-  //   const hasPermission = await requestLocationPermission();
-
-  //   if (!hasPermission) {
-  //     Alert.alert(
-  //       'Permission Required',
-  //       'Location permission is required to get your current location.',
-  //     );
-  //     return;
-  //   }
-
-  //   Geolocation.getCurrentPosition(
-  //     info => {
-  //       const coordinates = {
-  //         latitude: info?.coords?.latitude,
-  //         longitude: info?.coords?.longitude,
-  //       };
-  //       createGathering(values, coordinates);
-  //     },
-  //     error => {
-  //       console.log('Error getting location', error);
-  //       Alert.alert(
-  //         'Location Error',
-  //         error?.message || 'Unable to get location.',
-  //       );
-  //     },
-  //     {
-  //       enableHighAccuracy: true,
-  //       timeout: 15000,
-  //       maximumAge: 10000,
-  //     },
-  //   );
-  // };
 
   const handleFormSubmit = values => {
     console.log('Formik values:', values);
@@ -441,12 +314,7 @@ const CreateGatheringScreen = () => {
         : locationOption.includes(item?.key);
 
       return (
-        <View
-          style={[
-            styles.checkboxView,
-            { width: isGathering ? '33.33%' : '50%' },
-          ]}
-        >
+        <View style={[styles.checkboxView, { width: isGathering ? '33.33%' : '50%' }]}>
           <CheckBox
             onPress={() => toggleGatheringOption(item?.key, isGathering)}
             isChecked={isSelected}
@@ -472,12 +340,7 @@ const CreateGatheringScreen = () => {
             checkboxSize={scale(24)}
             size={scale(18.5)}
           />
-          <Text
-            style={[
-              styles.checkboxTitleStyle,
-              { paddingTop: verticalScale(5) },
-            ]}
-          >
+          <Text style={[styles.checkboxTitleStyle, { paddingTop: verticalScale(5) }]}>
             {item?.distance}
           </Text>
         </View>
@@ -505,15 +368,7 @@ const CreateGatheringScreen = () => {
           validationSchema={gatheringSchema}
           onSubmit={handleFormSubmit}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            setFieldValue,
-            values,
-            errors,
-            touched,
-          }) => (
+          {({ handleChange, handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
             <>
               <Shadow
                 distance={40}
@@ -533,35 +388,27 @@ const CreateGatheringScreen = () => {
                     <View style={styles.optionViewStyle}>
                       <FlatList
                         data={gatheringData}
-                        renderItem={({ item }) =>
-                          renderoption(item, 'GatheringOption')
-                        }
+                        renderItem={({ item }) => renderoption(item, 'GatheringOption')}
                         numColumns={3}
                         key={'_'}
                         scrollEnabled={false}
                       />
                     </View>
                   </View>
-                  <Text style={styles.informText}>
-                    {strings.gatheringInfoText1}
-                  </Text>
+                  <Text style={styles.informText}>{strings.gatheringInfoText1}</Text>
                   <View>
                     <Text style={styles.headingStyle}>{strings.location}</Text>
                     <View style={styles.optionViewStyle}>
                       <FlatList
                         data={LocationData}
-                        renderItem={({ item }) =>
-                          renderoption(item, 'LocationOption')
-                        }
+                        renderItem={({ item }) => renderoption(item, 'LocationOption')}
                         numColumns={2}
                         key={'_'}
                         scrollEnabled={false}
                       />
                     </View>
                   </View>
-                  <Text style={styles.informText}>
-                    {strings.gatheringInfoText2}
-                  </Text>
+                  <Text style={styles.informText}>{strings.gatheringInfoText2}</Text>
 
                   <View>
                     <View style={styles.inputFieldView}>
@@ -590,9 +437,7 @@ const CreateGatheringScreen = () => {
                         inputStyle={styles.inputStyle}
                       />
 
-                      <Text style={styles.headingStyle}>
-                        {strings.groupPicture}
-                      </Text>
+                      <Text style={styles.headingStyle}>{strings.groupPicture}</Text>
 
                       <View style={styles.groupPictureContainerStyle}>
                         <View style={styles.groupPictureViewStyle}>
@@ -604,9 +449,7 @@ const CreateGatheringScreen = () => {
                             }
                             style={styles.groupPictureStyle}
                           />
-                          <Text style={styles.myPictureText}>
-                            {strings.myPicture}
-                          </Text>
+                          <Text style={styles.myPictureText}>{strings.myPicture}</Text>
                         </View>
 
                         <View style={styles.groupPictureViewStyle}>
@@ -616,9 +459,7 @@ const CreateGatheringScreen = () => {
                               style={styles.groupPictureStyle}
                             />
                           </TouchableOpacity>
-                          <Text style={styles.myPictureText}>
-                            {strings.upload}
-                          </Text>
+                          <Text style={styles.myPictureText}>{strings.upload}</Text>
                         </View>
                       </View>
 
@@ -638,9 +479,7 @@ const CreateGatheringScreen = () => {
                         />
 
                         <CustomDropdown
-                          dropdownPlaceholder={
-                            strings.protestonDenominationData
-                          }
+                          dropdownPlaceholder={strings.protestonDenominationData}
                           data={protestonDenominationData}
                           renderItem={renderProtestantItem}
                           setValue={v => {
@@ -668,9 +507,7 @@ const CreateGatheringScreen = () => {
                         />
                       </View>
 
-                      <Text style={styles.headingStyle}>
-                        {strings.locationType}
-                      </Text>
+                      <Text style={styles.headingStyle}>{strings.locationType}</Text>
                       <Text style={styles.precizeText}>
                         <Text style={styles.title}>{precizetitle}</Text>
                         <Text> - </Text>
@@ -704,23 +541,14 @@ const CreateGatheringScreen = () => {
                             fontFamily={Fonts.interRegular}
                             marginTop={verticalScale(15)}
                             marginBottom={verticalScale(20)}
-                            borderWidth={
-                              locationImageType === 'Precize' ? scale(1) : 0
-                            }
+                            borderWidth={locationImageType === 'Precize' ? scale(1) : 0}
                             borderColor={
-                              locationImageType === 'Precize'
-                                ? Color.theme1
-                                : Color.rgba.Gray[1]
+                              locationImageType === 'Precize' ? Color.theme1 : Color.rgba.Gray[1]
                             }
                             onPress={() => setLocationImageType('Precize')}
                           />
                         </View>
-                        <Text
-                          style={[
-                            styles.title,
-                            { fontFamily: Fonts.interRegular },
-                          ]}
-                        >
+                        <Text style={[styles.title, { fontFamily: Fonts.interRegular }]}>
                           {strings.or}
                         </Text>
                         <View style={styles.locationView}>
@@ -743,9 +571,7 @@ const CreateGatheringScreen = () => {
                             fontFamily={Fonts.interRegular}
                             marginTop={verticalScale(15)}
                             marginBottom={verticalScale(20)}
-                            borderWidth={
-                              locationImageType === 'Approximate' ? scale(1) : 0
-                            }
+                            borderWidth={locationImageType === 'Approximate' ? scale(1) : 0}
                             borderColor={
                               locationImageType === 'Approximate'
                                 ? Color.theme1
@@ -757,15 +583,9 @@ const CreateGatheringScreen = () => {
                       </View>
 
                       <View>
-                        <Text style={styles.distanceText}>
-                          {strings.distancetext}
-                        </Text>
+                        <Text style={styles.distanceText}>{strings.distancetext}</Text>
 
-                        <FlatList
-                          data={milesData}
-                          renderItem={renderMiles}
-                          horizontal
-                        />
+                        <FlatList data={milesData} renderItem={renderMiles} horizontal />
                       </View>
                     </View>
                   </View>
