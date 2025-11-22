@@ -39,7 +39,7 @@ export const Images = {
   switchIcon: require('../assets/image/switchIcon.png'),
   infoIcon: require('../assets/image/infoIcon.png'),
   infoIcon1: require('../assets/image/infoIcon1.png'),
-  savedIcon: require('../assets/image/savedIcon.png'),
+  unsavedIcon: require('../assets/image/unsavedIcon.png'),
   informationIcon: require('../assets/image/informationIcon.png'),
   createIcon: require('../assets/image/createIcon.png'),
   filterIcon: require('../assets/image/filterIcon.png'),
@@ -59,4 +59,7 @@ export const Images = {
   bibleStudyImage: require('../assets/image/bibleStudyImage.png'),
   outDorsImage: require('../assets/image/outDorsImage.png'),
   milesImage: require('../assets/image/milesImage.png'),
+  userIcon: require('../assets/image/user.png'),
+  removeIcon: require('../assets/image/removeIcon.png'),
+  savedIcon: require('../assets/image/savedIcon.png'),
 };

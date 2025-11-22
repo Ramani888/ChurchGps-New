@@ -1,5 +1,13 @@
 import React, { useCallback, memo } from 'react';
-import { FlatList, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Color from '../../utils/Color';
 import { moderateScale, scale, verticalScale } from '../../utils/Responsive';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -118,6 +126,18 @@ const GatheringItem = memo(({ item, getCategoryImage, getLocationImage }) => {
 
       <Text style={styles.heading}>{strings.description}</Text>
       <Text style={styles.descriptionText}>{item?.description}</Text>
+
+      <View style={styles.iconView}>
+        <TouchableOpacity>
+          <Image source={Images.userIcon} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={Images.savedIcon} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={Images.removeIcon} style={styles.icon} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 });
@@ -205,7 +225,7 @@ const GatheringListView = ({ showTopBtnView, gatheringData }) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
-          marginTop: showTopBtnView ? verticalScale(0) : verticalScale(65),
+          marginTop: showTopBtnView ? verticalScale(0) : verticalScale(55),
         }}
       >
         <FlatList
@@ -293,4 +313,11 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.interRegular,
     color: Color.rgba.Black[4],
   },
+  iconView: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: scale(10),
+  },
+  icon: { width: scale(20), height: scale(20) },
 });
