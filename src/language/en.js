@@ -217,6 +217,7 @@ export default {
   getLocationPermission: 'Get Location Permission',
   distancetext: 'Select a distance radius so others can see your approximate location.',
   openDirectionInMap: 'Open Directions In Map',
+  optional: 'Optional',
 };
 
 // userNameRequired; biji language ma baki che
