@@ -29,6 +29,7 @@ const baseColors = {
   // gradients
   gradientColor1: ['#343434', '#333333', '#89D332'],
   gradientColor2: ['#343434', '#89D332'],
+  gradientColor3: ['#343434', '#343434', '#333333', '#333333', '#89D332', '#89D332'],
 };
 
 const Color = {

@@ -1,5 +1,5 @@
 import { FlatList, Image, ScrollView, Text, View } from 'react-native';
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './FilterScreenStyles';
 import { strings } from '../../../language/strings';
@@ -11,23 +11,28 @@ import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
 import CheckBox from '../../../custome/CustomCheckbox';
 import Color from '../../../utils/Color';
 import CustomDropdown from '../../../custome/CustomDropdown';
+import CustomButton from '../../../custome/CustomButton';
+import { Fonts } from '../../../utils/Font';
+import CustomBottomsheet from '../../../custome/CustomBottomsheet';
+import FilterSearchBottomsheetContent from '../../../components/bottomSheetContent/FilterSearchBottomsheetContent';
 
-const DropdownItem = memo(({ label, value, selected, onSelect }) => {
-  const onPress = useCallback(() => onSelect(value), [onSelect, value]);
+const DropdownItem = memo(({ label, value, selected }) => {
   return (
     <View style={styles.dropdownItemStyle}>
       <CheckBox
-        onPress={onPress}
         title={label}
         isChecked={value === selected}
         checkboxColor={Color.theme1}
         checkboxTitleStyle={styles.checkboxTitleStyle}
+        pressable={false}
       />
     </View>
   );
 });
 
 const FilterScreen = () => {
+  const sheetRef = useRef();
+
   const [gatheringOption, setGatheringOption] = useState([]);
   const [locationOption, setLocationOption] = useState([]);
   const [denomination, setDenomination] = useState('');
@@ -97,15 +102,22 @@ const FilterScreen = () => {
     [strings],
   );
 
+  const openBottomsheet = useCallback(() => {
+    sheetRef.current.show();
+  }, []);
+
   const renderDenominationItem = useCallback(
-    item => (
-      <DropdownItem
-        label={item.label}
-        value={item.value}
-        selected={denomination}
-        onSelect={setDenomination}
-      />
-    ),
+    item => {
+      console.log('denomination item', item);
+      return (
+        <DropdownItem
+          label={item.label}
+          value={item.value}
+          selected={denomination}
+          onSelect={setDenomination}
+        />
+      );
+    },
     [denomination],
   );
 
@@ -156,7 +168,6 @@ const FilterScreen = () => {
   const renderoption = useCallback(
     (item, option) => {
       const isGathering = option === 'GatheringOption';
-      // const isLocation = option === 'LocationOption';
       const isSelected = isGathering
         ? gatheringOption.includes(item?.key)
         : locationOption.includes(item?.key);
@@ -183,94 +194,104 @@ const FilterScreen = () => {
         backArrowVisible
         gradientTitle={strings.filter}
         searchIcon={Images.searchIcon1}
-        searchIconPress={() => {}}
+        searchIconPress={() => openBottomsheet()}
       />
 
-      <Shadow
-        offset={[0, 0]}
-        distance={40}
-        startColor="rgba(0,0,0,0.12)"
-        finalColor="rgba(0,0,0,0)"
-        radius={16}
-        style={styles.shadowView}
-      >
-        <View style={styles.locationView}>
-          <LocationPreview latitude={22.263} longitude={70.7863} />
-        </View>
-        <Text style={[styles.heading, { fontSize: moderateScale(16) }]}>{strings.location}</Text>
-      </Shadow>
+      <ScrollView style={styles.scrollView}>
+        <Shadow
+          distance={15}
+          startColor="rgba(0,0,0,0.04)"
+          finalColor="rgba(0,0,0,0.04)"
+          style={styles.shadowView}
+        >
+          <View style={styles.locationView}>
+            <LocationPreview latitude={22.263} longitude={70.7863} />
+          </View>
+          <Text style={[styles.heading, { fontSize: moderateScale(16) }]}>{strings.location}</Text>
+        </Shadow>
 
-      <Shadow
-        distance={40}
-        offset={[0, 10]}
-        startColor="rgba(0,0,0,0.05)"
-        finalColor="rgba(0,0,0,0.07)"
-        radius={16}
-        style={styles.shadowView}
-      >
-        <Text style={styles.heading}>{strings.gathering}</Text>
-        <View style={styles.optionViewStyle}>
-          <FlatList
-            data={gatheringData}
-            renderItem={({ item }) => renderoption(item, 'GatheringOption')}
-            numColumns={3}
-            key={'_'}
-            scrollEnabled={false}
+        <Shadow
+          distance={15}
+          startColor="rgba(0,0,0,0.04)"
+          finalColor="rgba(0,0,0,0.04)"
+          style={styles.shadowView}
+        >
+          <Text style={styles.heading}>{strings.gathering}</Text>
+          <View style={styles.optionViewStyle}>
+            <FlatList
+              data={gatheringData}
+              renderItem={({ item }) => renderoption(item, 'GatheringOption')}
+              numColumns={3}
+              key={'_'}
+              scrollEnabled={false}
+            />
+          </View>
+        </Shadow>
+
+        <Shadow
+          distance={15}
+          startColor="rgba(0,0,0,0.04)"
+          finalColor="rgba(0,0,0,0.04)"
+          style={styles.shadowView}
+        >
+          <Text style={styles.heading}>{strings.location}</Text>
+
+          <View style={[styles.optionViewStyle, { height: verticalScale(84) }]}>
+            <FlatList
+              data={LocationData}
+              renderItem={({ item }) => renderoption(item, 'LocationOption')}
+              numColumns={4}
+              key={'_'}
+              scrollEnabled={false}
+            />
+          </View>
+        </Shadow>
+
+        <View style={styles.dropdownView}>
+          <Text style={styles.heading}>({strings.optional})</Text>
+
+          <CustomDropdown
+            dropdownPlaceholder={strings.denomination}
+            data={denominationData}
+            renderItem={renderDenominationItem}
+            setValue={setDenomination}
+            value={denomination}
+            dropdownStyle={styles.dropdownStyle}
+          />
+
+          <CustomDropdown
+            dropdownPlaceholder={strings.protestonDenominationData}
+            data={protestonDenominationData}
+            renderItem={renderProtestantItem}
+            setValue={setProtestantDenominations}
+            value={protestantDenominations}
+            dropdownStyle={styles.dropdownStyle}
+          />
+
+          <CustomDropdown
+            dropdownPlaceholder={strings.otherDenomination}
+            data={otherDenominationData}
+            renderItem={renderOtherDenominationItem}
+            setValue={setOtherDenomination}
+            value={otherDenomination}
+            dropdownStyle={styles.dropdownStyle}
           />
         </View>
-      </Shadow>
 
-      <Shadow
-        distance={40}
-        offset={[0, 10]}
-        startColor="rgba(0,0,0,0.05)"
-        finalColor="rgba(0,0,0,0.07)"
-        radius={16}
-        style={styles.shadowView}
-      >
-        <Text style={styles.heading}>{strings.location}</Text>
-
-        <View style={[styles.optionViewStyle, { height: verticalScale(84) }]}>
-          <FlatList
-            data={LocationData}
-            renderItem={({ item }) => renderoption(item, 'LocationOption')}
-            numColumns={4}
-            key={'_'}
-            scrollEnabled={false}
-          />
-        </View>
-      </Shadow>
-
-      <View style={styles.dropdownView}>
-        <Text style={styles.heading}>({strings.optional})</Text>
-
-        <CustomDropdown
-          dropdownPlaceholder={strings.denomination}
-          data={denominationData}
-          renderItem={renderDenominationItem}
-          setValue={setDenomination}
-          value={denomination}
-          dropdownStyle={styles.dropdownStyle}
+        <CustomButton
+          title={strings.save}
+          backgroundColor={Color.theme1}
+          borderRadius={scale(30)}
+          fontSize={moderateScale(16)}
+          fontColor={Color.Black}
+          fontFamily={Fonts.sfProBold}
+          marginTop={verticalScale(15)}
+          marginBottom={verticalScale(25)}
+          onPress={() => {}}
         />
+      </ScrollView>
 
-        <CustomDropdown
-          dropdownPlaceholder={strings.protestonDenominationData}
-          data={protestonDenominationData}
-          renderItem={renderProtestantItem}
-          setValue={setProtestantDenominations}
-          value={protestantDenominations}
-          dropdownStyle={styles.dropdownStyle}
-        />
-
-        <CustomDropdown
-          dropdownPlaceholder={strings.otherDenomination}
-          data={otherDenominationData}
-          renderItem={renderOtherDenominationItem}
-          setValue={setOtherDenomination}
-          value={otherDenomination}
-          dropdownStyle={styles.dropdownStyle}
-        />
-      </View>
+      <CustomBottomsheet ref={sheetRef} bottomSheetContent={<FilterSearchBottomsheetContent />} />
     </SafeAreaView>
   );
 };

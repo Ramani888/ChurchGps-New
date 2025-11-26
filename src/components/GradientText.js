@@ -11,7 +11,8 @@ const GradientText = ({ text, colors, style, titleLocations, ...props }) => {
       <LinearGradient
         colors={colors}
         start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }} // left → right gradient
+        end={{ x: 1, y: 0 }}
+        locations={[0, 0.5, 0.5, 0.65, 0.65, 1]}
       >
         <Text style={[styles.text, style, { opacity: 0 }]} {...props}>
           {text}

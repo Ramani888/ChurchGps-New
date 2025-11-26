@@ -1,40 +1,61 @@
-// import { Pressable, StyleSheet, Text, View } from 'react-native';
 // import React from 'react';
+// import { Pressable, StyleSheet, View, Text } from 'react-native';
 // import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-// import { moderateScale, scale, verticalScale } from '../utils/Responsive';
 // import Color from '../utils/Color';
+// import { moderateScale, scale } from '../utils/Responsive';
 // import { Fonts } from '../utils/Font';
 
 // const CheckBox = ({
-//   checkboxContainerStyle,
 //   isChecked,
 //   onPress,
+//   size = scale(22),
+//   borderColor = Color.rgba.Gray[2],
 //   title,
-//   checkboxColor,
-//   checkboxSize,
-//   checkboxTitleStyle,
-//   shape = 'square',
+//   orientation = 'horizontal', // 'horizontal' | 'vertical'
+//   containerStyle,
+//   titleStyle,
+//   disabled = false,
 // }) => {
-//   const circleIconName = isChecked
-//     ? 'check-circle'
-//     : 'checkbox-blank-circle-outline';
-//   const squareIconName = isChecked
-//     ? 'checkbox-marked'
-//     : 'checkbox-blank-outline';
-
 //   return (
-//     <View style={[styles.container, checkboxContainerStyle]}>
-//       <Pressable onPress={onPress}>
-//         <MaterialDesignIcons
-//           name={shape === 'circle' ? circleIconName : squareIconName}
-//           size={checkboxSize ?? scale(24)}
-//           color={isChecked ? checkboxColor ?? Color.Primary : Color.Gray}
-//         />
-//       </Pressable>
+//     <Pressable
+//       onPress={disabled ? undefined : onPress}
+//       style={[
+//         styles.container,
+//         { flexDirection: orientation === 'horizontal' ? 'row' : 'column' },
+//         containerStyle,
+//       ]}
+//       hitSlop={8}
+//     >
+//       <View
+//         style={[
+//           styles.box,
+//           {
+//             width: size,
+//             height: size,
+//             borderColor: borderColor,
+//             borderRadius: size * 0.25,
+//             backgroundColor: isChecked ? Color.theme1 : Color.White,
+//             borderWidth: isChecked ? 0 : 1,
+//             opacity: disabled ? 0.5 : 1,
+//           },
+//         ]}
+//       >
+//         {isChecked && <MaterialDesignIcons name="check" color={Color.White} size={size * 0.7} />}
+//       </View>
+
 //       {title ? (
-//         <Text style={[styles.title, checkboxTitleStyle]}>{title}</Text>
+//         <Text
+//           style={[
+//             styles.title,
+//             orientation === 'horizontal' ? { marginLeft: scale(8) } : { marginTop: scale(6) },
+//             titleStyle,
+//           ]}
+//           numberOfLines={2}
+//         >
+//           {title}
+//         </Text>
 //       ) : null}
-//     </View>
+//     </Pressable>
 //   );
 // };
 
@@ -42,55 +63,86 @@
 
 // const styles = StyleSheet.create({
 //   container: {
-//     justifyContent: 'flex-start',
 //     alignItems: 'center',
-//     flexDirection: 'row',
-//     marginTop: verticalScale(5),
-//     marginHorizontal: scale(5),
+//   },
+//   box: {
+//     alignItems: 'center',
+//     justifyContent: 'center',
 //   },
 //   title: {
-//     fontSize: moderateScale(16),
+//     fontSize: moderateScale(12),
+//     fontFamily: Fonts.interRegular,
 //     color: Color.Black,
-//     marginLeft: scale(10),
-//     fontFamily: Fonts.interMedium,
 //   },
 // });
 
-import { Pressable, StyleSheet, View } from 'react-native';
+// CheckBox.js
+import { Pressable, StyleSheet, View, Text } from 'react-native';
 import React from 'react';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import Color from '../utils/Color';
-import { scale } from '../utils/Responsive';
+import { moderateScale, scale } from '../utils/Responsive';
+import { Fonts } from '../utils/Font';
 
 const CheckBox = ({
   isChecked,
   onPress,
   size = scale(22),
   borderColor = Color.rgba.Gray[2],
+  title,
+  orientation = 'horizontal',
+  containerStyle,
+  titleStyle,
+  disabled = false,
+  pressable = true,
 }) => {
-  return (
-    <Pressable onPress={onPress}>
+  const content = (
+    <View
+      style={[
+        styles.container,
+        { flexDirection: orientation === 'horizontal' ? 'row' : 'column' },
+        containerStyle,
+      ]}
+    >
       <View
         style={[
           styles.box,
           {
             width: size,
             height: size,
-            borderColor: borderColor,
-            borderRadius: size * 0.25, // gives that rounded-square look
+            borderColor,
+            borderRadius: size * 0.25,
             backgroundColor: isChecked ? Color.theme1 : Color.White,
             borderWidth: isChecked ? 0 : 1,
+            opacity: disabled ? 0.5 : 1,
           },
         ]}
       >
-        {isChecked && (
-          <MaterialDesignIcons
-            name="check"
-            color={Color.White}
-            size={size * 0.7}
-          />
-        )}
+        {isChecked && <MaterialDesignIcons name="check" color={Color.White} size={size * 0.7} />}
       </View>
+
+      {title ? (
+        <Text
+          style={[
+            styles.title,
+            orientation === 'horizontal' ? { marginLeft: scale(8) } : { marginTop: scale(6) },
+            titleStyle,
+          ]}
+          numberOfLines={2}
+        >
+          {title}
+        </Text>
+      ) : null}
+    </View>
+  );
+
+  if (!pressable) {
+    return content; // <--- no inner Pressable, taps go to parent (Dropdown row)
+  }
+
+  return (
+    <Pressable onPress={disabled ? undefined : onPress} hitSlop={8}>
+      {content}
     </Pressable>
   );
 };
@@ -98,9 +150,16 @@ const CheckBox = ({
 export default CheckBox;
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+  },
   box: {
-    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    color: Color.Black,
   },
 });

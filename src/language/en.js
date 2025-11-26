@@ -218,6 +218,7 @@ export default {
   distancetext: 'Select a distance radius so others can see your approximate location.',
   openDirectionInMap: 'Open Directions In Map',
   optional: 'Optional',
+  search: 'Search',
 };
 
 // userNameRequired; biji language ma baki che

@@ -206,7 +206,7 @@ export default memo(LocationPreview);
 
 const styles = StyleSheet.create({
   container: {
-    width: scale(319),
+    width: scale(322),
     height: verticalScale(140),
     borderRadius: scale(16),
     overflow: 'hidden',

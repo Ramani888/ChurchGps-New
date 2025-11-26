@@ -7,12 +7,11 @@ export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Color.White, alignItems: 'center' },
   tabIcon: { width: scale(16), height: verticalScale(16) },
   tabComponent: { margin: scale(20) },
-  scrollView: { flex: 1, backgroundColor: Color.White },
+  scrollView: { flex: 1, backgroundColor: Color.White, padding: scale(10) },
   shadowView: {
     backgroundColor: Color.White,
-    padding: scale(12),
-    // margin: scale(15),
-    marginTop: verticalScale(20),
+    padding: scale(10.5),
+    marginBottom: verticalScale(20),
     width: scale(343),
     borderRadius: scale(24),
   },
@@ -21,7 +20,6 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     fontFamily: Fonts.interSemiBold,
     color: Color.Black,
-    paddingVertical: verticalScale(5),
   },
   optionViewStyle: {
     width: scale(319),
@@ -33,7 +31,6 @@ export const styles = StyleSheet.create({
     marginTop: verticalScale(10),
   },
   checkboxView: {
-    // width: '33.33%',
     alignItems: 'center',
     marginVertical: verticalScale(7),
   },
@@ -45,7 +42,7 @@ export const styles = StyleSheet.create({
     paddingTop: verticalScale(3),
     textAlign: 'center',
   },
-  dropdownView: { width: '90%', margin: scale(12) },
+  dropdownView: { width: '100%' },
   dropdownStyle: {
     backgroundColor: Color.fieldColor,
     height: verticalScale(46),

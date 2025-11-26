@@ -196,19 +196,9 @@ const SignUpScreen = () => {
             handleCreateAccount(values);
           }}
         >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            setFieldValue,
-            handleBlur,
-            handleSubmit,
-          }) => (
+          {({ values, errors, touched, handleChange, setFieldValue, handleBlur, handleSubmit }) => (
             <View style={styles.contentContainer}>
-              <Text style={styles.subTitle}>
-                {strings.createSearchAndConnect}
-              </Text>
+              <Text style={styles.subTitle}>{strings.createSearchAndConnect}</Text>
 
               <View style={styles.btnView}>
                 <CustomButton
@@ -222,12 +212,7 @@ const SignUpScreen = () => {
                   fontFamily={Fonts.interSemiBold}
                   borderWidth={scale(0.8)}
                   borderColor={Color.Gray}
-                  leftIcon={
-                    <Image
-                      source={Images.googleIcon}
-                      style={styles.leftIconStyle}
-                    />
-                  }
+                  leftIcon={<Image source={Images.googleIcon} style={styles.leftIconStyle} />}
                   gap={scale(5)}
                   onPress={() => {}}
                 />
@@ -242,12 +227,7 @@ const SignUpScreen = () => {
                   fontFamily={Fonts.interSemiBold}
                   borderWidth={scale(0.8)}
                   borderColor={Color.Gray}
-                  leftIcon={
-                    <Image
-                      source={Images.appleIcon}
-                      style={styles.leftIconStyle}
-                    />
-                  }
+                  leftIcon={<Image source={Images.appleIcon} style={styles.leftIconStyle} />}
                   gap={scale(5)}
                   onPress={() => {}}
                 />
@@ -261,13 +241,7 @@ const SignUpScreen = () => {
                   marginVertical={verticalScale(8)}
                   borderRadius={scale(16)}
                   buttonHeight={verticalScale(46)}
-                  rightIcon={
-                    <FontAwesome
-                      name="angle-down"
-                      size={scale(25)}
-                      color={Color.Black}
-                    />
-                  }
+                  rightIcon={<FontAwesome name="angle-down" size={scale(25)} color={Color.Black} />}
                   justifyContent={'space-between'}
                   paddingHorizontal={scale(20)}
                   fontSize={scale(14)}
@@ -285,15 +259,10 @@ const SignUpScreen = () => {
                   marginTop={verticalScale(8)}
                   borderRadius={scale(16)}
                   buttonHeight={verticalScale(46)}
-                  rightIcon={
-                    <FontAwesome
-                      name="angle-down"
-                      size={scale(25)}
-                      color={Color.Black}
-                    />
-                  }
+                  rightIcon={<FontAwesome name="angle-down" size={scale(25)} color={Color.Black} />}
                   justifyContent={'space-between'}
                   paddingHorizontal={scale(20)}
+                  marginBottom={verticalScale(10)}
                   fontSize={scale(14)}
                   fontFamily={Fonts.interRegular}
                   fontColor={dob?.showDate ? Color.Black : Color.Gray}
@@ -388,21 +357,13 @@ const SignUpScreen = () => {
                   secureTextEntry={confirmPasswordVisible ? false : true}
                   setEye={setConfirmPasswordVisible}
                   eye={confirmPasswordVisible}
-                  inputStyle={[
-                    styles.inputStyle,
-                    { marginTop: verticalScale(10) },
-                  ]}
+                  inputStyle={[styles.inputStyle, { marginTop: verticalScale(10) }]}
                 />
               </View>
 
               <View>
                 <CheckBox
-                  onPress={() =>
-                    setFieldValue(
-                      'termsAndCondition',
-                      !values.termsAndCondition,
-                    )
-                  }
+                  onPress={() => setFieldValue('termsAndCondition', !values.termsAndCondition)}
                   title={strings.termsAndCondition}
                   isChecked={values.termsAndCondition}
                   checkboxColor={Color.theme1}

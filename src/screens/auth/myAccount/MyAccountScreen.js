@@ -2,7 +2,6 @@ import {
   findNodeHandle,
   FlatList,
   Image,
-  Keyboard,
   Pressable,
   StyleSheet,
   Text,
@@ -35,17 +34,9 @@ import { GestureScrollView } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Images } from '../../../utils/Images';
 import { useStateContext } from '../../../context/StateContext';
-import {
-  handleCamera,
-  handleGallery,
-} from '../../../custome/CustomImagePicker';
+import { handleCamera, handleGallery } from '../../../custome/CustomImagePicker';
 import { Formik } from 'formik';
-import {
-  AccountSchema,
-  getProfileData,
-  saveAccount,
-  uploadProfileImage,
-} from './useMyAccount';
+import { AccountSchema, getProfileData, saveAccount, uploadProfileImage } from './useMyAccount';
 import Loader from '../../../utils/Loader';
 import ToastMessage from '../../../utils/ToastMessage';
 import { useUserDetail } from '../../../context/UserContext';
@@ -54,21 +45,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { keyboardDismiss } from '../../../utils/ReusableFunctions';
 import { BlurView } from '@react-native-community/blur';
 
-const SectionBlock = ({
-  disabled,
-  children,
-  blurAmount = 12,
-  blurType = 'light',
-  radius = 12,
-}) => {
+const SectionBlock = ({ disabled, children, blurAmount = 12, blurType = 'light', radius = 12 }) => {
   return (
-    <View
-      style={{ position: 'relative', borderRadius: radius, overflow: 'hidden' }}
-    >
-      <View
-        pointerEvents={disabled ? 'none' : 'auto'}
-        style={{ opacity: disabled ? 1 : 1 }}
-      >
+    <View style={{ position: 'relative', borderRadius: radius, overflow: 'hidden' }}>
+      <View pointerEvents={disabled ? 'none' : 'auto'} style={{ opacity: disabled ? 1 : 1 }}>
         {children}
       </View>
       {disabled && (
@@ -92,16 +72,15 @@ const ActionButton = memo(({ icon, label }) => {
   );
 });
 
-const DropdownItem = memo(({ label, value, selected, onSelect }) => {
-  const onPress = useCallback(() => onSelect(value), [onSelect, value]);
+const DropdownItem = memo(({ label, value, selected }) => {
   return (
     <View style={styles.dropdownItemStyle}>
       <CheckBox
-        onPress={onPress}
         title={label}
         isChecked={value === selected}
         checkboxColor={Color.theme1}
         checkboxTitleStyle={styles.checkboxTitleStyle}
+        pressable={false}
       />
     </View>
   );
@@ -315,9 +294,7 @@ const MyAccountScreen = () => {
 
   const handleAnswer = (questionId, key) => {
     setAnswers(prev => {
-      const existingIndex = prev.findIndex(
-        a => a.questionId === Number(questionId),
-      );
+      const existingIndex = prev.findIndex(a => a.questionId === Number(questionId));
 
       if (existingIndex !== -1) {
         // update existing answer
@@ -335,38 +312,19 @@ const MyAccountScreen = () => {
   };
 
   const renderDenominationItem = useCallback(
-    item => (
-      <DropdownItem
-        label={item.label}
-        value={item.value}
-        selected={denomination}
-        onSelect={setDenomination}
-      />
-    ),
+    item => <DropdownItem label={item.label} value={item.value} selected={denomination} />,
     [denomination],
   );
 
   const renderProtestantItem = useCallback(
     item => (
-      <DropdownItem
-        label={item.label}
-        value={item.value}
-        selected={protestantDenominations}
-        onSelect={setProtestantDenominations}
-      />
+      <DropdownItem label={item.label} value={item.value} selected={protestantDenominations} />
     ),
     [protestantDenominations],
   );
 
   const renderOtherDenominationItem = useCallback(
-    item => (
-      <DropdownItem
-        label={item.label}
-        value={item.value}
-        selected={otherDenomination}
-        onSelect={setOtherDenomination}
-      />
-    ),
+    item => <DropdownItem label={item.label} value={item.value} selected={otherDenomination} />,
     [otherDenomination],
   );
 
@@ -385,18 +343,10 @@ const MyAccountScreen = () => {
             return (
               <TouchableOpacity
                 key={key}
-                style={[
-                  styles.optionButton,
-                  isSelected && styles.optionButtonSelected,
-                ]}
+                style={[styles.optionButton, isSelected && styles.optionButtonSelected]}
                 onPress={() => handleAnswer(item.id, key)}
               >
-                <Text
-                  style={[
-                    styles.optionText,
-                    isSelected && styles.optionTextSelected,
-                  ]}
-                >
+                <Text style={[styles.optionText, isSelected && styles.optionTextSelected]}>
                   {value} {/* translated label */}
                 </Text>
               </TouchableOpacity>
@@ -414,9 +364,7 @@ const MyAccountScreen = () => {
       <Loader visible={visible} />
       <CustomHeader
         backArrowVisible
-        gradientTitle={
-          visibleEditAccount ? strings.editAccount : strings.myAccount
-        }
+        gradientTitle={visibleEditAccount ? strings.editAccount : strings.myAccount}
         titleFontSize={scale(30)}
         titleFontFamily={Fonts.spaceGroteskBold}
       />
@@ -434,12 +382,8 @@ const MyAccountScreen = () => {
             profileName: visibleEditAccount ? profileData?.profileName : '',
             bio: visibleEditAccount ? profileData?.bio : '',
             denomination: visibleEditAccount ? profileData?.denomination : '',
-            protestantDenomination: visibleEditAccount
-              ? profileData?.protestantDenomination
-              : '',
-            otherDenomination: visibleEditAccount
-              ? profileData?.otherDenomination
-              : '',
+            protestantDenomination: visibleEditAccount ? profileData?.protestantDenomination : '',
+            otherDenomination: visibleEditAccount ? profileData?.otherDenomination : '',
           }}
           enableReinitialize
           validationSchema={schema}
@@ -447,15 +391,7 @@ const MyAccountScreen = () => {
             handleSaveAccount(values, resetForm);
           }}
         >
-          {({
-            handleChange,
-            handleSubmit,
-            handleBlur,
-            setFieldValue,
-            values,
-            errors,
-            touched,
-          }) => (
+          {({ handleChange, handleSubmit, handleBlur, setFieldValue, values, errors, touched }) => (
             <View style={styles.formView}>
               <View style={styles.inputFieldView}>
                 <CustomInputField
@@ -504,12 +440,7 @@ const MyAccountScreen = () => {
                 onPress={() => setSkipImageSection(v => !v)}
               />
 
-              <SectionBlock
-                disabled={skipImageSection}
-                blurAmount={8}
-                blurType="light"
-                radius={16}
-              >
+              <SectionBlock disabled={skipImageSection} blurAmount={8} blurType="light" radius={16}>
                 <View>
                   <Image
                     source={
@@ -523,32 +454,18 @@ const MyAccountScreen = () => {
                   <Text style={styles.name}>{strings.myPicture}</Text>
                 </View>
                 <View style={styles.btnMainView}>
-                  <Pressable
-                    onPress={() => handleGallery(uploadProfileImageApi)}
-                  >
-                    <ActionButton
-                      icon={Images.plusIcon}
-                      label={strings.upload}
-                    />
+                  <Pressable onPress={() => handleGallery(uploadProfileImageApi)}>
+                    <ActionButton icon={Images.plusIcon} label={strings.upload} />
                   </Pressable>
-                  <Pressable
-                    onPress={() => handleCamera(uploadProfileImageApi)}
-                  >
-                    <ActionButton
-                      icon={Images.cameraIcon}
-                      label={strings.takeSelfi}
-                    />
+                  <Pressable onPress={() => handleCamera(uploadProfileImageApi)}>
+                    <ActionButton icon={Images.cameraIcon} label={strings.takeSelfi} />
                   </Pressable>
                 </View>
               </SectionBlock>
 
-              <View
-                style={[styles.devider, { marginTop: verticalScale(20) }]}
-              />
+              <View style={[styles.devider, { marginTop: verticalScale(20) }]} />
 
-              <Text style={styles.accountInfoText}>
-                {strings.accountInfoText}
-              </Text>
+              <Text style={styles.accountInfoText}>{strings.accountInfoText}</Text>
 
               <CustomButton
                 title={skipBelowSection ? strings.undo : strings.skip}
@@ -566,12 +483,7 @@ const MyAccountScreen = () => {
                 onPress={() => setSkipBelowSection(v => !v)}
               />
 
-              <SectionBlock
-                disabled={skipBelowSection}
-                blurAmount={8}
-                blurType="light"
-                radius={16}
-              >
+              <SectionBlock disabled={skipBelowSection} blurAmount={8} blurType="light" radius={16}>
                 <View style={styles.inputFieldView}>
                   <CustomInputField
                     label={strings.bio}
@@ -597,6 +509,7 @@ const MyAccountScreen = () => {
                     setValue={v => {
                       keyboardDismiss();
                       setFieldValue('denomination', v);
+                      setDenomination(v);
                     }}
                     value={values.denomination}
                     touched={touched.denomination}
@@ -611,6 +524,7 @@ const MyAccountScreen = () => {
                     setValue={v => {
                       keyboardDismiss();
                       setFieldValue('protestantDenomination', v);
+                      setProtestantDenominations(v);
                     }}
                     value={values.protestantDenomination}
                     touched={touched.protestantDenomination}
@@ -625,6 +539,7 @@ const MyAccountScreen = () => {
                     setValue={v => {
                       keyboardDismiss();
                       setFieldValue('otherDenomination', v);
+                      setOtherDenomination(v);
                     }}
                     value={values.otherDenomination}
                     touched={touched.otherDenomination}

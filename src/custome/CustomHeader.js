@@ -60,9 +60,7 @@ const CustomHeader = ({
             ) : (
               <GradientText
                 text={gradientTitle}
-                colors={
-                  gradientTitleColor ? gradientTitleColor : Color.gradientColor1
-                }
+                colors={gradientTitleColor ? gradientTitleColor : Color.gradientColor1}
                 style={[
                   styles.title,
                   {
