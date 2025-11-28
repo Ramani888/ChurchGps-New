@@ -135,7 +135,7 @@ const CreateGatheringScreen = () => {
       { distance: '10 miles' },
       { distance: '25 miles' },
     ],
-    [],
+    [strings],
   );
 
   // ======================================== Api ======================================== //
