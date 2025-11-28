@@ -62,4 +62,12 @@ export const Images = {
   userIcon: require('../assets/image/user.png'),
   removeIcon: require('../assets/image/removeIcon.png'),
   savedIcon: require('../assets/image/savedIcon.png'),
+  publikHelpImage: require('../assets/image/publikHelpImage.png'),
+  fullServiceImage: require('../assets/image/fullServiceImage.png'),
+  casualImage: require('../assets/image/casualImage.png'),
+  evangelismImage: require('../assets/image/evangelismImage.png'),
+  outDorsImage1: require('../assets/image/outDorsImage1.png'),
+  homeImage: require('../assets/image/homeImage.png'),
+  churchImage: require('../assets/image/churchImage.png'),
+  otherImage: require('../assets/image/otherImage.png'),
 };

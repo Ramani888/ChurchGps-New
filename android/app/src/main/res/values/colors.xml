@@ -2,4 +2,5 @@
 <resources>
     <!-- Add other color definitions here -->
     <color name="white">#FFFFFF</color>
+    <color name="ic_launcher_background">#325014</color>
 </resources>

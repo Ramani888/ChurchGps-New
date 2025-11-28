@@ -219,6 +219,24 @@ export default {
   openDirectionInMap: 'Open Directions In Map',
   optional: 'Optional',
   search: 'Search',
+  icons: 'Icons',
+  infoHeadingText:
+    'We use the word ‘church’ to mean community where two or more gather, locally or online',
+  musicInfoText:
+    'Gather with others to sing, play instruments, and worship through music. Great for choirs, jam sessions, or worship teams.',
+  bibleStudyInfoText: 'Group discussions focused on learning and growing in Scripture together.',
+  publikHelpInfoText:
+    'Meet to serve the community through outreach, volunteering, or acts of kindness.',
+  fullServiceInfoText:
+    'A complete church service experience with worship, teaching, and fellowship.',
+  causalInfoText: 'Informal hangouts such as coffee meetups, meals, or social time with believers.',
+  evangalismInfoText:
+    'Go out together to share the gospel, pray for others, and connect with new people.',
+  gpsColor: 'GPS Colors',
+  greenOutdors: 'Green = Outdors',
+  yellowHome: 'Yellow = Home or Apartment',
+  blueChurch: 'Blue = Chruch Building',
+  purpleOther: 'Purple = Other',
 };
 
 // userNameRequired; biji language ma baki che
