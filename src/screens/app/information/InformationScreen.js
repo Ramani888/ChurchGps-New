@@ -8,6 +8,7 @@ import { strings } from '../../../language/strings';
 import { Shadow } from 'react-native-shadow-2';
 import { moderateScale, verticalScale } from '../../../utils/Responsive';
 import { screen } from '../../../utils/NavigationKey';
+import Color from '../../../utils/Color';
 
 const InformationScreen = () => {
   const data = useMemo(
@@ -91,6 +92,34 @@ const InformationScreen = () => {
         <Text style={[styles.infoheadingText, { fontSize: moderateScale(16) }]}>
           {strings.locationType}
         </Text>
+
+        <View style={styles.locationTypeView}>
+          <View style={styles.locationType}>
+            <Image
+              source={Images.approxLocationtypeImage}
+              style={[styles.image, { height: verticalScale(40) }]}
+              resizeMode="contain"
+            />
+            <Text style={styles.locationTypeText}>{strings.approximateLocation}</Text>
+            <Text style={styles.locationTypeDesc}>{strings.approximateLocationDesc}</Text>
+          </View>
+
+          <View style={styles.locationType}>
+            <Image
+              source={Images.presizeLocationtypeImage}
+              style={[styles.image, { height: verticalScale(40) }]}
+              resizeMode="contain"
+            />
+            <Text style={styles.locationTypeText}>{strings.approximateLocation}</Text>
+            <Text style={styles.locationTypeDesc}>{strings.approximateLocationDesc}</Text>
+          </View>
+        </View>
+
+        <Text style={[styles.infoheadingText, { fontSize: moderateScale(16) }]}>
+          {strings.communityBoard}
+        </Text>
+        <Image source={Images.gridcon} style={styles.communityBoardImage} tintColor={Color.Black} />
+        <Text style={styles.communityBoardText}>{strings.communityboardText}</Text>
       </ScrollView>
     </SafeAreaView>
   );

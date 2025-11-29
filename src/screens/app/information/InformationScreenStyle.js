@@ -38,4 +38,36 @@ export const styles = StyleSheet.create({
     marginVertical: verticalScale(5),
   },
   colorFlatlist: { marginBottom: verticalScale(5) },
+  locationTypeView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: verticalScale(10),
+  },
+  locationType: { alignItems: 'center', width: '49%' },
+  locationTypeText: {
+    fontSize: moderateScale(14),
+    fontFamily: Fonts.interMedium,
+    color: Color.Black,
+    paddingVertical: verticalScale(10),
+  },
+  locationTypeDesc: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    lineHeight: verticalScale(18),
+    color: Color.Gray,
+    textAlign: 'center',
+  },
+  communityBoardImage: {
+    width: scale(24),
+    height: scale(24),
+    alignSelf: 'center',
+    marginBottom: verticalScale(10),
+  },
+  communityBoardText: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    color: Color.Black,
+    lineHeight: verticalScale(18),
+    textAlign: 'center',
+  },
 });

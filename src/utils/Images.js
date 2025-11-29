@@ -70,4 +70,6 @@ export const Images = {
   homeImage: require('../assets/image/homeImage.png'),
   churchImage: require('../assets/image/churchImage.png'),
   otherImage: require('../assets/image/otherImage.png'),
+  approxLocationtypeImage: require('../assets/image/approxLocationTypeImage.png'),
+  presizeLocationtypeImage: require('../assets/image/precizeLocationtypeImage.png'),
 };

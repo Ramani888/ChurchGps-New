@@ -237,6 +237,13 @@ export default {
   yellowHome: 'Yellow = Home or Apartment',
   blueChurch: 'Blue = Chruch Building',
   purpleOther: 'Purple = Other',
+
+  approximateLocation: 'Approximate Location',
+  preciseLocation: 'Precise Location',
+  approximateLocationDesc:
+    'Shares only your general area to keep your privacy. You can share a precise with users later once you’ve built trust or finalized plans.',
+  communityboardText:
+    'The community board is a shared bulletin system where anyone can post and connect. Use it to share updates about new events in your local area, find or offer services, request prayer or support, look for study partners, looking to get baptized, invite others to casual meetups, or find someone to jam and worship with. It’s also a place for sharing testimonies, announcing opportunities, or organizing group outreach. Whether you’re seeking help, offering help, or simply inviting others to gather, the board keeps the community informed and connected.',
 };
 
 // userNameRequired; biji language ma baki che
