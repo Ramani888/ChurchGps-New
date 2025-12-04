@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    marginBottom: verticalScale(-7),
   },
   inputStyle: {
     backgroundColor: Color.fieldColor,
@@ -83,4 +84,5 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.interRegular,
     paddingBottom: verticalScale(5),
   },
+  checkboxView: { marginTop: verticalScale(10) },
 });

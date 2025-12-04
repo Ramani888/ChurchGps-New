@@ -70,4 +70,17 @@ export const styles = StyleSheet.create({
     lineHeight: verticalScale(18),
     textAlign: 'center',
   },
+  noteText: {
+    fontSize: moderateScale(13),
+    fontFamily: Fonts.sfProRegular,
+    color: Color.rgba.Black[4],
+    textAlign: 'center',
+    paddingVertical: verticalScale(15),
+  },
+  toggleView: { alignItems: 'center', gap: verticalScale(10), marginVertical: verticalScale(10) },
+  searchModeText: {
+    fontSize: moderateScale(16),
+    fontFamily: Fonts.interSemiBold,
+    color: Color.Black,
+  },
 });

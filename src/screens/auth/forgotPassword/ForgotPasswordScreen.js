@@ -10,12 +10,7 @@ import CustomInputField from '../../../custome/CustomInputField';
 import CustomButton from '../../../custome/CustomButton';
 import Color from '../../../utils/Color';
 import { OtpInput } from 'react-native-otp-entry';
-import {
-  forgotPassword,
-  ForgotPasswordSchema,
-  sendOtp,
-  verifyOtp,
-} from './useForgotPassword';
+import { forgotPassword, ForgotPasswordSchema, sendOtp, verifyOtp } from './useForgotPassword';
 import { Formik } from 'formik';
 import { screenName } from '../../../utils/NavigationKey';
 import { useNavigation } from '@react-navigation/native';
@@ -129,14 +124,7 @@ const ForgotPasswordScreen = () => {
           handleForgotPassword(values);
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-        }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldTouched }) => (
           <>
             <View style={{ flex: 1 }}>
               <KeyboardAwareScrollView
@@ -145,10 +133,7 @@ const ForgotPasswordScreen = () => {
                 extraKeyboardSpace={0}
                 contentContainerStyle={styles.contentContainerStyle}
               >
-                <Image
-                  source={Images.forgotPasswordIcon}
-                  style={styles.passwordIconStyle}
-                />
+                <Image source={Images.forgotPasswordIcon} style={styles.passwordIconStyle} />
                 <View style={styles.formView}>
                   <View style={styles.emailView}>
                     <CustomInputField
@@ -168,8 +153,14 @@ const ForgotPasswordScreen = () => {
                       borderRadius={scale(30)}
                       buttonWidth={scale(95)}
                       buttonHeight={verticalScale(46)}
-                      alignSelf={'flex-end'}
-                      onPress={() => getOtp(values.email)}
+                      marginTop={verticalScale(30)}
+                      onPress={() => {
+                        setFieldTouched('email', true);
+                        if (errors.email) {
+                          return;
+                        }
+                        getOtp(values.email);
+                      }}
                     />
                   </View>
                   {touched.email && errors.email ? (
@@ -220,10 +211,7 @@ const ForgotPasswordScreen = () => {
                       secureTextEntry={confirmPasswordVisible ? false : true}
                       setEye={setConfirmPasswordVisible}
                       eye={confirmPasswordVisible}
-                      inputStyle={[
-                        styles.inputStyle,
-                        { marginTop: verticalScale(10) },
-                      ]}
+                      inputStyle={[styles.inputStyle, { marginTop: verticalScale(10) }]}
                     />
                   </View>
                 </View>

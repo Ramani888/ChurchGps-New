@@ -28,11 +28,13 @@ const SplashScreen = () => {
 
       let accountSetupComplete = 'false';
       const userId = user?._id;
+      console.log('userId', userId);
+      console.log('token', token);
 
       if (userId != null) {
-        accountSetupComplete = await AsyncStorage.getItem(
-          `SETUP_ACCOUNT_${userId}`,
-        );
+        console.log('accountSetupComplete 1', accountSetupComplete);
+        accountSetupComplete = await AsyncStorage.getItem(`SETUP_ACCOUNT_${userId}`);
+        console.log('accountSetupComplete 2', accountSetupComplete);
 
         if (accountSetupComplete === 'true') {
           setTimeout(() => {

@@ -196,7 +196,16 @@ const SignUpScreen = () => {
             handleCreateAccount(values);
           }}
         >
-          {({ values, errors, touched, handleChange, setFieldValue, handleBlur, handleSubmit }) => (
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            setFieldValue,
+            handleBlur,
+            handleSubmit,
+            setFieldTouched,
+          }) => (
             <View style={styles.contentContainer}>
               <Text style={styles.subTitle}>{strings.createSearchAndConnect}</Text>
 
@@ -262,7 +271,7 @@ const SignUpScreen = () => {
                   rightIcon={<FontAwesome name="angle-down" size={scale(25)} color={Color.Black} />}
                   justifyContent={'space-between'}
                   paddingHorizontal={scale(20)}
-                  marginBottom={verticalScale(10)}
+                  //   marginBottom={verticalScale(10)}
                   fontSize={scale(14)}
                   fontFamily={Fonts.interRegular}
                   fontColor={dob?.showDate ? Color.Black : Color.Gray}
@@ -273,7 +282,7 @@ const SignUpScreen = () => {
                 ) : null}
               </View>
 
-              <View>
+              <View style={styles.checkboxView}>
                 <CheckBox
                   onPress={() => setEighteenPlus(!eighteenPlus)}
                   title={strings.eighteenPlusString}
@@ -292,6 +301,7 @@ const SignUpScreen = () => {
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
                   value={values.email}
+                  keyboardType={'email-address'}
                   inputStyle={[styles.inputStyle, { width: scale(244) }]}
                 />
                 <CustomButton
@@ -302,8 +312,12 @@ const SignUpScreen = () => {
                   borderRadius={scale(30)}
                   buttonWidth={scale(95)}
                   buttonHeight={verticalScale(46)}
-                  alignSelf={'flex-end'}
+                  marginTop={verticalScale(30)}
                   onPress={() => {
+                    setFieldTouched('email', true);
+                    if (errors.email) {
+                      return;
+                    }
                     Keyboard.dismiss();
                     getOtp(values.email);
                   }}

@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     marginTop: verticalScale(20),
   },
   shadowView: {
-    height: verticalScale(655),
+    height: verticalScale(650),
     backgroundColor: Color.White,
     padding: scale(12),
     width: scale(343),

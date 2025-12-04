@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: verticalScale(40),
+    marginTop: verticalScale(30),
     gap: scale(40),
   },
   btnView: { alignItems: 'center' },

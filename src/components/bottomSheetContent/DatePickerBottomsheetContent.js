@@ -13,11 +13,7 @@ const DatePickerBottomsheetContent = ({ setDob, setEighteenPlus }) => {
 
   const is18Plus = d => {
     const today = new Date();
-    const cutoff = new Date(
-      today.getFullYear() - 18,
-      today.getMonth(),
-      today.getDate(),
-    );
+    const cutoff = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
     return d <= cutoff;
   };
 
@@ -46,11 +42,7 @@ const DatePickerBottomsheetContent = ({ setDob, setEighteenPlus }) => {
 
   return (
     <View>
-      <GradientText
-        text={strings.dateOfBirth}
-        colors={Color.gradientColor1}
-        style={styles.title}
-      />
+      <GradientText text={strings.dateOfBirth} colors={Color.gradientColor1} style={styles.title} />
       <View style={styles.devider} />
       <View style={styles.datePickerView}>
         <DatePicker

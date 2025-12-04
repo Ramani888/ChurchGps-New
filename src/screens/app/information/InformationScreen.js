@@ -1,16 +1,23 @@
 import { FlatList, Image, ScrollView, Text, View } from 'react-native';
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { styles } from './InformationScreenStyle';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomHeader from '../../../custome/CustomHeader';
 import { Images } from '../../../utils/Images';
 import { strings } from '../../../language/strings';
 import { Shadow } from 'react-native-shadow-2';
-import { moderateScale, verticalScale } from '../../../utils/Responsive';
+import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
 import { screen } from '../../../utils/NavigationKey';
 import Color from '../../../utils/Color';
+import CustomButton from '../../../custome/CustomButton';
+import { Fonts } from '../../../utils/Font';
+import { useNavigation } from '@react-navigation/native';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 const InformationScreen = () => {
+  const navigation = useNavigation();
+  const [onToggle, setOnToggle] = useState(true);
+
   const data = useMemo(
     () => [
       { image: Images.musicImage, name: strings.music, desc: strings.musicInfoText },
@@ -63,7 +70,7 @@ const InformationScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CustomHeader backArrowVisible titleImageIcon={Images.informationIcon} />
+      <CustomHeader backArrowVisible titleImageIcon={Images.infoIcon} />
 
       <ScrollView contentContainerStyle={styles.infoView}>
         <Text style={styles.infoheadingText}>{strings.infoHeadingText}</Text>
@@ -120,6 +127,33 @@ const InformationScreen = () => {
         </Text>
         <Image source={Images.gridcon} style={styles.communityBoardImage} tintColor={Color.Black} />
         <Text style={styles.communityBoardText}>{strings.communityboardText}</Text>
+
+        <Text style={styles.noteText}>{strings.note}</Text>
+
+        <View style={styles.toggleView}>
+          <Text style={styles.searchModeText}>{strings.searchMode}</Text>
+          <ToggleSwitch
+            isOn={onToggle}
+            onColor={Color.Pink}
+            offColor={Color.Gray}
+            size="large"
+            onToggle={() => setOnToggle(!onToggle)}
+          />
+        </View>
+
+        <CustomButton
+          title={strings.close}
+          backgroundColor={Color.theme1}
+          borderRadius={scale(30)}
+          fontSize={moderateScale(16)}
+          fontColor={Color.Black}
+          fontFamily={Fonts.sfProBold}
+          marginTop={verticalScale(0)}
+          marginBottom={verticalScale(20)}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
       </ScrollView>
     </SafeAreaView>
   );

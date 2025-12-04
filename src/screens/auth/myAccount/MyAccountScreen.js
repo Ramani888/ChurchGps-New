@@ -397,6 +397,7 @@ const MyAccountScreen = () => {
                 <CustomInputField
                   label={strings.profileName}
                   labelStyle={styles.heading}
+                  placeholder={strings.enterProfileName}
                   onChangeText={handleChange('profileName')}
                   onBlur={handleBlur('profileName')}
                   value={values.profileName}
@@ -488,6 +489,7 @@ const MyAccountScreen = () => {
                   <CustomInputField
                     label={strings.bio}
                     labelStyle={styles.heading}
+                    placeholder={strings.enterBio}
                     onChangeText={handleChange('bio')}
                     onBlur={handleBlur('bio')}
                     value={values.bio}

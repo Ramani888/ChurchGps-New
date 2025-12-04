@@ -346,9 +346,9 @@ const MapScreen = () => {
           onPress={toggleMapList}
           content={
             viewMode === 'MapView' ? (
-              <Image source={Images.infoIcon} style={mapScreenStyles.icon} />
+              <Image source={Images.lsitViewIcon} style={mapScreenStyles.icon} />
             ) : (
-              <Image source={Images.infoIcon1} style={mapScreenStyles.icon} />
+              <Image source={Images.mapViewIcon} style={mapScreenStyles.icon} />
             )
           }
         />
@@ -361,7 +361,7 @@ const MapScreen = () => {
 
         <IconComponent
           onPress={() => navigation.navigate(screenName.information)}
-          content={<Image source={Images.informationIcon} style={mapScreenStyles.icon} />}
+          content={<Image source={Images.infoIcon} style={mapScreenStyles.icon} />}
         />
         <IconComponent
           onPress={() => navigation.navigate(screenName.createGathering)}

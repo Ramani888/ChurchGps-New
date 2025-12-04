@@ -1,20 +1,5 @@
-import {
-  FlatList,
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, {
-  memo,
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { FlatList, Image, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { memo, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { styles } from './ProfileStyle';
 import CustomHeader from '../../../custome/CustomHeader';
 import { Fonts } from '../../../utils/Font';
@@ -56,8 +41,7 @@ const ProfileScreen = () => {
   const [referalCode, setRefferalCode] = useState('');
   const [refferalCount, setRefferalCount] = useState('');
 
-  const { setVisibleEditAccount, setLanguageChangeFromProfile } =
-    useStateContext();
+  const { setVisibleEditAccount, setLanguageChangeFromProfile } = useStateContext();
 
   const subscriptionData = [
     { price: 1, image: Images.heartIcon, name: strings.jasper },
@@ -78,11 +62,11 @@ const ProfileScreen = () => {
   ];
 
   const refferalBadgesData = [
-    { id: 1, image: Images.refferalBadgesIcon, referalCount: 5 },
-    { id: 2, image: Images.refferalBadgesIcon, referalCount: 10 },
-    { id: 3, image: Images.refferalBadgesIcon, referalCount: 20 },
-    { id: 4, image: Images.refferalBadgesIcon, referalCount: 30 },
-    { id: 5, image: Images.refferalBadgesIcon, referalCount: 50 },
+    { id: 1, image: Images.referalImage1, referalCount: 5 },
+    { id: 2, image: Images.referalImage2, referalCount: 10 },
+    { id: 3, image: Images.referalImage3, referalCount: 20 },
+    { id: 4, image: Images.referalImage4, referalCount: 30 },
+    { id: 5, image: Images.referalImage5, referalCount: 50 },
   ];
 
   useLayoutEffect(() => {
@@ -94,6 +78,7 @@ const ProfileScreen = () => {
   const getProfileDataApi = useCallback(async () => {
     try {
       const response = await getProfileData();
+      console.log('profile response', response);
       if (response?.success) {
         setEmail(response?.user?.email || '');
         setProfileName(response?.user?.profileName || '');
@@ -188,25 +173,15 @@ const ProfileScreen = () => {
             {options.map(({ key, value }) => {
               const isSelected =
                 Array.isArray(answers) &&
-                answers.some(
-                  a => a.questionId === Number(item.id) && a.answer === key,
-                );
+                answers.some(a => a.questionId === Number(item.id) && a.answer === key);
 
               return (
                 <TouchableOpacity
                   key={key}
-                  style={[
-                    styles.optionButton,
-                    isSelected && styles.optionButtonSelected,
-                  ]}
+                  style={[styles.optionButton, isSelected && styles.optionButtonSelected]}
                   // onPress={() => handleAnswer(item.id, key)}
                 >
-                  <Text
-                    style={[
-                      styles.optionText,
-                      isSelected && styles.optionTextSelected,
-                    ]}
-                  >
+                  <Text style={[styles.optionText, isSelected && styles.optionTextSelected]}>
                     {value}
                   </Text>
                 </TouchableOpacity>
@@ -242,15 +217,29 @@ const ProfileScreen = () => {
 
   const renderReferalBadges = useCallback(
     ({ item }) => {
+      const value = item?.referalCount;
+      const selected = refferalCount.includes(value);
+
+      const handleToggle = () => {
+        setRefferalCount(
+          prev =>
+            prev.includes(value)
+              ? prev.filter(v => v !== value) // remove if already selected
+              : [...prev, value], // add if not selected
+        );
+      };
+
       return (
         <View style={styles.refferalCountView}>
-          <Image source={Images.refferalBadgesIcon} style={styles.Icon} />
-          <Text style={styles.refferalCount}>{item?.referalCount}</Text>
+          <Image source={item?.image} style={styles.Icon} />
+          <Text style={styles.refferalCount}>{value}</Text>
+
           <CheckBox
-            onPress={() => setRefferalCount(!refferalCount)}
-            isChecked={refferalCount}
+            onPress={handleToggle}
+            isChecked={selected}
             shape="circle"
-            checkboxColor={Color.theme1}
+            size={scale(22)}
+            borderColor={selected ? Color.theme1 : Color.rgba.Gray[2]}
           />
         </View>
       );
@@ -311,28 +300,32 @@ const ProfileScreen = () => {
             autoCorrect={false}
           />
 
-          <View style={styles.devider} />
+          {bio && (
+            <>
+              <View style={styles.devider} />
+              <View>
+                <Text style={styles.heading}>{strings.bio}</Text>
+                <Text style={styles.text}>{bio}</Text>
+              </View>
+            </>
+          )}
 
-          <View>
-            <Text style={styles.heading}>{strings.bio}</Text>
-            <Text style={styles.text}>{bio}</Text>
-          </View>
-
-          <View style={styles.devider} />
-
-          <View>
-            <Text style={styles.heading}>{strings.denomination}</Text>
-            <Text style={styles.text}>{denomination}</Text>
-          </View>
+          {denomination && (
+            <>
+              <View style={styles.devider} />
+              <View>
+                <Text style={styles.heading}>{strings.denomination}</Text>
+                <Text style={styles.text}>{denomination}</Text>
+              </View>
+            </>
+          )}
 
           <View style={styles.devider} />
 
           <View>
             <View style={styles.introVideoHeader}>
               <Text style={styles.heading}>{strings.introVideo}</Text>
-              <Pressable
-                onPress={() => navigation.navigate(screenName.introVideo)}
-              >
+              <Pressable onPress={() => navigation.navigate(screenName.introVideo)}>
                 <Image source={Images.videoIcon} style={styles.videoIcon} />
               </Pressable>
             </View>
@@ -353,13 +346,8 @@ const ProfileScreen = () => {
                 >
                   <Image source={Images.editIcon} style={styles.editIcon} />
                 </Pressable>
-                <Pressable
-                  onPress={() => setQuestionnaireVisible(!questionnaireVisible)}
-                >
-                  <Image
-                    source={Images.downArrowImage}
-                    style={styles.downArrowIcon}
-                  />
+                <Pressable onPress={() => setQuestionnaireVisible(!questionnaireVisible)}>
+                  <Image source={Images.downArrowImage} style={styles.downArrowIcon} />
                 </Pressable>
               </View>
             </View>
@@ -383,7 +371,7 @@ const ProfileScreen = () => {
               onPress={() => openCancelSubscriptionBottomSheet()}
               style={styles.infoIconBtn}
             >
-              <Image source={Images.infoIcon} style={styles.infoIcon} />
+              <Image source={Images.informationIcon} style={styles.infoIcon} />
             </Pressable>
 
             <FlatList
@@ -409,10 +397,7 @@ const ProfileScreen = () => {
 
           <View style={styles.profileRow}>
             <Text style={styles.profileName}>Test</Text>
-            <Image
-              source={Images.heartIcon}
-              style={styles.selectedScriptionImage}
-            />
+            <Image source={Images.heartIcon} style={styles.selectedScriptionImage} />
           </View>
 
           <View style={styles.referalDetailView}>
@@ -425,9 +410,7 @@ const ProfileScreen = () => {
                 </Pressable>
               </View>
               <View style={[styles.row, { gap: scale(10) }]}>
-                <Text style={styles.totalReferalText}>
-                  {strings.totalReferal}
-                </Text>
+                <Text style={styles.totalReferalText}>{strings.totalReferal}</Text>
                 <View style={styles.totalReferalView}>
                   <Text style={styles.totalReferalValue}>5</Text>
                 </View>
@@ -436,9 +419,7 @@ const ProfileScreen = () => {
           </View>
 
           <View>
-            <Text style={[styles.heading, { textAlign: 'center' }]}>
-              {strings.invite}
-            </Text>
+            <Text style={[styles.heading, { textAlign: 'center' }]}>{strings.invite}</Text>
             <FlatList
               data={inviteData}
               renderItem={renderInvite}
@@ -471,48 +452,31 @@ const ProfileScreen = () => {
               onPress={() => openRefferalBottomSheet()}
               style={[styles.infoIconBtn, { top: verticalScale(5) }]}
             >
-              <Image source={Images.infoIcon} style={styles.infoIcon} />
+              <Image source={Images.informationIcon} style={styles.infoIcon} />
             </Pressable>
             <Shadow
               style={styles.refferalBadgeView}
               distance={10}
               startColor={'rgba(0, 0, 0, 0.04)'}
             >
-              <FlatList
-                data={refferalBadgesData}
-                renderItem={renderReferalBadges}
-                horizontal
-              />
+              <FlatList data={refferalBadgesData} renderItem={renderReferalBadges} horizontal />
             </Shadow>
           </View>
 
-          <View
-            style={[styles.profileRow, { marginVertical: verticalScale(15) }]}
-          >
+          <View style={[styles.profileRow, { marginVertical: verticalScale(15) }]}>
             <Text style={styles.profileName}>Test</Text>
             <Image source={Images.refferalBadgesIcon} style={styles.Icon} />
           </View>
 
           <View style={[styles.row, styles.bottomTab]}>
             <Pressable onPress={handleTermsAndPrivacy}>
-              <Shadow
-                style={styles.singleGrid}
-                distance={5}
-                startColor={'rgba(0, 0, 0, 0.02)'}
-              >
-                <Image
-                  source={Images.termsAndPrivacyIcon}
-                  style={styles.Icon}
-                />
+              <Shadow style={styles.singleGrid} distance={5} startColor={'rgba(0, 0, 0, 0.02)'}>
+                <Image source={Images.termsAndPrivacyIcon} style={styles.Icon} />
                 <Text style={styles.inviteText}>{strings.termsAndPrivacy}</Text>
               </Shadow>
             </Pressable>
             <Pressable onPress={handleLogout}>
-              <Shadow
-                style={styles.singleGrid}
-                distance={5}
-                startColor={'rgba(0, 0, 0, 0.02)'}
-              >
+              <Shadow style={styles.singleGrid} distance={5} startColor={'rgba(0, 0, 0, 0.02)'}>
                 <Image source={Images.logoutIcon} style={styles.Icon} />
                 <Text style={styles.inviteText}>{strings.logout}</Text>
               </Shadow>
