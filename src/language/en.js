@@ -219,6 +219,7 @@ export default {
   openDirectionInMap: 'Open Directions In Map',
   optional: 'Optional',
   search: 'Search',
+  enterGroupcode: 'Enter group code',
 };
 
 // userNameRequired; biji language ma baki che

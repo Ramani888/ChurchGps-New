@@ -8,12 +8,7 @@ import { Fonts } from '../utils/Font';
 const GradientText = ({ text, colors, style, titleLocations, ...props }) => {
   return (
     <MaskedView maskElement={<Text style={[styles.text, style]}>{text}</Text>}>
-      <LinearGradient
-        colors={colors}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        locations={[0, 0.5, 0.5, 0.65, 0.65, 1]}
-      >
+      <LinearGradient colors={colors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
         <Text style={[styles.text, style, { opacity: 0 }]} {...props}>
           {text}
         </Text>
