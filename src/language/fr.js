@@ -29,8 +29,7 @@ export default {
   emailRequired: 'L’e-mail est requis',
   passwordMin: 'Minimum 8 caractères',
   passwordRequired: 'Le mot de passe est requis',
-  strongPassword:
-    'Minimum 8 caractères avec majuscules, minuscules, chiffres et symboles',
+  strongPassword: 'Minimum 8 caractères avec majuscules, minuscules, chiffres et symboles',
   passwordMustMatch: 'Les mots de passe doivent correspondre',
   confirmPasswordRequired: 'La confirmation du mot de passe est requise',
   acceptTNC: 'Acceptez les Conditions Générales',
@@ -75,33 +74,26 @@ export default {
   messianicJew: 'Juif messianique',
   other: 'Autre',
   questionnaire: 'Questionnaire',
-  question1:
-    'Jésus est Dieu et existe éternellement avec le Père et le Saint-Esprit.',
+  question1: 'Jésus est Dieu et existe éternellement avec le Père et le Saint-Esprit.',
   question2: 'Dieu est un seul Être en trois Personnes (la Trinité).',
   question3:
     'La Bible est inspirée de Dieu et est l’autorité finale en matière de foi et de pratique.',
   question4: 'Jésus est ressuscité physiquement des morts.',
-  question5:
-    'Nous sommes sauvés par la grâce par la foi seule, pas par les œuvres.',
-  question6:
-    'La véritable foi salvatrice conduit à une vie d’obéissance à Dieu.',
+  question5: 'Nous sommes sauvés par la grâce par la foi seule, pas par les œuvres.',
+  question6: 'La véritable foi salvatrice conduit à une vie d’obéissance à Dieu.',
   question7: 'Le ciel et l’enfer sont des destinées réelles et éternelles.',
-  question8:
-    'Les humains meurent une fois puis font face au jugement (pas de réincarnation).',
+  question8: 'Les humains meurent une fois puis font face au jugement (pas de réincarnation).',
   question9:
     'Les Dix Commandements restent moralement obligatoires pour les chrétiens aujourd’hui.',
   question10:
     'Il est encore commandé aux chrétiens d’observer le sabbat du vendredi soir au samedi soir.',
-  question11:
-    'Les chrétiens aujourd’hui doivent suivre les lois de Moïse dans la Torah.',
+  question11: 'Les chrétiens aujourd’hui doivent suivre les lois de Moïse dans la Torah.',
   question12:
     'Le sacerdoce lévitique, les sacrifices du temple et la circoncision rituelle ont été accomplis en Christ et ne sont plus requis aujourd’hui.',
   question13:
     'Le baptême d’eau est un commandement et doit être fait lorsqu’un individu décide de donner sa vie à Christ.',
-  question14:
-    'Le baptême des enfants est une forme valide de baptême chrétien.',
-  question15:
-    'La Sainte-Cène est principalement un mémorial (souvenir symbolique).',
+  question14: 'Le baptême des enfants est une forme valide de baptême chrétien.',
+  question15: 'La Sainte-Cène est principalement un mémorial (souvenir symbolique).',
   question16:
     'Tous les dons spirituels continuent aujourd’hui et doivent être attendus dans l’église.',
   question17:
@@ -110,8 +102,7 @@ export default {
   question19:
     'Il y aura un règne terrestre littéral et physique de 1000 ans de Christ (règne millénaire).',
   question20: 'Le règne millénaire est un événement futur.',
-  question21:
-    'Il y aura un enlèvement pré-tribulation distinct du retour visible du Christ.',
+  question21: 'Il y aura un enlèvement pré-tribulation distinct du retour visible du Christ.',
   save: 'Enregistrer',
   somethingWentWrong: 'Une erreur est survenue',
   logout: 'Se déconnecter',
@@ -140,20 +131,17 @@ export default {
   privacyPolicy: 'Politique de confidentialité',
   preferredLanguage: 'Langue préférée',
   communityLanguages: 'Langues de la communauté',
-  informPreferredLanguage:
-    'Votre langue préférée pour les textes de l’application',
+  informPreferredLanguage: 'Votre langue préférée pour les textes de l’application',
   informCommunityLanguage:
     'Sélectionnez les langues que vous pouvez lire et écrire si vous souhaitez communiquer en plusieurs langues',
   cancelSubscriptionText1: 'Supprimer les annonces.',
   cancelSubscriptionText2: 'L’icône s’affiche à la fin de votre nom de profil.',
   cancelSubscriptionText3:
     'Contribuez chaque mois pour soutenir l’application. Tous les prix d’abonnement offrent les mêmes avantages. Il existe différents prix pour les utilisateurs souhaitant contribuer davantage.',
-  autoRenewInfo:
-    'Se renouvelle automatiquement chaque mois. Annulez à tout moment.',
+  autoRenewInfo: 'Se renouvelle automatiquement chaque mois. Annulez à tout moment.',
   cancelSubscription: 'Annuler l’abonnement',
   refferalBadges: 'Badges de parrainage',
-  refferalBottomsheetText:
-    'Les badges de parrainage s’affichent à la fin de votre nom de profil.',
+  refferalBottomsheetText: 'Les badges de parrainage s’affichent à la fin de votre nom de profil.',
   playCurrent: 'Lire le courant',
   recordNew: 'Enregistrer nouveau',
   introVideoInfotext:
@@ -171,4 +159,73 @@ export default {
   yes: 'Oui',
   no: 'Non',
   skip: 'Passer',
+  undo: 'Annuler',
+  accountInfoText:
+    'Compléter les sections ci-dessous aide la communauté à identifier rapidement les croyances doctrinales principales pour une meilleure expérience.',
+  switch: 'Changer',
+  selectMode: 'Sélectionnez le mode souhaité.',
+  local: 'Local',
+  online: 'En ligne',
+  confirm: 'Confirmer',
+  saved: 'Enregistré',
+  removed: 'Supprimé',
+  createGathering: 'Créer un Rassemblement',
+  filter: 'Filtre',
+  communityBoard: 'Tableau Communautaire',
+  createCommunityBoard: 'Créer un Tableau Communautaire',
+  create: 'Créer',
+  gathering: 'Rassemblement',
+  music: 'Musique',
+  bibleStudy: 'Étude Biblique',
+  publicHelp: 'Aide Publique',
+  fullService: 'Service Complet',
+  casual: 'Décontracté',
+  evangelize: 'Évangéliser',
+  location: 'Emplacement',
+  outdors: 'Extérieur',
+  home: 'Maison',
+  churchBuilding: 'Église',
+  other: 'Autre',
+  gatheringInfoText1: `Si vous en sélectionnez plusieurs, le premier sera l’icône principale affichée sur le GPS.`,
+  gatheringInfoText2: `Sélectionnez "église" uniquement si vous faites partie de la direction. Une position GPS précise est obligatoire et ne créez ce rassemblement que si vous êtes exactement sur place.`,
+  description: 'Description',
+  descriptionPlaceholder: 'Entrez un résumé court et détaillé',
+  groupName: 'Nom du Groupe',
+  groupNamePlaceholder: 'Entrez le nom du groupe',
+  groupNameRequired: 'Le nom du groupe est requis',
+  groupPicture: 'Photo du Groupe',
+  myPicture: 'Ma Photo',
+  locationType: 'Type d’emplacement',
+  precizeLocationTitle: 'Emplacement Précis',
+  precizeLocationText:
+    '{title} – Affiche le lieu de rencontre exact pour que les autres vous trouvent facilement.',
+  approximateLocationTitle: 'Emplacement Approximatif',
+  approximateLocationText: `{title} – Partage uniquement votre zone générale pour préserver votre vie privée.`,
+  precize: 'Précis',
+  approximate: 'Approximatif',
+  or: 'ou',
+  getLocationPermission: 'Obtenir l’autorisation de localisation',
+  distancetext: 'Sélectionnez un rayon pour que d’autres voient votre localisation approximative.',
+  openDirectionInMap: 'Ouvrir l’itinéraire dans la carte',
+  optional: 'Optionnel',
+  search: 'Rechercher',
+  icons: 'Icônes',
+  infoHeadingText:
+    'Nous utilisons le mot «église» pour désigner une communauté où deux ou plus se rassemblent — localement ou en ligne.',
+  musicInfoText:
+    'Rassemblez-vous pour chanter, jouer des instruments et adorer à travers la musique. Parfait pour les chorales, sessions musicales ou équipes de louange.',
+  bibleStudyInfoText:
+    'Discussions de groupe centrées sur l’apprentissage et la croissance dans les Écritures.',
+  publikHelpInfoText:
+    'Se réunir pour servir la communauté par l’aide, le bénévolat ou des actes de bonté.',
+  fullServiceInfoText:
+    'Une expérience complète de service comprenant louange, enseignement et communion.',
+  causalInfoText: 'Rencontres informelles — café, repas, ou temps social entre croyants.',
+  evangalismInfoText:
+    'Sortir ensemble pour partager l’Évangile, prier pour les autres et rencontrer de nouvelles personnes.',
+  gpsColor: 'Couleurs GPS',
+  greenOutdors: 'Vert = Extérieur',
+  yellowHome: 'Jaune = Maison ou Appartement',
+  blueChurch: 'Bleu = Église',
+  purpleOther: 'Violet = Autre',
 };

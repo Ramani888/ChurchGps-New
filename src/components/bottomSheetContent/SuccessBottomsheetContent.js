@@ -7,20 +7,21 @@ import Color from '../../utils/Color';
 import CustomButton from '../../custome/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { screenName } from '../../utils/NavigationKey';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUserDetail } from '../../context/UserContext';
 
 const SuccessBottomsheetContent = () => {
   const navigation = useNavigation();
+  const { user } = useUserDetail();
 
-  const handleProfileNavigate = useCallback(() => {
+  const handleProfileNavigate = useCallback(async () => {
+    await AsyncStorage.setItem(`SETUP_ACCOUNT_${user?._id}`, 'false');
     navigation.navigate(screenName.myAccount);
   }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../assets/image/success.png')}
-        style={styles.image}
-      />
+      <Image source={require('../../assets/image/success.png')} style={styles.image} />
       <View style={styles.textView}>
         <Text style={styles.title}>{strings.signupSuccessTitle}</Text>
         <Text style={styles.subTitle}>{strings.signupSuccessSubTitle}</Text>

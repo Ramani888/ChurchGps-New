@@ -249,8 +249,9 @@ export const styles = StyleSheet.create({
   },
   refferalCountView: {
     alignItems: 'center',
-    marginHorizontal: scale(14),
+    marginHorizontal: scale(18),
     alignSelf: 'center',
+    gap: scale(5),
     // marginVertical: verticalScale(12),
   },
   refferalCount: {

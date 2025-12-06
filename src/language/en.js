@@ -220,6 +220,38 @@ export default {
   optional: 'Optional',
   search: 'Search',
   enterGroupcode: 'Enter group code',
+  icons: 'Icons',
+  infoHeadingText:
+    'We use the word ‘church’ to mean community where two or more gather, locally or online',
+  musicInfoText:
+    'Gather with others to sing, play instruments, and worship through music. Great for choirs, jam sessions, or worship teams.',
+  bibleStudyInfoText: 'Group discussions focused on learning and growing in Scripture together.',
+  publikHelpInfoText:
+    'Meet to serve the community through outreach, volunteering, or acts of kindness.',
+  fullServiceInfoText:
+    'A complete church service experience with worship, teaching, and fellowship.',
+  causalInfoText: 'Informal hangouts such as coffee meetups, meals, or social time with believers.',
+  evangalismInfoText:
+    'Go out together to share the gospel, pray for others, and connect with new people.',
+  gpsColor: 'GPS Colors',
+  greenOutdors: 'Green = Outdors',
+  yellowHome: 'Yellow = Home or Apartment',
+  blueChurch: 'Blue = Chruch Building',
+  purpleOther: 'Purple = Other',
+
+  approximateLocation: 'Approximate Location',
+  preciseLocation: 'Precise Location',
+  approximateLocationDesc:
+    'Shares only your general area to keep your privacy. You can share a precise with users later once you’ve built trust or finalized plans.',
+  communityboardText:
+    'The community board is a shared bulletin system where anyone can post and connect. Use it to share updates about new events in your local area, find or offer services, request prayer or support, look for study partners, looking to get baptized, invite others to casual meetups, or find someone to jam and worship with. It’s also a place for sharing testimonies, announcing opportunities, or organizing group outreach. Whether you’re seeking help, offering help, or simply inviting others to gather, the board keeps the community informed and connected.',
+
+  enterProfileName: 'Enter profile name',
+  enterBio: 'Enter your bio',
+  note: `(Note: Do not use the community board system to 
+ask for money)`,
+  close: 'Close',
+  searchMode: 'Search Modes',
 };
 
 // userNameRequired; biji language ma baki che

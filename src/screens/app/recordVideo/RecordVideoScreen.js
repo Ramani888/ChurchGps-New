@@ -1,11 +1,4 @@
-// import React, {
-//   memo,
-//   useCallback,
-//   useEffect,
-//   useMemo,
-//   useRef,
-//   useState,
-// } from 'react';
+// import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 // import { View, Text, StyleSheet, Pressable } from 'react-native';
 // import { Camera, useCameraDevice } from 'react-native-vision-camera';
 // import Slider from '@react-native-community/slider';
@@ -102,12 +95,7 @@
 
 //   if (!device || !hasPermission) {
 //     return (
-//       <SafeAreaView
-//         style={[
-//           styles.root,
-//           { alignItems: 'center', justifyContent: 'center' },
-//         ]}
-//       >
+//       <SafeAreaView style={[styles.root, { alignItems: 'center', justifyContent: 'center' }]}>
 //         <Text style={{ color: 'white' }}>Preparing camera…</Text>
 //       </SafeAreaView>
 //     );
@@ -154,19 +142,10 @@
 //               isRecording && { borderColor: Color.Red },
 //             ]}
 //           >
-//             <View
-//               style={[
-//                 styles.recordBtnInner,
-//                 isRecording && { backgroundColor: Color.Red },
-//               ]}
-//             />
+//             <View style={[styles.recordBtnInner, isRecording && { backgroundColor: Color.Red }]} />
 //           </Pressable>
 
-//           <Pressable
-//             onPress={reset}
-//             style={styles.smallCircleBtn}
-//             accessibilityLabel="Reset"
-//           >
+//           <Pressable onPress={reset} style={styles.smallCircleBtn} accessibilityLabel="Reset">
 //             <Ionicons name="refresh" size={20} color="white" />
 //           </Pressable>
 //         </View>
@@ -280,14 +259,391 @@
 //   },
 // });
 
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+// import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+// import { View, Text, StyleSheet, Pressable } from 'react-native';
+// import { Camera, useCameraDevice } from 'react-native-vision-camera';
+// import Video from 'react-native-video';
+// import Slider from '@react-native-community/slider';
+// import Ionicons from 'react-native-vector-icons/Ionicons'; // ✔ correct import
+// import { SafeAreaView } from 'react-native-safe-area-context';
+// import { useIsFocused } from '@react-navigation/native';
+
+// import { strings } from '../../../language/strings';
+// import Color from '../../../utils/Color';
+// import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
+// import Loader from '../../../utils/Loader';
+// import { buildFilePart, uploadIntroVideo } from './useRecordVideo';
+// // import ToastMessage from '...'; // add if you use toast
+
+// const NEON = Color.theme1;
+// const BG = '#0B0D16';
+// const TEXT_MUTED = 'rgba(255,255,255,0.7)';
+// const CIRCLE = moderateScale(72);
+
+// const RecordVideoScreen = ({ defaultTargetSec = 60, onDone }) => {
+//   const front = useCameraDevice('front');
+//   const back = useCameraDevice('back');
+//   const device = front ?? back;
+
+//   const isFocused = useIsFocused();
+//   const cameraRef = useRef(null);
+
+//   const [visible, setVisible] = useState(false);
+//   const [permissionStatus, setPermissionStatus] = useState('loading'); // loading | granted | denied
+
+//   const [isRecording, setIsRecording] = useState(false);
+//   const [elapsed, setElapsed] = useState(0);
+//   const [targetSec, setTargetSec] = useState(Math.min(Math.max(defaultTargetSec, 1), 60));
+//   const [filePath, setFilePath] = useState(undefined);
+
+//   const timerRef = useRef(null);
+//   const timeoutRef = useRef(null);
+//   const startingRef = useRef(false);
+
+//   // Permissions
+//   useEffect(() => {
+//     let canceled = false;
+
+//     (async () => {
+//       try {
+//         const cam = await Camera.requestCameraPermission();
+//         const mic = await Camera.requestMicrophonePermission();
+
+//         const camOk = cam === 'granted' || cam === 'limited';
+//         const micOk = mic === 'granted' || mic === 'limited';
+
+//         if (!canceled) {
+//           setPermissionStatus(camOk && micOk ? 'granted' : 'denied');
+//         }
+//       } catch {
+//         if (!canceled) setPermissionStatus('denied');
+//       }
+//     })();
+
+//     return () => (canceled = true);
+//   }, []);
+
+//   // Timer tick
+//   useEffect(() => {
+//     if (!isRecording) return;
+//     timerRef.current = setInterval(() => setElapsed(s => s + 1), 1000);
+//     return () => {
+//       timerRef.current && clearInterval(timerRef.current);
+//     };
+//   }, [isRecording]);
+
+//   // Cleanup on unmount
+//   useEffect(() => {
+//     return () => {
+//       cameraRef.current?.stopRecording?.();
+//       timerRef.current && clearInterval(timerRef.current);
+//       timeoutRef.current && clearTimeout(timeoutRef.current);
+//     };
+//   }, []);
+
+//   // Upload API
+//   const uploadVideoApi = useCallback(async videoFile => {
+//     const filePart = buildFilePart(videoFile, `intro_${Date.now()}.mp4`);
+//     if (!filePart) return;
+
+//     const body = new FormData();
+//     body.append('video', filePart);
+
+//     try {
+//       setVisible(true);
+//       const response = await uploadIntroVideo(body);
+//       console.log('Upload response:', response);
+//       // ToastMessage?.(response?.message)
+//     } catch (e) {
+//       console.log('Upload error:', e);
+//     } finally {
+//       setVisible(false);
+//     }
+//   }, []);
+
+//   const normalizePath = p => (p ? (p.startsWith('file://') ? p : `file://${p}`) : undefined);
+
+//   const stop = useCallback(async () => {
+//     if (!cameraRef.current) return;
+//     try {
+//       await cameraRef.current.stopRecording();
+//     } catch {}
+//   }, []);
+
+//   const start = useCallback(async () => {
+//     if (!cameraRef.current || isRecording || startingRef.current) return;
+//     startingRef.current = true;
+
+//     try {
+//       setElapsed(0);
+//       setFilePath(undefined);
+//       setIsRecording(true);
+
+//       timeoutRef.current && clearTimeout(timeoutRef.current);
+//       timeoutRef.current = setTimeout(() => stop(), targetSec * 1000);
+
+//       await cameraRef.current.startRecording({
+//         fileType: 'mp4',
+//         videoCodec: 'h264',
+//         onRecordingFinished: video => {
+//           timeoutRef.current && clearTimeout(timeoutRef.current);
+//           setIsRecording(false);
+//           setFilePath(normalizePath(video?.path));
+//           startingRef.current = false;
+//         },
+//         onRecordingError: e => {
+//           timeoutRef.current && clearTimeout(timeoutRef.current);
+//           console.warn('Recording error:', e);
+//           setIsRecording(false);
+//           startingRef.current = false;
+//         },
+//       });
+//     } catch (e) {
+//       console.warn('Start recording error:', e);
+//       setIsRecording(false);
+//       startingRef.current = false;
+//     }
+//   }, [isRecording, targetSec, stop]);
+
+//   const reset = useCallback(() => {
+//     setElapsed(0);
+//     setFilePath(undefined);
+//     setIsRecording(false);
+//     timerRef.current && clearInterval(timerRef.current);
+//   }, []);
+
+//   const handleMainButton = useCallback(() => {
+//     if (filePath) return;
+//     isRecording ? stop() : start();
+//   }, [filePath, isRecording, stop, start]);
+
+//   const handleDone = useCallback(() => {
+//     if (filePath) {
+//       uploadVideoApi(filePath);
+//       onDone?.(filePath);
+//     }
+//   }, [filePath, uploadVideoApi, onDone]);
+
+//   const timeLabel = useMemo(() => {
+//     const m = Math.floor(elapsed / 60);
+//     const s = elapsed % 60;
+//     return `${m}:${s.toString().padStart(2, '0')}`;
+//   }, [elapsed]);
+
+//   const cameraActive = useMemo(
+//     () => isFocused && !filePath && permissionStatus === 'granted',
+//     [isFocused, filePath, permissionStatus],
+//   );
+
+//   // UI states
+//   if (permissionStatus === 'loading' || !device) {
+//     return (
+//       <SafeAreaView style={[styles.root, { justifyContent: 'center', alignItems: 'center' }]}>
+//         <Loader visible />
+//       </SafeAreaView>
+//     );
+//   }
+
+//   if (permissionStatus === 'denied') {
+//     return (
+//       <SafeAreaView
+//         style={[styles.root, { justifyContent: 'center', alignItems: 'center', padding: 24 }]}
+//       >
+//         <Text style={{ color: 'white', textAlign: 'center', marginBottom: 12 }}>
+//           Camera & microphone permission needed
+//         </Text>
+//         <Text style={{ color: TEXT_MUTED, textAlign: 'center' }}>
+//           Enable permission in system settings and reopen the app.
+//         </Text>
+//       </SafeAreaView>
+//     );
+//   }
+
+//   // ------- MAIN UI -------
+//   return (
+//     <SafeAreaView style={styles.root}>
+//       <Loader visible={visible} />
+
+//       {/* Camera or video preview */}
+//       <View style={styles.previewWrap}>
+//         {!filePath ? (
+//           <Camera
+//             ref={cameraRef}
+//             style={StyleSheet.absoluteFill}
+//             device={device}
+//             isActive={cameraActive}
+//             video
+//             audio
+//           />
+//         ) : (
+//           <Video
+//             source={{ uri: filePath }}
+//             style={StyleSheet.absoluteFill}
+//             resizeMode="cover"
+//             controls
+//             paused={false}
+//           />
+//         )}
+//       </View>
+
+//       {/* Controls */}
+//       <View style={styles.controls}>
+//         {/* Slider */}
+//         <View style={styles.sliderRow}>
+//           <Text style={styles.sliderEdge}>{strings.start}</Text>
+//           <Slider
+//             style={styles.slider}
+//             minimumValue={1}
+//             maximumValue={60}
+//             value={targetSec}
+//             step={1}
+//             minimumTrackTintColor={NEON}
+//             maximumTrackTintColor="rgba(255,255,255,0.2)"
+//             thumbTintColor={NEON}
+//             onValueChange={setTargetSec}
+//             disabled={isRecording || !!filePath}
+//           />
+//           <Text style={styles.sliderEdge}>1 Min</Text>
+//         </View>
+
+//         {/* Record / Reset */}
+//         <View style={styles.recordGroup}>
+//           <Text style={styles.resetLabel}>{filePath ? strings.retack : strings.reset}</Text>
+
+//           <Pressable
+//             onPress={handleMainButton}
+//             disabled={!!filePath}
+//             style={({ pressed }) => [
+//               styles.recordBtnOuter,
+//               pressed && !filePath && { opacity: 0.85 },
+//               (isRecording || filePath) && {
+//                 borderColor: filePath ? Color.theme1 : Color.Red,
+//               },
+//             ]}
+//           >
+//             <View
+//               style={[
+//                 styles.recordBtnInner,
+//                 (isRecording || filePath) && {
+//                   backgroundColor: filePath ? Color.theme1 : Color.Red,
+//                 },
+//               ]}
+//             />
+//           </Pressable>
+
+//           <Pressable onPress={reset} style={styles.smallCircleBtn}>
+//             <Ionicons name="refresh" size={20} color="white" />
+//           </Pressable>
+//         </View>
+
+//         {/* Done */}
+//         <Pressable
+//           style={[styles.doneBtn, { opacity: filePath ? 1 : 0.5 }]}
+//           disabled={!filePath}
+//           onPress={handleDone}
+//         >
+//           <Text style={styles.doneText}>{strings.done}</Text>
+//         </Pressable>
+
+//         {/* Timer */}
+//         <Text style={styles.timerText}>
+//           {isRecording ? 'Recording… ' : filePath ? 'Saved • ' : ''}
+//           {timeLabel}
+//         </Text>
+//       </View>
+//     </SafeAreaView>
+//   );
+// };
+
+// export default memo(RecordVideoScreen);
+
+// const styles = StyleSheet.create({
+//   root: {
+//     flex: 1,
+//     backgroundColor: BG,
+//   },
+//   previewWrap: {
+//     height: '50%',
+//     backgroundColor: '#111',
+//     overflow: 'hidden',
+//     borderBottomLeftRadius: scale(14),
+//     borderBottomRightRadius: scale(14),
+//   },
+//   controls: {
+//     flex: 1,
+//     paddingHorizontal: scale(18),
+//     paddingTop: verticalScale(12),
+//   },
+//   sliderRow: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     gap: scale(10),
+//   },
+//   slider: { flex: 1 },
+//   sliderEdge: {
+//     color: TEXT_MUTED,
+//     fontSize: moderateScale(12),
+//     width: scale(44),
+//     textAlign: 'center',
+//   },
+//   recordGroup: {
+//     marginTop: verticalScale(10),
+//     marginBottom: verticalScale(18),
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   resetLabel: {
+//     color: TEXT_MUTED,
+//     marginBottom: verticalScale(6),
+//   },
+//   recordBtnOuter: {
+//     width: CIRCLE,
+//     height: CIRCLE,
+//     borderRadius: CIRCLE / 2,
+//     borderWidth: 3,
+//     borderColor: NEON,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     backgroundColor: '#121420',
+//   },
+//   recordBtnInner: {
+//     width: CIRCLE - 22,
+//     height: CIRCLE - 22,
+//     borderRadius: (CIRCLE - 22) / 2,
+//     backgroundColor: '#FFFFFF',
+//   },
+//   smallCircleBtn: {
+//     position: 'absolute',
+//     right: scale(24),
+//     top: verticalScale(18),
+//     width: scale(38),
+//     height: scale(38),
+//     borderRadius: scale(19),
+//     backgroundColor: 'rgba(255,255,255,0.12)',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   doneBtn: {
+//     marginTop: 8,
+//     backgroundColor: NEON,
+//     borderRadius: 28,
+//     height: 52,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   doneText: {
+//     color: '#0B0D16',
+//     fontSize: 18,
+//     fontWeight: '600',
+//   },
+//   timerText: {
+//     marginTop: 10,
+//     textAlign: 'center',
+//     color: TEXT_MUTED,
+//   },
+// });
+
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Camera, useCameraDevice } from 'react-native-vision-camera';
 import Video from 'react-native-video';
@@ -383,8 +739,7 @@ const RecordVideoScreen = ({ defaultTargetSec = 60, onDone }) => {
 
   // ====================================== End =================================== //
 
-  const normalizePath = p =>
-    p ? (p.startsWith('file://') ? p : `file://${p}`) : undefined;
+  const normalizePath = p => (p ? (p.startsWith('file://') ? p : `file://${p}`) : undefined);
 
   const stop = useCallback(async () => {
     if (!cameraRef.current) return;
@@ -403,10 +758,7 @@ const RecordVideoScreen = ({ defaultTargetSec = 60, onDone }) => {
       setIsRecording(true);
 
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(
-        () => stop(),
-        Math.max(1, targetSec) * 1000,
-      );
+      timeoutRef.current = setTimeout(() => stop(), Math.max(1, targetSec) * 1000);
 
       await cameraRef.current.startRecording({
         fileType: 'mp4', // prefers MP4 container (iOS & Android on recent versions)
@@ -464,12 +816,7 @@ const RecordVideoScreen = ({ defaultTargetSec = 60, onDone }) => {
 
   if (!device || !hasPermission) {
     return (
-      <SafeAreaView
-        style={[
-          styles.root,
-          { alignItems: 'center', justifyContent: 'center' },
-        ]}
-      >
+      <SafeAreaView style={[styles.root, { alignItems: 'center', justifyContent: 'center' }]}>
         <Loader />
       </SafeAreaView>
     );
@@ -522,9 +869,7 @@ const RecordVideoScreen = ({ defaultTargetSec = 60, onDone }) => {
         </View>
 
         <View style={styles.recordGroup}>
-          <Text style={styles.resetLabel}>
-            {filePath ? strings.retack : strings.reset}
-          </Text>
+          <Text style={styles.resetLabel}>{filePath ? strings.retack : strings.reset}</Text>
 
           <Pressable
             onPress={handleMainButton}

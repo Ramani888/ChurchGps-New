@@ -28,15 +28,10 @@ import ToastMessage from '../../../utils/ToastMessage';
 import Loader from '../../../utils/Loader';
 
 const DropdownItem = memo(({ label, value, selected, onSelect }) => {
-  const onPress = useCallback(() => {
-    onSelect(value);
-  }, [onSelect, value]);
   return (
     <View style={styles.dropdownItemStyle}>
-      <CheckBox onPress={onPress} isChecked={value === selected} checkboxColor={Color.theme1} />
-      <Text style={styles.checkboxTitleStyle} onPress={onPress}>
-        {label}
-      </Text>
+      <CheckBox isChecked={value === selected} checkboxColor={Color.theme1} pressable={false} />
+      <Text style={styles.checkboxTitleStyle}>{label}</Text>
     </View>
   );
 });
@@ -51,7 +46,6 @@ const CreateGatheringScreen = () => {
   const [locationImageType, setLocationImageType] = useState('');
   const [selectMile, setSelectMile] = useState('');
   const [groupPicture, setGroupPicture] = useState({});
-  console.log('groupPicture', groupPicture);
 
   const sheetRef = useRef();
 
@@ -135,7 +129,7 @@ const CreateGatheringScreen = () => {
       { distance: '10 miles' },
       { distance: '25 miles' },
     ],
-    [],
+    [strings],
   );
 
   // ======================================== Api ======================================== //
@@ -270,38 +264,19 @@ const CreateGatheringScreen = () => {
   };
 
   const renderDenominationItem = useCallback(
-    item => (
-      <DropdownItem
-        label={item.label}
-        value={item.value}
-        selected={denomination}
-        onSelect={setDenomination}
-      />
-    ),
+    item => <DropdownItem label={item.label} value={item.value} selected={denomination} />,
     [denomination],
   );
 
   const renderProtestantItem = useCallback(
     item => (
-      <DropdownItem
-        label={item.label}
-        value={item.value}
-        selected={protestantDenominations}
-        onSelect={setProtestantDenominations}
-      />
+      <DropdownItem label={item.label} value={item.value} selected={protestantDenominations} />
     ),
     [protestantDenominations],
   );
 
   const renderOtherDenominationItem = useCallback(
-    item => (
-      <DropdownItem
-        label={item.label}
-        value={item.value}
-        selected={otherDenomination}
-        onSelect={setOtherDenomination}
-      />
-    ),
+    item => <DropdownItem label={item.label} value={item.value} selected={otherDenomination} />,
     [otherDenomination],
   );
 
@@ -470,6 +445,7 @@ const CreateGatheringScreen = () => {
                           renderItem={renderDenominationItem}
                           setValue={v => {
                             keyboardDismiss();
+                            setDenomination(v);
                             setFieldValue('denomination', v);
                           }}
                           value={values.denomination}
@@ -484,6 +460,7 @@ const CreateGatheringScreen = () => {
                           renderItem={renderProtestantItem}
                           setValue={v => {
                             keyboardDismiss();
+                            setProtestantDenominations(v);
                             setFieldValue('protestantDenomination', v);
                           }}
                           value={values.protestantDenomination}
@@ -498,6 +475,7 @@ const CreateGatheringScreen = () => {
                           renderItem={renderOtherDenominationItem}
                           setValue={v => {
                             keyboardDismiss();
+                            setOtherDenomination(v);
                             setFieldValue('otherDenomination', v);
                           }}
                           value={values.otherDenomination}

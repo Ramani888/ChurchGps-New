@@ -20,8 +20,7 @@ export default {
   createPassword: 'Passwort erstellen',
   enterPassword: 'Passwort eingeben',
   confirmPassword: 'Passwort bestätigen',
-  termsAndCondition:
-    'Ich akzeptiere die Allgemeinen Geschäftsbedingungen & Datenschutz',
+  termsAndCondition: 'Ich akzeptiere die Allgemeinen Geschäftsbedingungen & Datenschutz',
   createAccount: 'Konto erstellen',
   dateOfView: 'Geburtsdatum',
   signupSuccessTitle: 'Registrierung erfolgreich!',
@@ -30,8 +29,7 @@ export default {
   emailRequired: 'E-Mail ist erforderlich',
   passwordMin: 'Mindestens 8 Zeichen',
   passwordRequired: 'Passwort ist erforderlich',
-  strongPassword:
-    'Mindestens 8 Zeichen mit Groß- und Kleinbuchstaben, Zahlen und Symbolen',
+  strongPassword: 'Mindestens 8 Zeichen mit Groß- und Kleinbuchstaben, Zahlen und Symbolen',
   passwordMustMatch: 'Passwörter müssen übereinstimmen',
   confirmPasswordRequired: 'Passwortbestätigung ist erforderlich',
   acceptTNC: 'Akzeptieren Sie die Allgemeinen Geschäftsbedingungen',
@@ -76,32 +74,25 @@ export default {
   messianicJew: 'Messianischer Jude',
   other: 'Andere',
   questionnaire: 'Fragebogen',
-  question1:
-    'Jesus ist Gott und existiert ewig mit dem Vater und dem Heiligen Geist.',
+  question1: 'Jesus ist Gott und existiert ewig mit dem Vater und dem Heiligen Geist.',
   question2: 'Gott ist ein Wesen in drei Personen (die Dreifaltigkeit).',
   question3:
     'Die Bibel ist von Gott inspiriert und die endgültige Autorität für Glauben und Praxis.',
   question4: 'Jesus ist körperlich von den Toten auferstanden.',
-  question5:
-    'Wir werden durch Gnade allein durch Glauben gerettet, nicht durch Werke.',
-  question6:
-    'Wahrer rettender Glaube führt zu einem Leben des Gehorsams gegenüber Gott.',
+  question5: 'Wir werden durch Gnade allein durch Glauben gerettet, nicht durch Werke.',
+  question6: 'Wahrer rettender Glaube führt zu einem Leben des Gehorsams gegenüber Gott.',
   question7: 'Himmel und Hölle sind reale, ewige Bestimmungen.',
-  question8:
-    'Menschen sterben einmal und stehen dann vor dem Gericht (keine Reinkarnation).',
-  question9:
-    'Die Zehn Gebote sind heute für Christen weiterhin moralisch bindend.',
+  question8: 'Menschen sterben einmal und stehen dann vor dem Gericht (keine Reinkarnation).',
+  question9: 'Die Zehn Gebote sind heute für Christen weiterhin moralisch bindend.',
   question10:
     'Es ist weiterhin ein Gebot für Christen, den Sabbat von Freitagabend bis Samstagabend zu halten.',
-  question11:
-    'Christen sollten heute die Gesetze von Mose in der Tora befolgen.',
+  question11: 'Christen sollten heute die Gesetze von Mose in der Tora befolgen.',
   question12:
     'Das levitische Priestertum, die Tempelopfer und die rituelle Beschneidung sind in Christus erfüllt und heute nicht mehr erforderlich.',
   question13:
     'Die Wassertaufe ist ein Gebot und muss erfolgen, wenn jemand sein Leben Christus gibt.',
   question14: 'Die Kindertaufe ist eine gültige Form der christlichen Taufe.',
-  question15:
-    'Das Abendmahl ist in erster Linie ein Gedenkakt (symbolische Erinnerung).',
+  question15: 'Das Abendmahl ist in erster Linie ein Gedenkakt (symbolische Erinnerung).',
   question16:
     'Alle geistlichen Gaben bestehen heute fort und sollten in der Kirche erwartet werden.',
   question17:
@@ -150,8 +141,7 @@ export default {
   autoRenewInfo: 'Erneuert sich monatlich automatisch. Jederzeit kündbar.',
   cancelSubscription: 'Abonnement kündigen',
   refferalBadges: 'Empfehlungsabzeichen',
-  refferalBottomsheetText:
-    'Empfehlungsabzeichen werden am Ende Ihres Profilnamens angezeigt.',
+  refferalBottomsheetText: 'Empfehlungsabzeichen werden am Ende Ihres Profilnamens angezeigt.',
   playCurrent: 'Aktuell abspielen',
   recordNew: 'Neu aufnehmen',
   introVideoInfotext:
@@ -169,4 +159,73 @@ export default {
   yes: 'Ja',
   no: 'Nein',
   skip: 'Überspringen',
+  undo: 'Rückgängig',
+  accountInfoText:
+    'Das Ausfüllen der folgenden Abschnitte hilft der Community, grundlegende Glaubensüberzeugungen schneller zu erkennen und das Benutzererlebnis zu verbessern.',
+  switch: 'Wechseln',
+  selectMode: 'Wähle den gewünschten Modus.',
+  local: 'Lokal',
+  online: 'Online',
+  confirm: 'Bestätigen',
+  saved: 'Gespeichert',
+  removed: 'Entfernt',
+  createGathering: 'Versammlung erstellen',
+  filter: 'Filter',
+  communityBoard: 'Community-Tafel',
+  createCommunityBoard: 'Community-Tafel erstellen',
+  create: 'Erstellen',
+  gathering: 'Versammlung',
+  music: 'Musik',
+  bibleStudy: 'Bibelstudium',
+  publicHelp: 'Öffentliche Hilfe',
+  fullService: 'Vollständiger Gottesdienst',
+  casual: 'Locker',
+  evangelize: 'Evangelisieren',
+  location: 'Standort',
+  outdors: 'Draußen',
+  home: 'Zuhause',
+  churchBuilding: 'Kirchengebäude',
+  other: 'Andere',
+  gatheringInfoText1: `Wenn mehrere ausgewählt werden, wird die erste Versammlung als Hauptsymbol im GPS angezeigt.`,
+  gatheringInfoText2: `Wähle Kirchengebäude nur, wenn du Teil der Gemeindeleitung bist. Präzise GPS-Daten sind erforderlich und nur erstellen, wenn du dich genau am Standort befindest.`,
+  description: 'Beschreibung',
+  descriptionPlaceholder: 'Gib eine kurze und detaillierte Zusammenfassung ein',
+  groupName: 'Gruppenname',
+  groupNamePlaceholder: 'Gib den Gruppennamen ein',
+  groupNameRequired: 'Gruppenname ist erforderlich',
+  groupPicture: 'Gruppenbild',
+  myPicture: 'Mein Bild',
+  locationType: 'Standorttyp',
+  precizeLocationTitle: 'Genauer Standort',
+  precizeLocationText:
+    '{title} – Zeigt deinen genauen Treffpunkt, damit andere dich leicht finden.',
+  approximateLocationTitle: 'Ungefährer Standort',
+  approximateLocationText: `{title} – Teilt nur deinen allgemeinen Bereich, um deine Privatsphäre zu schützen.`,
+  precize: 'Genau',
+  approximate: 'Ungefähr',
+  or: 'oder',
+  getLocationPermission: 'Standorterlaubnis einholen',
+  distancetext: 'Wähle einen Radius, damit andere deinen ungefähren Standort sehen können.',
+  openDirectionInMap: 'Route in Karte öffnen',
+  optional: 'Optional',
+  search: 'Suchen',
+  icons: 'Symbole',
+  infoHeadingText:
+    'Wir benutzen das Wort „Kirche“, um eine Gemeinschaft zu beschreiben, in der zwei oder mehr zusammenkommen – lokal oder online.',
+  musicInfoText:
+    'Treffe dich mit anderen zum Singen, Instrumente spielen und zur Anbetung durch Musik. Ideal für Chöre, Jam-Sessions oder Lobpreisteams.',
+  bibleStudyInfoText:
+    'Gruppendiskussionen, die sich auf gemeinsames Lernen der Bibel konzentrieren.',
+  publikHelpInfoText:
+    'Treffen, um der Gemeinschaft durch Outreach, Freiwilligendienst oder gute Taten zu helfen.',
+  fullServiceInfoText:
+    'Eine vollständige Gottesdiensterfahrung mit Anbetung, Lehre und Gemeinschaft.',
+  causalInfoText: 'Informelle Treffen wie Kaffee, Mahlzeiten oder soziale Zeit mit Gläubigen.',
+  evangalismInfoText:
+    'Gemeinsam hinausgehen, das Evangelium teilen, für andere beten und neue Menschen erreichen.',
+  gpsColor: 'GPS-Farben',
+  greenOutdors: 'Grün = Draußen',
+  yellowHome: 'Gelb = Zuhause oder Wohnung',
+  blueChurch: 'Blau = Kirchengebäude',
+  purpleOther: 'Lila = Andere',
 };

@@ -28,8 +28,7 @@ export default {
   emailRequired: 'El correo electrónico es obligatorio',
   passwordMin: 'Mínimo 8 caracteres',
   passwordRequired: 'La contraseña es obligatoria',
-  strongPassword:
-    'Mínimo 8 caracteres con mayúsculas, minúsculas, números y símbolos',
+  strongPassword: 'Mínimo 8 caracteres con mayúsculas, minúsculas, números y símbolos',
   passwordMustMatch: 'Las contraseñas deben coincidir',
   confirmPasswordRequired: 'La confirmación de la contraseña es obligatoria',
   acceptTNC: 'Aceptar los Términos y Condiciones',
@@ -74,20 +73,15 @@ export default {
   messianicJew: 'Judío mesiánico',
   other: 'Otro',
   questionnaire: 'Cuestionario',
-  question1:
-    'Jesús es Dios y existe eternamente con el Padre y el Espíritu Santo.',
+  question1: 'Jesús es Dios y existe eternamente con el Padre y el Espíritu Santo.',
   question2: 'Dios es un solo Ser en tres Personas (la Trinidad).',
-  question3:
-    'La Biblia es inspirada por Dios y es la autoridad final para la fe y la práctica.',
+  question3: 'La Biblia es inspirada por Dios y es la autoridad final para la fe y la práctica.',
   question4: 'Jesús resucitó físicamente de entre los muertos.',
   question5: 'Somos salvos por gracia mediante la fe solamente, no por obras.',
-  question6:
-    'La verdadera fe salvadora resulta en una vida de obediencia a Dios.',
+  question6: 'La verdadera fe salvadora resulta en una vida de obediencia a Dios.',
   question7: 'El cielo y el infierno son destinos reales y eternos.',
-  question8:
-    'Los humanos mueren una vez y luego enfrentan el juicio (no hay reencarnación).',
-  question9:
-    'Los Diez Mandamientos siguen siendo moralmente obligatorios para los cristianos hoy.',
+  question8: 'Los humanos mueren una vez y luego enfrentan el juicio (no hay reencarnación).',
+  question9: 'Los Diez Mandamientos siguen siendo moralmente obligatorios para los cristianos hoy.',
   question10:
     'Todavía es un mandamiento para los cristianos observar el sábado desde la puesta del sol del viernes hasta la puesta del sol del sábado.',
   question11: 'Los cristianos hoy deben seguir las leyes de Moisés en la Torá.',
@@ -96,8 +90,7 @@ export default {
   question13:
     'El bautismo en agua es un mandamiento y debe hacerse cuando una persona decide dar su vida a Cristo.',
   question14: 'El bautismo infantil es una forma válida de bautismo cristiano.',
-  question15:
-    'La Cena del Señor es principalmente un memorial (recuerdo simbólico).',
+  question15: 'La Cena del Señor es principalmente un memorial (recuerdo simbólico).',
   question16:
     'Todos los dones espirituales continúan hoy y deben esperarse normalmente en la iglesia.',
   question17:
@@ -106,8 +99,7 @@ export default {
   question19:
     'Habrá un reinado terrenal literal y físico de 1,000 años de Cristo (reino milenario).',
   question20: 'El reino milenario es un evento futuro.',
-  question21:
-    'Habrá un rapto pre-tribulación distinto del regreso visible de Cristo.',
+  question21: 'Habrá un rapto pre-tribulación distinto del regreso visible de Cristo.',
   save: 'Guardar',
   somethingWentWrong: 'Algo salió mal',
   logout: 'Cerrar sesión',
@@ -140,16 +132,13 @@ export default {
   informCommunityLanguage:
     'Selecciona los idiomas que puedes leer y escribir si deseas comunicarte en varios idiomas',
   cancelSubscriptionText1: 'Eliminar publicidad.',
-  cancelSubscriptionText2:
-    'El ícono se muestra al final de tu nombre de perfil.',
+  cancelSubscriptionText2: 'El ícono se muestra al final de tu nombre de perfil.',
   cancelSubscriptionText3:
     'Contribuye mensualmente para apoyar la aplicación. Todos los precios de suscripción ofrecen los mismos beneficios. Existen diferentes precios para quienes desean contribuir más.',
-  autoRenewInfo:
-    'Se renueva automáticamente cada mes. Cancela en cualquier momento.',
+  autoRenewInfo: 'Se renueva automáticamente cada mes. Cancela en cualquier momento.',
   cancelSubscription: 'Cancelar suscripción',
   refferalBadges: 'Insignias de referido',
-  refferalBottomsheetText:
-    'Las insignias de referido se muestran al final de tu nombre de perfil.',
+  refferalBottomsheetText: 'Las insignias de referido se muestran al final de tu nombre de perfil.',
   playCurrent: 'Reproducir actual',
   recordNew: 'Grabar nuevo',
   introVideoInfotext:
@@ -167,4 +156,71 @@ export default {
   yes: 'Sí',
   no: 'No',
   skip: 'Omitir',
+  undo: 'Deshacer',
+  accountInfoText:
+    'Completar las secciones a continuación ayuda a la comunidad a identificar rápidamente creencias doctrinales para una mejor experiencia.',
+  switch: 'Cambiar',
+  selectMode: 'Selecciona el modo que deseas.',
+  local: 'Local',
+  online: 'En línea',
+  confirm: 'Confirmar',
+  saved: 'Guardado',
+  removed: 'Eliminado',
+  createGathering: 'Crear Reunión',
+  filter: 'Filtro',
+  communityBoard: 'Tablón Comunitario',
+  createCommunityBoard: 'Crear Tablón Comunitario',
+  create: 'Crear',
+  gathering: 'Reunión',
+  music: 'Música',
+  bibleStudy: 'Estudio Bíblico',
+  publicHelp: 'Ayuda Pública',
+  fullService: 'Servicio Completo',
+  casual: 'Casual',
+  evangelize: 'Evangelizar',
+  location: 'Ubicación',
+  outdors: 'Aire libre',
+  home: 'Casa',
+  churchBuilding: 'Edificio de la Iglesia',
+  other: 'Otro',
+  gatheringInfoText1: `Si seleccionas varios, la primera reunión será el ícono principal mostrado en el GPS.`,
+  gatheringInfoText2: `Selecciona edificio de la iglesia solo si eres parte del liderazgo allí. Requiere GPS preciso y solo créalo si estás exactamente en el lugar.`,
+  description: 'Descripción',
+  descriptionPlaceholder: 'Ingresa un resumen breve y detallado',
+  groupName: 'Nombre del Grupo',
+  groupNamePlaceholder: 'Ingresa el nombre del grupo',
+  groupNameRequired: 'El nombre del grupo es obligatorio',
+  groupPicture: 'Foto del Grupo',
+  myPicture: 'Mi Foto',
+  locationType: 'Tipo de Ubicación',
+  precizeLocationTitle: 'Ubicación Precisa',
+  precizeLocationText:
+    '{title} - Muestra el lugar exacto de encuentro para que otros te encuentren fácilmente.',
+  approximateLocationTitle: 'Ubicación Aproximada',
+  approximateLocationText: `{title} - Comparte solo tu área general para mantener privacidad.`,
+  precize: 'Precisa',
+  approximate: 'Aproximada',
+  or: 'o',
+  getLocationPermission: 'Obtener Permiso de Ubicación',
+  distancetext: 'Selecciona un radio de distancia para que otros vean tu ubicación aproximada.',
+  openDirectionInMap: 'Abrir Direcciones en el Mapa',
+  optional: 'Opcional',
+  search: 'Buscar',
+  icons: 'Íconos',
+  infoHeadingText:
+    'Usamos la palabra "iglesia" para referirnos a una comunidad donde dos o más se reúnen, local o en línea.',
+  musicInfoText:
+    'Reúnanse para cantar, tocar instrumentos y adorar a través de la música. Ideal para coros, sesiones de música o equipos de adoración.',
+  bibleStudyInfoText: 'Discusión grupal enfocada en aprender y crecer juntos en la Escritura.',
+  publikHelpInfoText:
+    'Reunirse para servir a la comunidad mediante alcance, voluntariado o actos de bondad.',
+  fullServiceInfoText: 'Una experiencia completa de servicio con adoración, enseñanza y comunión.',
+  causalInfoText: 'Reuniones informales como café, comidas o tiempo social con creyentes.',
+  evangalismInfoText:
+    'Salir juntos para compartir el evangelio, orar por otros y conectar con nuevas personas.',
+  gpsColor: 'Colores GPS',
+  greenOutdors: 'Verde = Aire libre',
+  yellowHome: 'Amarillo = Casa o apartamento',
+  blueChurch: 'Azul = Edificio de la iglesia',
+  purpleOther: 'Morado = Otro',
 };
