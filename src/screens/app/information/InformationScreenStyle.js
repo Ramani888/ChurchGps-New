@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
     color: Color.Gray,
     textAlign: 'center',
   },
-  communityBoardImage: {
+  imageStyle: {
     width: scale(24),
     height: scale(24),
     alignSelf: 'center',
@@ -83,4 +83,24 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.interSemiBold,
     color: Color.Black,
   },
+  modeInfoText: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    color: Color.Black,
+    textAlign: 'center',
+    lineHeight: verticalScale(18),
+    width: scale(370),
+    marginTop: verticalScale(5),
+  },
+  locationScanningImage: { width: scale() },
+  safetyDiscalimerView: { flexDirection: 'row', alignItems: 'flex-start', gap: scale(10) },
+  safetyDiscalimerText: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    color: Color.Black,
+    lineHeight: verticalScale(18),
+    marginBottom: verticalScale(30),
+    width: scale(315),
+  },
+  safetyDisclaimer: { fontSize: moderateScale(16), marginTop: verticalScale(25) },
 });

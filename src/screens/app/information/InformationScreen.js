@@ -13,10 +13,12 @@ import CustomButton from '../../../custome/CustomButton';
 import { Fonts } from '../../../utils/Font';
 import { useNavigation } from '@react-navigation/native';
 import ToggleSwitch from 'toggle-switch-react-native';
+import CheckBox from '../../../custome/CustomCheckbox';
 
 const InformationScreen = () => {
   const navigation = useNavigation();
   const [onToggle, setOnToggle] = useState(true);
+  const [safetyDisclaimer, setSafetyDisclaimer] = useState(false);
 
   const data = useMemo(
     () => [
@@ -125,7 +127,7 @@ const InformationScreen = () => {
         <Text style={[styles.infoheadingText, { fontSize: moderateScale(16) }]}>
           {strings.communityBoard}
         </Text>
-        <Image source={Images.gridcon} style={styles.communityBoardImage} tintColor={Color.Black} />
+        <Image source={Images.gridcon} style={styles.imageStyle} tintColor={Color.Black} />
         <Text style={styles.communityBoardText}>{strings.communityboardText}</Text>
 
         <Text style={styles.noteText}>{strings.note}</Text>
@@ -139,6 +141,32 @@ const InformationScreen = () => {
             size="large"
             onToggle={() => setOnToggle(!onToggle)}
           />
+
+          <Text style={styles.modeInfoText}>{strings.localModeInfoText}</Text>
+          <Text style={styles.modeInfoText}>{strings.onlineModeInfoText}</Text>
+        </View>
+
+        <Text style={[styles.infoheadingText, { fontSize: moderateScale(16) }]}>
+          {strings.locationScanning}
+        </Text>
+        <Image source={Images.locationScanningImage} style={styles.imageStyle} />
+
+        <Text style={[styles.modeInfoText, { width: scale(350) }]}>
+          {strings.locationScanningText}
+        </Text>
+
+        <Text style={[styles.infoheadingText, styles.safetyDisclaimer]}>
+          {strings.safetyDisclaimer}
+        </Text>
+        <View style={styles.safetyDiscalimerView}>
+          <CheckBox
+            onPress={() => setSafetyDisclaimer(!safetyDisclaimer)}
+            isChecked={safetyDisclaimer}
+            checkboxColor={Color.theme1}
+            checkboxSize={scale(24)}
+            size={scale(18.5)}
+          />
+          <Text style={styles.safetyDiscalimerText}>{strings.safetyDiscalimerText}</Text>
         </View>
 
         <CustomButton

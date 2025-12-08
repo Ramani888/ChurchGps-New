@@ -252,6 +252,15 @@ export default {
 ask for money)`,
   close: 'Close',
   searchMode: 'Search Modes',
+  localModeInfoText: 'Local Mode: Discover and connect with people and meetups near your area.',
+  onlineModeInfoText:
+    'Online Mode: Find and join global gatherings in an online environment from anywhere.',
+  locationScanning: 'Location Scanning',
+  locationScanningText:
+    'Quickly scan your area to discover meetups near you instantly. Easily turn GPS On or Off to save battery and protect your privacy.',
+  safetyDisclaimer: 'Location & Safety Disclaimer',
+  safetyDiscalimerText:
+    'I understand that sharing my location and meeting others through this app is at my own risk. I am responsible for my safety, and the app is not liable for any loss, harm, or injury resulting from my interactions or meetups.',
 };
 
 // userNameRequired; biji language ma baki che
