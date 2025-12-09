@@ -262,6 +262,14 @@ ask for money)`,
   safetyDiscalimerText:
     'I understand that sharing my location and meeting others through this app is at my own risk. I am responsible for my safety, and the app is not liable for any loss, harm, or injury resulting from my interactions or meetups.',
   mile: 'Mile',
+  enterDescription: 'Enter description',
+  optional: 'Optional',
+  communityBoardNote1:
+    'Please select your denomination. This helps others find posts and communities that match their preferences.',
+  communityBoardNote2:
+    'You can only create one post at a time. Your post will get automatically deleted and removed after 5 days',
+  addGroup: 'Add Group',
+  yourGroup: 'Your Group',
 };
 
 // userNameRequired; biji language ma baki che
