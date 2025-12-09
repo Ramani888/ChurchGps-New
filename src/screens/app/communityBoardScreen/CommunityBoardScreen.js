@@ -101,7 +101,7 @@ const CommunityBoardScreen = () => {
             <View style={styles.firstlineView}>
               <Text style={styles.titleStyle}>{item?.title}</Text>
               <Text style={[styles.textStyle, { color: Color.Gray }]}>{item?.dateTime}</Text>
-              <Pressable onPress={() => openBottomsheet()}>
+              <Pressable onPress={() => {}}>
                 <Image source={Images.threedotCircleImage} style={styles.image} />
               </Pressable>
             </View>
@@ -126,7 +126,7 @@ const CommunityBoardScreen = () => {
         gradientTitle={strings.communityBoard}
         titleFontSize={scale(31)}
         infoIcon={Images.infoIcon}
-        infoIconPress={() => {}}
+        infoIconPress={() => openBottomsheet()}
       />
 
       <View>
