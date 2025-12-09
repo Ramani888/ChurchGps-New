@@ -1,5 +1,5 @@
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import GradientText from '../GradientText';
 import Color from '../../utils/Color';
 import { moderateScale, scale, verticalScale } from '../../utils/Responsive';
@@ -41,7 +41,7 @@ const AddGroupBottomsheetContent = () => {
   );
 };
 
-export default AddGroupBottomsheetContent;
+export default memo(AddGroupBottomsheetContent);
 
 const styles = StyleSheet.create({
   container: { marginHorizontal: scale(15) },

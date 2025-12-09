@@ -1,5 +1,5 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native';
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useRef } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './CommunityBoardScreenStyle';
 import CustomHeader from '../../../custome/CustomHeader';
@@ -9,9 +9,12 @@ import { useNavigation } from '@react-navigation/native';
 import { screenName } from '../../../utils/NavigationKey';
 import { Images } from '../../../utils/Images';
 import Color from '../../../utils/Color';
+import CustomBottomsheet from '../../../custome/CustomBottomsheet';
+import CommunityBoardInformationContent from '../../../components/bottomSheetContent/CommunityBoardInformationContent';
 
 const CommunityBoardScreen = () => {
   const navigation = useNavigation();
+  const sheetRef = useRef();
 
   const data = [
     {
@@ -81,6 +84,14 @@ const CommunityBoardScreen = () => {
     },
   ];
 
+  const openBottomsheet = useCallback(() => {
+    sheetRef.current.show();
+  }, []);
+
+  const closeBottomsheet = useCallback(() => {
+    sheetRef.current.hide();
+  }, []);
+
   const renderList = useCallback(({ item, index }) => {
     return (
       <View>
@@ -90,7 +101,9 @@ const CommunityBoardScreen = () => {
             <View style={styles.firstlineView}>
               <Text style={styles.titleStyle}>{item?.title}</Text>
               <Text style={[styles.textStyle, { color: Color.Gray }]}>{item?.dateTime}</Text>
-              <Image source={Images.threedotCircleImage} style={styles.image} />
+              <Pressable onPress={() => openBottomsheet()}>
+                <Image source={Images.threedotCircleImage} style={styles.image} />
+              </Pressable>
             </View>
             <Text style={[styles.textStyle, styles.desc]}>{item?.desc}</Text>
             <View style={styles.distanceView}>
@@ -131,6 +144,14 @@ const CommunityBoardScreen = () => {
       >
         <Image source={Images.plusFabIcon} style={styles.fabIcon} />
       </Pressable>
+
+      <CustomBottomsheet
+        ref={sheetRef}
+        onBottomsheetClose={closeBottomsheet}
+        bottomSheetContent={
+          <CommunityBoardInformationContent closeBottomsheet={closeBottomsheet} />
+        }
+      />
     </SafeAreaView>
   );
 };

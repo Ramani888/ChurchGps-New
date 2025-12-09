@@ -270,6 +270,9 @@ ask for money)`,
     'You can only create one post at a time. Your post will get automatically deleted and removed after 5 days',
   addGroup: 'Add Group',
   yourGroup: 'Your Group',
+  information: 'Information',
+  communityInformationText:
+    'Community Board filter settings are the same you set in the map filter section (Distance location & Denomination)',
 };
 
 // userNameRequired; biji language ma baki che
