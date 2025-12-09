@@ -261,6 +261,7 @@ ask for money)`,
   safetyDisclaimer: 'Location & Safety Disclaimer',
   safetyDiscalimerText:
     'I understand that sharing my location and meeting others through this app is at my own risk. I am responsible for my safety, and the app is not liable for any loss, harm, or injury resulting from my interactions or meetups.',
+  mile: 'Mile',
 };
 
 // userNameRequired; biji language ma baki che

@@ -1,88 +1,110 @@
-import { Image, Pressable, Text, View } from 'react-native';
-import React, { memo, useMemo } from 'react';
+import { FlatList, Image, Pressable, Text, View } from 'react-native';
+import React, { memo, useCallback } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './CommunityBoardScreenStyle';
 import CustomHeader from '../../../custome/CustomHeader';
-import { Images } from '../../../utils/Images';
 import { strings } from '../../../language/strings';
-import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
-import CustomTabView from '../../../custome/CustomTabView';
-import Color from '../../../utils/Color';
-import CommunityBoardOnline from '../../../components/communityBoard/CommunityBoardOnline';
-import CommunityBoardLocal from '../../../components/communityBoard/CommunityBoardLocal';
+import { scale, verticalScale } from '../../../utils/Responsive';
 import { useNavigation } from '@react-navigation/native';
 import { screenName } from '../../../utils/NavigationKey';
-
-const Online = memo(() => (
-  <View style={styles.tabComponent}>
-    <CommunityBoardOnline />
-  </View>
-));
-
-const Local = memo(() => (
-  <View style={styles.tabComponent}>
-    <CommunityBoardLocal />
-  </View>
-));
+import { Images } from '../../../utils/Images';
+import Color from '../../../utils/Color';
 
 const CommunityBoardScreen = () => {
   const navigation = useNavigation();
 
-  const tabDims = useMemo(
-    () => ({
-      height: verticalScale(48),
-      borderRadius: scale(24),
-      indicatorPillRadius: scale(24),
-      indicatorHeight: verticalScale(42),
-      indicatorWidth: scale(168),
-      containerHorizontal: scale(16),
-      containerTop: verticalScale(8),
-      tabPaddingX: scale(14),
-      paddingHorizontal: scale(10),
-      gap: scale(12),
-      labelFontSize: moderateScale(12),
-      width: scale(343),
-    }),
-    [],
-  );
+  const data = [
+    {
+      image:
+        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
+      title: 'Allison Gouse',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      dateTime: 'July 3, 5:15 AM',
+      distance: 2,
+    },
 
-  const tabs = useMemo(
-    () => [
-      { key: 'online', title: strings.online, component: Online },
-      { key: 'local', title: strings.local, component: Local },
-    ],
-    [strings],
-  );
+    {
+      image:
+        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
+      title: 'Allison Gouse',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      dateTime: 'July 3, 5:15 AM',
+      distance: 2,
+    },
+    {
+      image:
+        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
+      title: 'Allison Gouse',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      dateTime: 'July 3, 5:15 AM',
+      distance: 2,
+    },
+    {
+      image:
+        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
+      title: 'Allison Gouse',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      dateTime: 'July 3, 5:15 AM',
+      distance: 2,
+    },
+    {
+      image:
+        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
+      title: 'Allison Gouse',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      dateTime: 'July 3, 5:15 AM',
+      distance: 2,
+    },
+    {
+      image:
+        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
+      title: 'Allison Gouse',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      dateTime: 'July 3, 5:15 AM',
+      distance: 2,
+    },
+    {
+      image:
+        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
+      title: 'Allison Gouse',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      dateTime: 'July 3, 5:15 AM',
+      distance: 2,
+    },
+    {
+      image:
+        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
+      title: 'Allison Gouse',
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      dateTime: 'July 3, 5:15 AM',
+      distance: 2,
+    },
+  ];
 
-  const tabBar = useMemo(
-    () => ({
-      height: tabDims.height,
-      borderRadius: tabDims.borderRadius,
-      indicatorPillRadius: tabDims.indicatorPillRadius,
-      backgroundColor: 'transparent',
-      containerStyle: {
-        marginHorizontal: tabDims.containerHorizontal,
-        marginTop: tabDims.containerTop,
-        backgroundColor: Color.rgba.Gray[2],
-        overflow: 'hidden',
-        width: tabDims.width,
-      },
-      scrollEnabled: false,
-      paddingHorizontal: tabDims.paddingHorizontal,
-      gap: tabDims.gap,
-      activeColor: Color.Black,
-      inactiveColor: Color.Black,
-      indicatorColor: Color.White,
-      indicatorHeight: tabDims.indicatorHeight,
-      indicatorWidth: tabDims.indicatorWidth,
-      tabStyle: { paddingHorizontal: tabDims.tabPaddingX },
-      labelStyle: {
-        fontSize: tabDims.labelFontSize,
-      },
-      leftImage: <Image source={Images.checkIcon} style={styles.tabIcon} />,
-    }),
-    [tabDims],
-  );
+  const renderList = useCallback(({ item, index }) => {
+    return (
+      <View>
+        <View style={styles.listContainer}>
+          <Image source={{ uri: item?.image }} style={styles.profileImage} />
+          <View>
+            <View style={styles.firstlineView}>
+              <Text style={styles.titleStyle}>{item?.title}</Text>
+              <Text style={[styles.textStyle, { color: Color.Gray }]}>{item?.dateTime}</Text>
+              <Image source={Images.threedotCircleImage} style={styles.image} />
+            </View>
+            <Text style={[styles.textStyle, styles.desc]}>{item?.desc}</Text>
+            <View style={styles.distanceView}>
+              <Image source={Images.locationIconImage} style={styles.image} />
+              <Text style={[styles.textStyle, { color: Color.Black }]}>
+                {item?.distance} {strings.mile}
+              </Text>
+            </View>
+          </View>
+        </View>
+        {data?.length !== index + 1 && <View style={styles.devider} />}
+      </View>
+    );
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -90,15 +112,19 @@ const CommunityBoardScreen = () => {
         backArrowVisible
         gradientTitle={strings.communityBoard}
         titleFontSize={scale(31)}
-        infoIcon={Images.informationIcon}
+        infoIcon={Images.infoIcon}
         infoIconPress={() => {}}
       />
-      <CustomTabView
-        tabs={tabs}
-        initialIndex={0}
-        swipeEnabled
-        tabBar={tabBar}
-      />
+
+      <View>
+        <FlatList
+          data={data}
+          renderItem={renderList}
+          contentContainerStyle={styles.flatlistView}
+          //   contentContainerStyle={{ paddingBottom: verticalScale(120) }}
+        />
+      </View>
+
       <Pressable
         style={styles.fabButton}
         onPress={() => navigation.navigate(screenName.createCommunityBoard)}

@@ -78,4 +78,6 @@ export const Images = {
   referalImage4: require('../assets/image/referalImage4.png'),
   referalImage5: require('../assets/image/referalImage5.png'),
   locationScanningImage: require('../assets/image/locationScanningImage.png'),
+  threedotCircleImage: require('../assets/image/threedotCircleImage.png'),
+  locationIconImage: require('../assets/image/locationIconImage.png'),
 };

@@ -14,7 +14,7 @@ const CreateCommunityBoardScreen = () => {
         backArrowVisible
         firstLineTitle={strings.create}
         gradientTitle={strings.communityBoard}
-        infoIcon={Images.informationIcon}
+        infoIcon={Images.infoIcon}
         titleViewStyle={{ marginTop: verticalScale(55) }}
         infoIconPress={() => {}}
       />
