@@ -16,7 +16,7 @@ import { styles } from './SignupStyle';
 import { Formik } from 'formik';
 import Loader from '../../../utils/Loader';
 import ToastMessage from '../../../utils/ToastMessage';
-import { sendOtp, signUp, SignupSchema, verifyOtp } from './UseSignup';
+import { sendOtp, signUp, SignupSchema, verifyOtp, googleSignUp } from './UseSignup';
 import CheckBox from '../../../custome/CustomCheckbox';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { GestureScrollView } from 'react-native-gesture-handler';
@@ -27,9 +27,13 @@ import DatePickerBottomsheetContent from '../../../components/bottomSheetContent
 import { Images } from '../../../utils/Images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUserDetail } from '../../../context/UserContext';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { screenName } from '../../../utils/NavigationKey';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUpScreen = () => {
   const otpRef = useRef();
+  const navigation = useNavigation();
 
   const [isLoading, setIsLoading] = useState(false);
   const [eighteenPlus, setEighteenPlus] = useState(false);
@@ -108,6 +112,46 @@ const SignUpScreen = () => {
       setIsLoading(false);
     }
   }, []);
+
+  const handleGoogleSignUp = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      
+      const { data } = await GoogleSignin.signIn();
+      const { user } = data;
+      
+      if (!user?.id || !user?.email) {
+        ToastMessage('Failed to get Google user info');
+        return;
+      }
+      
+      const signUpResponse = await googleSignUp(
+        user.id,
+        user.email,
+        user.name,
+        user.photo
+      );
+      
+      if (signUpResponse?.success) {
+        goToNext(signUpResponse.user);
+      } else {
+        ToastMessage(signUpResponse?.message || strings.somethingWentWrong);
+      }
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) return;
+      
+      const errorMessages = {
+        [statusCodes.IN_PROGRESS]: 'Sign-in already in progress',
+        [statusCodes.PLAY_SERVICES_NOT_AVAILABLE]: 'Google Play Services not available or outdated',
+      };
+      
+      const errorMsg = errorMessages[error.code] || error.message || strings.somethingWentWrong;
+      ToastMessage(errorMsg);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [navigation, signIn, goToNext]);
 
   const goToNext = useCallback(
     async user => {
@@ -223,7 +267,7 @@ const SignUpScreen = () => {
                   borderColor={Color.Gray}
                   leftIcon={<Image source={Images.googleIcon} style={styles.leftIconStyle} />}
                   gap={scale(5)}
-                  onPress={() => {}}
+                  onPress={handleGoogleSignUp}
                 />
                 <CustomButton
                   title={strings.signUpWithApple}
