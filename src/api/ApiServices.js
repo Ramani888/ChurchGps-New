@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const baseURL = 'https://church-gps-backend.vercel.app/api/';
-const baseURL = 'http://192.168.1.4:3010/api/'; // --- IGNORE ---
+const baseURL = 'https://church-gps-backend.vercel.app/api/';
+// const baseURL = 'http://192.168.1.4:3010/api/'; // --- IGNORE ---
 // const baseURL = 'https://churchgps.com/api/'; // --- IGNORE ---
 
 const api = axios.create({
