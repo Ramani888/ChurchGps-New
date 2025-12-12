@@ -12,7 +12,7 @@ import CustomButton from '../../../custome/CustomButton';
 import { styles } from './LoginStyle';
 import { screenName } from '../../../utils/NavigationKey';
 import { useNavigation } from '@react-navigation/native';
-import { login, LoginSchema } from './useLogin';
+import { login, LoginSchema, googleLogin } from './useLogin';
 import ToastMessage from '../../../utils/ToastMessage';
 import { Formik } from 'formik';
 import Loader from '../../../utils/Loader';
@@ -21,6 +21,7 @@ import { GestureScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Images } from '../../../utils/Images';
 import { useUserDetail } from '../../../context/UserContext';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -36,7 +37,6 @@ const LoginScreen = () => {
         email: values?.email,
         password: values?.password,
       });
-      console.log('response', response);
       if (response?.success) {
         goToNext(response?.user?.token, response?.user, response?.message);
       }
@@ -66,6 +66,45 @@ const LoginScreen = () => {
     },
     [navigation],
   );
+
+  const handleGoogleSignIn = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      
+      const { data } = await GoogleSignin.signIn();
+      const { user } = data;
+      
+      if (!user?.id || !user?.email) {
+        ToastMessage('Failed to get Google user info');
+        return;
+      }
+      
+      const loginResponse = await googleLogin(
+        user.id,
+        user.email,
+        user.name,
+        user.photo
+      );
+      
+      if (loginResponse?.success) {
+        goToNext(loginResponse.user.token, loginResponse.user, loginResponse.message);
+      } else {
+        ToastMessage(loginResponse?.message || strings.somethingWentWrong);
+      }
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) return;
+      
+      const errorMessages = {
+        [statusCodes.IN_PROGRESS]: 'Sign-in already in progress',
+        [statusCodes.PLAY_SERVICES_NOT_AVAILABLE]: 'Google Play Services not available or outdated',
+      };
+      
+      ToastMessage(errorMessages[error.code] || error.message || strings.somethingWentWrong);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const validationSchema = useMemo(() => LoginSchema(), []);
 
@@ -181,7 +220,7 @@ const LoginScreen = () => {
                     />
                   }
                   gap={scale(5)}
-                  onPress={() => {}}
+                  onPress={handleGoogleSignIn}
                 />
                 <CustomButton
                   title={strings.signinWithApple}

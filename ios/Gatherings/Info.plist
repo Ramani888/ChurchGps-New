@@ -105,5 +105,19 @@
     </dict>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false />
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <!-- TODO: Replace with your iOS OAuth client's reversed client ID -->
+          <!-- Get it from Google Cloud Console > Credentials > iOS client > Client ID -->
+          <!-- Example: com.googleusercontent.apps.123456789-abcdefg -->
+          <string>com.googleusercontent.apps.415886254123-stf7dli9kerntg4rn77ce1mh0ts3ctfb.apps.googleusercontent.com</string>
+        </array>
+      </dict>
+    </array>
   </dict>
 </plist>

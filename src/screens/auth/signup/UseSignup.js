@@ -17,6 +17,18 @@ export const signUp = async body => {
   return apiPost(Api.signUp, body);
 };
 
+export const googleSignUp = async (googleId, email, displayName, profilePicture) => {
+  // Send Google Sign-Up data to backend with authProvider flag
+  return apiPost(Api.signUp, {
+    authProvider: 'google',
+    googleId,
+    email,
+    displayName,
+    profilePicture,
+    acceptedTnC: true,
+  });
+};
+
 // ======================================= signup schema ========================================= //
 
 export const SignupSchema = () => {

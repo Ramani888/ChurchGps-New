@@ -9,8 +9,14 @@ import AppProvider from './src/context/AppProvider';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { flushQueue, navigationRef } from './src/navigation/NavigationService';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { configureGoogleSignIn } from './src/config/googleSignIn';
 
 const App = () => {
+  useEffect(() => {
+    // Initialize Google Sign-In configuration on app start
+    configureGoogleSignIn();
+  }, []);
+
   const errorHandler = (error, stackTrace) => {
     console.log('Logged error:', error);
     console.log('stackTrace', stackTrace);

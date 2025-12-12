@@ -9,6 +9,17 @@ export const login = async body => {
   return apiPost(Api.login, body);
 };
 
+export const googleLogin = async (googleId, email, displayName, profilePicture) => {
+  // Send Google Sign-In data to backend with authProvider flag
+  return apiPost(Api.login, { 
+    authProvider: 'google',
+    googleId,
+    email,
+    displayName,
+    profilePicture
+  });
+};
+
 // ======================================= loginSchema ========================================= //
 
 export const LoginSchema = () => {
