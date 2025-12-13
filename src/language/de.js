@@ -228,4 +228,38 @@ export default {
   yellowHome: 'Gelb = Zuhause oder Wohnung',
   blueChurch: 'Blau = Kirchengebäude',
   purpleOther: 'Lila = Andere',
+  approximateLocation: 'Ungefährer Standort',
+  preciseLocation: 'Genauer Standort',
+  approximateLocationDesc:
+    'Teilt nur deine allgemeine Umgebung, um deine Privatsphäre zu schützen. Du kannst später einen genauen Standort teilen, sobald Vertrauen aufgebaut oder Pläne festgelegt sind.',
+  communityboardText:
+    'Das Community-Board ist ein gemeinsames Schwarzes Brett, auf dem jeder posten und sich vernetzen kann. Nutze es, um über neue Veranstaltungen in deiner Umgebung zu informieren, Dienstleistungen anzubieten oder zu finden, um Gebet oder Unterstützung zu bitten, Lernpartner zu suchen, eine Taufe zu planen, andere zu lockeren Treffen einzuladen oder jemanden zum gemeinsamen Musizieren und Lobpreis zu finden. Es ist auch ein Ort für Zeugnisse, Ankündigungen oder die Organisation von Gruppenaktionen. Egal ob du Hilfe suchst, Hilfe anbietest oder andere einlädst – das Board hält die Community verbunden.',
+  enterProfileName: 'Profilnamen eingeben',
+  enterBio: 'Bio eingeben',
+  note: '(Hinweis: Das Community-Board darf nicht genutzt werden, um Geld zu erbitten)',
+  close: 'Schließen',
+  searchMode: 'Suchmodi',
+  localModeInfoText:
+    'Lokaler Modus: Entdecke und verbinde dich mit Menschen und Treffen in deiner Nähe.',
+  onlineModeInfoText:
+    'Online-Modus: Finde und nimm an globalen Treffen in einer Online-Umgebung von überall teil.',
+  locationScanning: 'Standortsuche',
+  locationScanningText:
+    'Durchsuche schnell deine Umgebung, um sofort Treffen in deiner Nähe zu entdecken. GPS kann einfach ein- oder ausgeschaltet werden, um Akku zu sparen und deine Privatsphäre zu schützen.',
+  safetyDisclaimer: 'Standort- & Sicherheitshinweis',
+  safetyDiscalimerText:
+    'Ich verstehe, dass das Teilen meines Standorts und Treffen mit anderen über diese App auf eigenes Risiko erfolgt. Ich bin für meine eigene Sicherheit verantwortlich, und die App haftet nicht für Verluste, Schäden oder Verletzungen.',
+  mile: 'Meile',
+  enterDescription: 'Beschreibung eingeben',
+  optional: 'Optional',
+  communityBoardNote1:
+    'Bitte wähle deine Konfession aus. Dies hilft anderen, passende Beiträge und Communities zu finden.',
+  communityBoardNote2:
+    'Du kannst jeweils nur einen Beitrag erstellen. Dein Beitrag wird nach 5 Tagen automatisch gelöscht.',
+  addGroup: 'Gruppe hinzufügen',
+  yourGroup: 'Deine Gruppe',
+  information: 'Informationen',
+  communityInformationText:
+    'Die Filtereinstellungen des Community-Boards entsprechen denen im Kartenfilter (Entfernung & Konfession).',
+  descriptionRequired: 'Beschreibung erforderlich',
 };

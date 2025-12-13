@@ -216,4 +216,35 @@ export default {
   yellowHome: '노랑 = 집 또는 아파트',
   blueChurch: '파랑 = 교회 건물',
   purpleOther: '보라 = 기타',
+  approximateLocation: '대략적인 위치',
+  preciseLocation: '정확한 위치',
+  approximateLocationDesc:
+    '개인정보 보호를 위해 일반적인 지역만 공유합니다. 신뢰가 쌓이거나 계획이 확정되면 나중에 정확한 위치를 공유할 수 있습니다.',
+  communityboardText:
+    '커뮤니티 보드는 누구나 게시하고 연결할 수 있는 공유 게시판입니다. 지역 내 새로운 이벤트 소식 공유, 서비스 제공 또는 찾기, 기도나 지원 요청, 스터디 파트너 찾기, 세례 희망자 모집, 가벼운 모임 초대, 함께 찬양하고 연주할 사람 찾기 등에 활용할 수 있습니다. 또한 간증 공유, 기회 공지, 그룹 아웃리치 조직에도 사용할 수 있습니다. 도움을 구하든, 제공하든, 사람들을 모으든 커뮤니티를 연결해 줍니다.',
+  enterProfileName: '프로필 이름 입력',
+  enterBio: '소개글 입력',
+  note: '(주의: 커뮤니티 보드를 통해 금전 요청을 하지 마세요)',
+  close: '닫기',
+  searchMode: '검색 모드',
+  localModeInfoText: '로컬 모드: 내 주변의 사람들과 모임을 발견하고 연결합니다.',
+  onlineModeInfoText: '온라인 모드: 어디서든 참여할 수 있는 글로벌 모임을 찾고 참여할 수 있습니다.',
+  locationScanning: '위치 스캔',
+  locationScanningText:
+    '주변 지역을 빠르게 스캔하여 가까운 모임을 즉시 발견합니다. GPS를 쉽게 켜거나 끌 수 있어 배터리를 절약하고 개인정보를 보호할 수 있습니다.',
+  safetyDisclaimer: '위치 및 안전 면책 조항',
+  safetyDiscalimerText:
+    '본 앱을 통해 위치를 공유하고 다른 사람을 만나는 것은 본인의 책임임을 이해합니다. 개인의 안전은 스스로 책임지며, 상호작용이나 모임으로 인한 손실, 피해, 부상에 대해 앱은 책임지지 않습니다.',
+  mile: '마일',
+  enterDescription: '설명 입력',
+  optional: '선택 사항',
+  communityBoardNote1:
+    '교단을 선택해 주세요. 이는 다른 사용자가 선호에 맞는 게시물과 커뮤니티를 찾는 데 도움이 됩니다.',
+  communityBoardNote2:
+    '한 번에 하나의 게시물만 작성할 수 있습니다. 게시물은 5일 후 자동으로 삭제됩니다.',
+  addGroup: '그룹 추가',
+  yourGroup: '내 그룹',
+  information: '정보',
+  communityInformationText: '커뮤니티 보드 필터 설정은 지도 필터 섹션(거리 및 교단)과 동일합니다.',
+  descriptionRequired: '설명이 필요합니다',
 };

@@ -213,4 +213,36 @@ export default {
   yellowHome: '黄 = 自宅またはアパート',
   blueChurch: '青 = 教会建物',
   purpleOther: '紫 = その他',
+  approximateLocation: 'おおよその位置情報',
+  preciseLocation: '正確な位置情報',
+  approximateLocationDesc:
+    'プライバシーを守るため、一般的なエリアのみを共有します。信頼関係が築けた後や予定が確定した後に、正確な位置を共有できます。',
+  communityboardText:
+    'コミュニティボードは、誰でも投稿・交流できる共有掲示板です。地域の新しいイベント情報の共有、サービスの提供や検索、祈りや支援の依頼、勉強仲間探し、洗礼を受けたい方の募集、気軽な集まりへの招待、賛美や演奏を一緒にする仲間探しなどにご利用ください。証しの共有、機会のお知らせ、グループアウトリーチの企画にも使えます。助けを求める時も、提供する時も、集まりに招待する時も、コミュニティをつなぐ場所です。',
+  enterProfileName: 'プロフィール名を入力',
+  enterBio: '自己紹介を入力',
+  note: '(注意：コミュニティボードで金銭の要求はしないでください)',
+  close: '閉じる',
+  searchMode: '検索モード',
+  localModeInfoText: 'ローカルモード：近くの人や集まりを見つけてつながります。',
+  onlineModeInfoText:
+    'オンラインモード：どこからでも参加できるグローバルな集まりを探して参加できます。',
+  locationScanning: '位置情報スキャン',
+  locationScanningText:
+    '周辺を素早くスキャンして、近くの集まりを即座に発見します。GPSは簡単にオン・オフでき、バッテリー節約とプライバシー保護が可能です。',
+  safetyDisclaimer: '位置情報・安全に関する免責事項',
+  safetyDiscalimerText:
+    'このアプリを通じて位置情報を共有し、他の人と会うことは自己責任であることを理解しています。自身の安全は自分で管理し、いかなる損失・被害・怪我についてもアプリは責任を負いません。',
+  mile: 'マイル',
+  enterDescription: '説明を入力',
+  optional: '任意',
+  communityBoardNote1:
+    '所属する教派を選択してください。これにより、他の人が自分に合った投稿やコミュニティを見つけやすくなります。',
+  communityBoardNote2: '作成できる投稿は一度に1件のみです。投稿は5日後に自動的に削除されます。',
+  addGroup: 'グループを追加',
+  yourGroup: 'あなたのグループ',
+  information: '情報',
+  communityInformationText:
+    'コミュニティボードのフィルター設定は、マップフィルター（距離・教派）と同じです。',
+  descriptionRequired: '説明は必須です',
 };

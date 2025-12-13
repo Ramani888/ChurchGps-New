@@ -5,9 +5,9 @@ import { apiPost } from '../../../api/ApiServices';
 
 export const CreateGatheringSchema = () => {
   return Yup.object().shape({
-    description: Yup.string().trim().required('Description is required'),
+    description: Yup.string().trim().required(strings.descriptionRequired),
     groupName: Yup.string().trim().required(strings.groupNameRequired),
-    denomination: Yup.string(),
+    denomination: Yup.string().trim().required(strings.denominationRequired),
     protestantDenomination: Yup.string().trim(),
     otherDenomination: Yup.string().trim(),
   });

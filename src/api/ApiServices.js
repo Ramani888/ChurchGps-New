@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'https://church-gps-backend.vercel.app/api/';
-// const baseURL = 'http://192.168.1.4:3010/api/'; // --- IGNORE ---
-// const baseURL = 'https://churchgps.com/api/'; // --- IGNORE ---
+// const baseURL = 'https://church-gps-backend.vercel.app/api/';
+const baseURL = 'https://churchgps.com/api/';
 
 const api = axios.create({
   baseURL: baseURL,
@@ -20,6 +19,10 @@ api.interceptors.request.use(
       } else {
         delete config.headers.Authorization;
       }
+
+      //   console.log('base url', config.baseURL);
+      //   const fullUrl = `${config.baseURL}${config.url}`;
+      //   console.log('➡️ API Request:', config.method?.toUpperCase(), fullUrl);
     } catch (err) {
       console.log('Token read error:', err);
     }
@@ -42,9 +45,7 @@ export const apiGet = async (url, params = {}, config = {}) => {
 // POST
 export const apiPost = async (url, body = {}, config = {}) => {
   try {
-    const headers = isFormData(body)
-      ? { 'Content-Type': 'multipart/form-data' }
-      : {};
+    const headers = isFormData(body) ? { 'Content-Type': 'multipart/form-data' } : {};
     const response = await api.post(url, body, {
       ...config,
       headers: { ...headers, ...config.headers },
@@ -58,9 +59,7 @@ export const apiPost = async (url, body = {}, config = {}) => {
 // PUT
 export const apiPut = async (url, body = {}, config = {}) => {
   try {
-    const headers = isFormData(body)
-      ? { 'Content-Type': 'multipart/form-data' }
-      : {};
+    const headers = isFormData(body) ? { 'Content-Type': 'multipart/form-data' } : {};
     const response = await api.put(url, body, {
       ...config,
       headers: { ...headers, ...config.headers },

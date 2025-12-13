@@ -10,4 +10,7 @@ export const Api = {
   uploadIntroVideo: 'profile/video/upload',
   gathering: 'gathering',
   uploadGroupPicture: 'gathering/profile/upload',
+  saveGathering: '/gathering/save',
+  removeAllGetherings: 'gathering/save/all',
+  getSavedGatherings: 'gathering/save',
 };

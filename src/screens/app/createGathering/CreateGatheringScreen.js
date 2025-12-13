@@ -143,7 +143,6 @@ const CreateGatheringScreen = () => {
 
       try {
         const response = await uploadGroupPictureApi(gatheringId, body);
-        console.log('group picture api response', response);
 
         if (response?.success) {
           ToastMessage(message);
@@ -180,7 +179,6 @@ const CreateGatheringScreen = () => {
 
         // 1. Create gathering
         const response = await createGatheringApi(body);
-        console.log('create gathering response:', response);
 
         if (!response?.success) {
           ToastMessage(response?.message);
@@ -239,7 +237,6 @@ const CreateGatheringScreen = () => {
   };
 
   const handleFormSubmit = values => {
-    console.log('Formik values:', values);
     getCurrentLocation(values);
   };
 

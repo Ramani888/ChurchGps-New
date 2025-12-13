@@ -228,4 +228,38 @@ export default {
   yellowHome: 'Jaune = Maison ou Appartement',
   blueChurch: 'Bleu = Église',
   purpleOther: 'Violet = Autre',
+  approximateLocation: 'Localisation approximative',
+  preciseLocation: 'Localisation précise',
+  approximateLocationDesc:
+    'Partage uniquement votre zone générale pour protéger votre vie privée. Vous pourrez partager une localisation précise plus tard une fois la confiance établie ou les plans confirmés.',
+  communityboardText:
+    'Le tableau communautaire est un espace partagé où chacun peut publier et se connecter. Utilisez-le pour partager des mises à jour sur de nouveaux événements locaux, proposer ou trouver des services, demander des prières ou du soutien, chercher des partenaires d’étude, exprimer le désir de se faire baptiser, inviter à des rencontres informelles ou trouver quelqu’un pour jouer et adorer ensemble. C’est aussi un lieu pour partager des témoignages, annoncer des opportunités ou organiser des actions de groupe. Que vous cherchiez de l’aide, en offriez ou invitiez les autres, le tableau garde la communauté connectée.',
+  enterProfileName: 'Entrer le nom du profil',
+  enterBio: 'Entrer la biographie',
+  note: '(Note : N’utilisez pas le tableau communautaire pour demander de l’argent)',
+  close: 'Fermer',
+  searchMode: 'Modes de recherche',
+  localModeInfoText:
+    'Mode local : Découvrez et connectez-vous avec des personnes et événements proches de vous.',
+  onlineModeInfoText:
+    'Mode en ligne : Trouvez et rejoignez des rassemblements mondiaux dans un environnement en ligne, où que vous soyez.',
+  locationScanning: 'Analyse de localisation',
+  locationScanningText:
+    'Analysez rapidement votre zone pour découvrir instantanément des rencontres à proximité. Activez ou désactivez le GPS facilement pour économiser la batterie et protéger votre vie privée.',
+  safetyDisclaimer: 'Avertissement de localisation et de sécurité',
+  safetyDiscalimerText:
+    'Je comprends que le partage de ma localisation et les rencontres via cette application se font à mes propres risques. Je suis responsable de ma sécurité, et l’application n’est pas responsable des pertes, dommages ou blessures.',
+  mile: 'Mile',
+  enterDescription: 'Entrer la description',
+  optional: 'Optionnel',
+  communityBoardNote1:
+    'Veuillez sélectionner votre dénomination. Cela aide les autres à trouver des publications et communautés correspondantes.',
+  communityBoardNote2:
+    'Vous ne pouvez créer qu’une seule publication à la fois. Votre publication sera automatiquement supprimée après 5 jours.',
+  addGroup: 'Ajouter un groupe',
+  yourGroup: 'Votre groupe',
+  information: 'Informations',
+  communityInformationText:
+    'Les paramètres de filtre du tableau communautaire sont identiques à ceux définis dans la section filtres de la carte (distance et dénomination).',
+  descriptionRequired: 'La description est requise',
 };

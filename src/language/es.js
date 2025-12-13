@@ -223,4 +223,37 @@ export default {
   yellowHome: 'Amarillo = Casa o apartamento',
   blueChurch: 'Azul = Edificio de la iglesia',
   purpleOther: 'Morado = Otro',
+  approximateLocation: 'Ubicación aproximada',
+  preciseLocation: 'Ubicación precisa',
+  approximateLocationDesc:
+    'Comparte solo tu área general para proteger tu privacidad. Puedes compartir una ubicación precisa más adelante cuando haya confianza o planes confirmados.',
+  communityboardText:
+    'El tablón comunitario es un sistema compartido donde cualquiera puede publicar y conectar. Úsalo para compartir actualizaciones sobre nuevos eventos en tu zona, ofrecer o encontrar servicios, pedir oración o apoyo, buscar compañeros de estudio, expresar interés en el bautismo, invitar a encuentros casuales o encontrar a alguien para tocar música y adorar juntos. También es un espacio para compartir testimonios, anunciar oportunidades u organizar actividades grupales. Ya sea que busques ayuda, la ofrezcas o invites a otros, el tablón mantiene a la comunidad conectada.',
+  enterProfileName: 'Ingresar nombre de perfil',
+  enterBio: 'Ingresar biografía',
+  note: '(Nota: No utilices el tablón comunitario para pedir dinero)',
+  close: 'Cerrar',
+  searchMode: 'Modos de búsqueda',
+  localModeInfoText: 'Modo local: Descubre y conéctate con personas y encuentros cercanos.',
+  onlineModeInfoText:
+    'Modo en línea: Encuentra y únete a reuniones globales en un entorno virtual desde cualquier lugar.',
+  locationScanning: 'Escaneo de ubicación',
+  locationScanningText:
+    'Escanea rápidamente tu área para descubrir encuentros cercanos al instante. Activa o desactiva el GPS fácilmente para ahorrar batería y proteger tu privacidad.',
+  safetyDisclaimer: 'Aviso de ubicación y seguridad',
+  safetyDiscalimerText:
+    'Entiendo que compartir mi ubicación y reunirme con otros a través de esta aplicación es bajo mi propio riesgo. Soy responsable de mi seguridad, y la aplicación no se hace responsable por pérdidas, daños o lesiones.',
+  mile: 'Milla',
+  enterDescription: 'Ingresar descripción',
+  optional: 'Opcional',
+  communityBoardNote1:
+    'Por favor selecciona tu denominación. Esto ayuda a otros a encontrar publicaciones y comunidades afines.',
+  communityBoardNote2:
+    'Solo puedes crear una publicación a la vez. Tu publicación se eliminará automáticamente después de 5 días.',
+  addGroup: 'Agregar grupo',
+  yourGroup: 'Tu grupo',
+  information: 'Información',
+  communityInformationText:
+    'La configuración de filtros del tablón comunitario es la misma que en la sección de filtros del mapa (distancia y denominación).',
+  descriptionRequired: 'La descripción es obligatoria',
 };
