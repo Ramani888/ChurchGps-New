@@ -1,13 +1,15 @@
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import React, { memo, useCallback } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { styles } from './MessageScreenStyle';
-import CustomHeader from '../../../custome/CustomHeader';
-import { strings } from '../../../language/strings';
-import { Images } from '../../../utils/Images';
+import { styles } from './UserScreenStyle';
+import CustomHeader from '../../../../custome/CustomHeader';
+import { strings } from '../../../../language/strings';
+import { Images } from '../../../../utils/Images';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-import Color from '../../../utils/Color';
-import { scale } from '../../../utils/Responsive';
+import Color from '../../../../utils/Color';
+import { scale } from '../../../../utils/Responsive';
+import { useNavigation } from '@react-navigation/native';
+import { screenName } from '../../../../utils/NavigationKey';
 
 const TabButton = ({ image }) => {
   return (
@@ -18,6 +20,8 @@ const TabButton = ({ image }) => {
 };
 
 const MessageScreen = () => {
+  const navigation = useNavigation();
+
   const userData = [
     {
       image:
@@ -53,14 +57,19 @@ const MessageScreen = () => {
 
   const renderUser = useCallback(({ item }) => {
     return (
-      <View style={styles.itemContainer}>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() =>
+          navigation.navigate(screenName.chatScreen, { userName: item?.title, image: item?.image })
+        }
+      >
         <Image source={{ uri: item?.image }} style={styles.userImage} />
         <View>
           <Text style={styles.title}>{item?.title}</Text>
           <Text style={styles.message}>{item?.message}</Text>
         </View>
         <MaterialDesignIcons name="dots-vertical" size={scale(24)} color={Color.Black} />
-      </View>
+      </TouchableOpacity>
     );
   }, []);
 

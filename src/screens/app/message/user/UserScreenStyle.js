@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import Color from '../../../utils/Color';
-import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
-import { Fonts } from '../../../utils/Font';
+import Color from '../../../../utils/Color';
+import { moderateScale, scale, verticalScale } from '../../../../utils/Responsive';
+import { Fonts } from '../../../../utils/Font';
 
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Color.White },
@@ -21,9 +21,13 @@ export const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(25),
     gap: scale(10),
     // backgroundColor: 'red',
+  },
+  itemWrapper: {
+    borderRadius: scale(12), // choose any radius you want
+    overflow: 'hidden', // ✅ IMPORTANT for ripple clipping
   },
   userImage: {
     width: scale(46),

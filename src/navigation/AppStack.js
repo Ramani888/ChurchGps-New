@@ -28,6 +28,7 @@ const AppStack = () => {
         component={screen.CreateCommunityBoardScreen}
       />
       <Stack.Screen name={screenName.friendsScreen} component={screen.FriendsScreen} />
+      <Stack.Screen name={screenName.chatScreen} component={screen.Chatscreen} />
     </Stack.Navigator>
   );
 };

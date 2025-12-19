@@ -33,8 +33,7 @@ const App = () => {
         <NavigationContainer ref={navigationRef} onReady={flushQueue}>
           <AppProvider>
             <GestureHandlerRootView>
-              {/* <AppNav /> */}
-              <FriendsScreen />
+              <AppNav />
             </GestureHandlerRootView>
           </AppProvider>
         </NavigationContainer>

@@ -6,7 +6,8 @@ import FriendsScreen from '../screens/app/friendsScreen/FriendsScreen';
 import InformationScreen from '../screens/app/information/InformationScreen';
 import IntroVideo from '../screens/app/introVideo/IntroVideo';
 import MapScreen from '../screens/app/map/MapScreen';
-import MessageScreen from '../screens/app/message/MessageScreen';
+import Chatscreen from '../screens/app/message/chat/Chatscreen';
+import UserScreen from '../screens/app/message/user/UserScreen';
 import ProfileScreen from '../screens/app/profile/ProfileScreen';
 import RecordVideoScreen from '../screens/app/recordVideo/RecordVideoScreen';
 import TermsAndPrivacy from '../screens/app/termsAndPrivacy/TermsAndPrivacy';
@@ -36,9 +37,10 @@ export const screenName = {
   filter: 'Filter',
   createCommunityBoard: 'CreateCommunityBoard',
   friendsScreen: 'FriendsScreen',
+  chatScreen: 'ChatScreen',
 
   // TabScreen
-  message: 'Message',
+  user: 'User',
   map: 'Map',
   communityBoard: 'CommunityBoard',
   profile: 'Profile',
@@ -62,9 +64,10 @@ export const screen = {
   FilterScreen,
   CreateCommunityBoardScreen,
   FriendsScreen,
+  Chatscreen,
 
   // Tabscreen
-  MessageScreen,
+  UserScreen,
   MapScreen,
   CommunityBoardScreen,
   ProfileScreen,

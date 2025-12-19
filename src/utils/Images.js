@@ -187,4 +187,6 @@ export const Images = {
   chatLocationIcon: require('../assets/image/chatLocation.png'),
   chatNotificationIcon: require('../assets/image/chatNotification.png'),
   chatMultiuserIcon: require('../assets/image/chatMultiuser.png'),
+  calenderIcon: require('../assets/image/calender.png'),
+  pinIcon: require('../assets/image/pinIcon.png'),
 };
