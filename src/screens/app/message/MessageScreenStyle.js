@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     borderColor: Color.rgba.Gray[1],
   },
   tabImages: { width: scale(24), height: scale(24) },
+  flatlist: { marginTop: verticalScale(10) },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',

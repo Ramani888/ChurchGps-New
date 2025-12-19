@@ -2,6 +2,7 @@ import CommunityBoardScreen from '../screens/app/communityBoardScreen/CommunityB
 import CreateCommunityBoardScreen from '../screens/app/createCommunityBoard/CreateCommunityBoardScreen';
 import CreateGatheringScreen from '../screens/app/createGathering/CreateGatheringScreen';
 import FilterScreen from '../screens/app/filter/FilterScreen';
+import FriendsScreen from '../screens/app/friendsScreen/FriendsScreen';
 import InformationScreen from '../screens/app/information/InformationScreen';
 import IntroVideo from '../screens/app/introVideo/IntroVideo';
 import MapScreen from '../screens/app/map/MapScreen';
@@ -34,6 +35,7 @@ export const screenName = {
   createGathering: 'CreateGathering',
   filter: 'Filter',
   createCommunityBoard: 'CreateCommunityBoard',
+  friendsScreen: 'FriendsScreen',
 
   // TabScreen
   message: 'Message',
@@ -59,6 +61,7 @@ export const screen = {
   CreateGatheringScreen,
   FilterScreen,
   CreateCommunityBoardScreen,
+  FriendsScreen,
 
   // Tabscreen
   MessageScreen,

@@ -10,11 +10,14 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { flushQueue, navigationRef } from './src/navigation/NavigationService';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { configureGoogleSignIn } from './src/config/googleSignIn';
+import FriendsScreen from './src/screens/app/friendsScreen/FriendsScreen';
+import LottieSplashScreen from 'react-native-lottie-splash-screen';
 
 const App = () => {
   useEffect(() => {
     // Initialize Google Sign-In configuration on app start
     configureGoogleSignIn();
+    LottieSplashScreen.hide();
   }, []);
 
   const errorHandler = (error, stackTrace) => {
@@ -25,16 +28,13 @@ const App = () => {
 
   return (
     <ErrorBoundary onError={errorHandler}>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       <KeyboardProvider>
         <NavigationContainer ref={navigationRef} onReady={flushQueue}>
           <AppProvider>
             <GestureHandlerRootView>
-              <AppNav />
+              {/* <AppNav /> */}
+              <FriendsScreen />
             </GestureHandlerRootView>
           </AppProvider>
         </NavigationContainer>

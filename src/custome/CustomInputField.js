@@ -1,11 +1,4 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Image,
-} from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import React, { memo } from 'react';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { moderateScale, scale, verticalScale } from '../utils/Responsive';
@@ -71,20 +64,13 @@ const CustomInputField = ({
       <View style={styles.inputWrapper}>
         {leftIcon && LeftIconComponent ? (
           <View style={styles.leftSlot}>
-            <LeftIconComponent
-              name={leftIconName}
-              size={leftIconSize}
-              color={leftIconColor}
-            />
+            <LeftIconComponent name={leftIconName} size={leftIconSize} color={leftIconColor} />
           </View>
         ) : null}
 
         {leftImage ? (
           <View style={styles.leftSlot}>
-            <Image
-              source={leftImage}
-              style={[styles.iconImage, leftImageStyle]}
-            />
+            <Image source={leftImage} style={[styles.iconImage, leftImageStyle]} />
           </View>
         ) : null}
 
@@ -121,20 +107,13 @@ const CustomInputField = ({
 
           {rightImage ? (
             <View style={styles.rightItem}>
-              <Image
-                source={rightImage}
-                style={[styles.iconImage, rightImageStyle]}
-              />
+              <Image source={rightImage} style={[styles.iconImage, rightImageStyle]} />
             </View>
           ) : null}
         </View>
         {eyeIcon && (
           <Pressable onPress={() => setEye(!eye)} style={styles.eyeIcon}>
-            <Ionicons
-              name={eye ? 'eye' : 'eye-off-sharp'}
-              size={scale(20)}
-              color={Color.Black}
-            />
+            <Ionicons name={eye ? 'eye' : 'eye-off-sharp'} size={scale(20)} color={Color.Black} />
           </Pressable>
         )}
         {errors && touched && (

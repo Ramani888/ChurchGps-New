@@ -275,6 +275,8 @@ ask for money)`,
   descriptionRequired: 'Description is required',
 
   chat: 'Chat',
+  friends: 'Friends',
+  enterUsernameOrRefferal: 'Enter @username or Referral Code',
 };
 
 // userNameRequired; biji language ma baki che

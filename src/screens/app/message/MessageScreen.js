@@ -75,7 +75,7 @@ const MessageScreen = () => {
           <TabButton image={Images.chatMultiuserIcon} />
         </View>
 
-        <FlatList data={userData} renderItem={renderUser} />
+        <FlatList data={userData} renderItem={renderUser} style={styles.flatlist} />
       </View>
     </SafeAreaView>
   );
