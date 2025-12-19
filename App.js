@@ -10,20 +10,16 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { flushQueue, navigationRef } from './src/navigation/NavigationService';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { configureGoogleSignIn } from './src/config/googleSignIn';
-import FriendsScreen from './src/screens/app/friendsScreen/FriendsScreen';
-import LottieSplashScreen from 'react-native-lottie-splash-screen';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const App = () => {
   useEffect(() => {
-    // Initialize Google Sign-In configuration on app start
     configureGoogleSignIn();
-    LottieSplashScreen.hide();
   }, []);
 
   const errorHandler = (error, stackTrace) => {
     console.log('Logged error:', error);
     console.log('stackTrace', stackTrace);
-    // send to Sentry, Firebase, etc.
   };
 
   return (
@@ -33,7 +29,9 @@ const App = () => {
         <NavigationContainer ref={navigationRef} onReady={flushQueue}>
           <AppProvider>
             <GestureHandlerRootView>
-              <AppNav />
+              <MenuProvider>
+                <AppNav />
+              </MenuProvider>
             </GestureHandlerRootView>
           </AppProvider>
         </NavigationContainer>
