@@ -182,4 +182,9 @@ export const Images = {
   videoImage: require('../assets/image/videoImage.png'),
 
   whatsappIcon: require('../assets/image/whatsapp.png'),
+
+  // chat
+  chatLocationIcon: require('../assets/image/chatLocation.png'),
+  chatNotificationIcon: require('../assets/image/chatNotification.png'),
+  chatMultiuserIcon: require('../assets/image/chatMultiuser.png'),
 };

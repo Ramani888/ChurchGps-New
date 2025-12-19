@@ -273,6 +273,8 @@ ask for money)`,
   communityInformationText:
     'Community Board filter settings are the same you set in the map filter section (Distance location & Denomination)',
   descriptionRequired: 'Description is required',
+
+  chat: 'Chat',
 };
 
 // userNameRequired; biji language ma baki che
