@@ -9,7 +9,6 @@ export default {
   login1: 'Login',
   signup: 'Sign Up',
   welcome: 'Welcome',
-  createSearchAndConnect: 'Create, Search and Connect',
   signupWithGoogle: 'Sign Up With Google',
   signUpWithApple: 'Sign Up With Apple',
 

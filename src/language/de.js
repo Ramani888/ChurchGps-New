@@ -7,7 +7,6 @@ export default {
   login1: 'Login',
   signup: 'Registrieren',
   welcome: 'Willkommen',
-  createSearchAndConnect: 'Erstellen, Suchen und Verbinden',
   signupWithGoogle: 'Mit Google registrieren',
   signUpWithApple: 'Mit Apple registrieren',
   selectLanguage: 'Sprache auswählen',

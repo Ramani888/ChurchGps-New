@@ -6,7 +6,6 @@ export default {
   login1: 'ログイン',
   signup: 'サインアップ',
   welcome: 'ようこそ',
-  createSearchAndConnect: '作成、検索、接続',
   signupWithGoogle: 'Googleでサインアップ',
   signUpWithApple: 'Appleでサインアップ',
   selectLanguage: '言語を選択',

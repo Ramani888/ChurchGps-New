@@ -251,7 +251,6 @@ const SignUpScreen = () => {
             setFieldTouched,
           }) => (
             <View style={styles.contentContainer}>
-              <Text style={styles.subTitle}>{strings.createSearchAndConnect}</Text>
 
               <View style={styles.btnView}>
                 <CustomButton

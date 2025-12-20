@@ -7,7 +7,6 @@ export default {
   login1: 'تسجيل الدخول',
   signup: 'إنشاء حساب',
   welcome: 'مرحباً',
-  createSearchAndConnect: 'أنشئ، ابحث واتصل',
   signupWithGoogle: 'التسجيل عبر جوجل',
   signUpWithApple: 'التسجيل عبر آبل',
   selectLanguage: 'اختر اللغة',
