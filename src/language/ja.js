@@ -1,6 +1,6 @@
 // Japanese
 export default {
-  churchGps: 'CHURCH GPS',
+  churchGps: 'チャーチGPS',
   createOrJoinString: 'あなたの信仰をナビゲート - 作成。発見。会う。地元やオンラインでどこでもクリスチャンとつながる。',
   login: 'ログイン',
   login1: 'ログイン',

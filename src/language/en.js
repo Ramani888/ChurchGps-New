@@ -3,7 +3,7 @@
 export default {
   // auth
 
-  churchGps: 'CHRUCH GPS',
+  churchGps: 'CHURCH GPS',
   createOrJoinString: 'Navigate your faith - Create. Find. Meet. Connect With Christians Anywhere, Locally or Online.',
   login: 'Log In',
   login1: 'Login',

@@ -1,7 +1,7 @@
 // Arabic
 
 export default {
-  churchGps: 'CHURCH GPS',
+  churchGps: 'كنيسة GPS',
   createOrJoinString: 'اهتد بإيمانك - أنشئ. اعثر. التق. تواصل مع المسيحيين في أي مكان، محليًا أو عبر الإنترنت.',
   login: 'تسجيل الدخول',
   login1: 'تسجيل الدخول',

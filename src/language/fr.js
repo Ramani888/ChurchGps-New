@@ -1,7 +1,7 @@
 // French
 
 export default {
-  churchGps: 'CHURCH GPS',
+  churchGps: 'ÉGLISE GPS',
   createOrJoinString: 'Naviguez votre foi - Créer. Trouver. Rencontrer. Connectez-vous avec des chrétiens partout, localement ou en ligne.',
   login: 'Se connecter',
   login1: 'Connexion',
