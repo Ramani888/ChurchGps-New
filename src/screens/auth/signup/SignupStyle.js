@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   emailView: {
     marginTop: verticalScale(5),
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     marginBottom: verticalScale(-7),
   },
