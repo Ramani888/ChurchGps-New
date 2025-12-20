@@ -1,8 +1,8 @@
 // Arabic
 
 export default {
-  churchGps: 'كنيسة GPS',
-  createOrJoinString: 'إنشاء أو انضمام - تجمعات في أي مكان',
+  churchGps: 'CHURCH GPS',
+  createOrJoinString: 'اهتد بإيمانك - أنشئ. اعثر. التق. تواصل مع المسيحيين في أي مكان، محليًا أو عبر الإنترنت.',
   login: 'تسجيل الدخول',
   login1: 'تسجيل الدخول',
   signup: 'إنشاء حساب',

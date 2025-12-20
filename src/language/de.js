@@ -1,8 +1,8 @@
 // German
 
 export default {
-  churchGps: 'Kirche GPS',
-  createOrJoinString: 'Erstellen oder Beitreten - Versammlungen überall',
+  churchGps: 'CHURCH GPS',
+  createOrJoinString: 'Navigiere deinen Glauben - Erstellen. Finden. Treffen. Verbinde dich mit Christen überall, lokal oder online.',
   login: 'Anmelden',
   login1: 'Login',
   signup: 'Registrieren',

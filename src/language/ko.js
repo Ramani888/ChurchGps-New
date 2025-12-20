@@ -1,7 +1,7 @@
 // Korean
 export default {
-  churchGps: '교회 GPS',
-  createOrJoinString: '만들기 또는 참여 - 어디서나 모임',
+  churchGps: 'CHURCH GPS',
+  createOrJoinString: '믿음을 탐색하세요 - 만들기. 찾기. 만나기. 지역 또는 온라인에서 어디서나 크리스천들과 연결하세요.',
   login: '로그인',
   login1: '로그인',
   signup: '회원가입',
