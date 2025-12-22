@@ -27,4 +27,15 @@ export const styles = StyleSheet.create({
   },
   headerIconView: { flexDirection: 'row', alignItems: 'center', gap: scale(12) },
   icon: { width: scale(24), height: scale(24) },
+  menuPopup: {
+    width: scale(160),
+    padding: scale(16),
+    marginTop: verticalScale(35),
+    marginLeft: -verticalScale(8),
+    borderRadius: scale(20),
+  },
+  menuView: { flexDirection: 'row', alignItems: 'center', gap: scale(8) },
+  menuImage: { width: scale(20), height: scale(20) },
+  menuText: { fontSize: moderateScale(16), fontFamily: Fonts.interRegular },
+  switchView: { marginTop: verticalScale(10), alignSelf: 'center' },
 });

@@ -277,6 +277,14 @@ ask for money)`,
   chat: 'Chat',
   friends: 'Friends',
   enterUsernameOrRefferal: 'Enter @username or Referral Code',
+  info: 'Info',
+  members: 'Members',
+  leave: 'Leave',
+  report: 'Report',
+  search: 'Search',
+  notification: 'Notification',
+  on: 'On',
+  off: 'Off',
 };
 
 // userNameRequired; biji language ma baki che
