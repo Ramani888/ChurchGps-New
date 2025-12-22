@@ -285,6 +285,10 @@ ask for money)`,
   notification: 'Notification',
   on: 'On',
   off: 'Off',
+  delete: 'Delete',
+  block: 'Block',
+  enterReport: 'Enter Short Description of Issue',
+  send: 'Send',
 };
 
 // userNameRequired; biji language ma baki che

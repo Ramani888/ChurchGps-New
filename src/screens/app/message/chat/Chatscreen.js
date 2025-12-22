@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -12,6 +12,11 @@ import { moderateScale, scale } from '../../../../utils/Responsive';
 import Color from '../../../../utils/Color';
 import { Images } from '../../../../utils/Images';
 import { strings } from '../../../../language/strings';
+import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
+import InfoBottomsheetContent from '../../../../components/bottomSheetContent/InfoBottomsheetContent';
+import LeaveBottomsheetContent from '../../../../components/bottomSheetContent/LeaveBottomsheetContent';
+import DeleteBottomsheetContent from '../../../../components/bottomSheetContent/DeleteBottomsheetContent';
+import ReportBottomsheetContent from '../../../../components/bottomSheetContent/ReportBottomsheetContent';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -27,6 +32,10 @@ const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
 const Chatscreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
+  const infoSheetRef = useRef();
+  const leaveSheetRef = useRef();
+  const deleteSheetRef = useRef();
+  const reportSheetRef = useRef();
 
   const [notification, setNotification] = useState(false);
 
@@ -42,24 +51,29 @@ const Chatscreen = () => {
 
   const menuActions = useMemo(
     () => [
-      { key: 'info', icon: Images.infoIcon, label: strings.info, onSelect: () => alert('Info') },
+      {
+        key: 'info',
+        icon: Images.infoIcon,
+        label: strings.info,
+        onSelect: () => openInfoBottomsheet(),
+      },
       {
         key: 'members',
         icon: Images.chatMultiuserIcon,
         label: strings.members,
-        onSelect: () => alert('Members'),
+        onSelect: () => openDeleteBottomsheet(),
       },
       {
         key: 'leave',
         icon: Images.leaveIcon,
         label: strings.leave,
-        onSelect: () => alert('Leave'),
+        onSelect: () => openLeaveBottomsheet(),
       },
       {
         key: 'report',
         icon: Images.reportIcon,
         label: strings.report,
-        onSelect: () => alert('Report'),
+        onSelect: () => openReportBottomsheet(),
       },
       {
         key: 'search',
@@ -74,6 +88,38 @@ const Chatscreen = () => {
   const headerImageSource = useMemo(() => {
     return image ? { uri: image } : Images.userPlaceholder;
   }, [image]);
+
+  const openInfoBottomsheet = useCallback(() => {
+    infoSheetRef.current.show();
+  }, []);
+
+  const closeInfoBottomsheet = useCallback(() => {
+    infoSheetRef.current.hide();
+  }, []);
+
+  const openLeaveBottomsheet = useCallback(() => {
+    leaveSheetRef.current.show();
+  }, []);
+
+  const closeLeaveBottomsheet = useCallback(() => {
+    leaveSheetRef.current.hide();
+  }, []);
+
+  const openDeleteBottomsheet = useCallback(() => {
+    deleteSheetRef.current.show();
+  }, []);
+
+  const closeDeleteBottomsheet = useCallback(() => {
+    deleteSheetRef.current.hide();
+  }, []);
+
+  const openReportBottomsheet = useCallback(() => {
+    reportSheetRef.current.show();
+  }, []);
+
+  const closeReportBottomsheet = useCallback(() => {
+    reportSheetRef.current.hide();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -111,12 +157,15 @@ const Chatscreen = () => {
               }}
             >
               {menuActions.map(item => (
-                <HeaderMenuItem
-                  key={item.key}
-                  icon={item.icon}
-                  label={item.label}
-                  onSelect={item.onSelect}
-                />
+                <>
+                  <HeaderMenuItem
+                    key={item.key}
+                    icon={item.icon}
+                    label={item.label}
+                    onSelect={item.onSelect}
+                  />
+                  <View style={styles.devider} />
+                </>
               ))}
 
               <MenuOption>
@@ -146,6 +195,30 @@ const Chatscreen = () => {
           </Menu>
         </View>
       </View>
+
+      <CustomBottomsheet
+        ref={infoSheetRef}
+        onBottomsheetClose={closeInfoBottomsheet}
+        bottomSheetContent={<InfoBottomsheetContent image={image} userName={userName} />}
+      />
+
+      <CustomBottomsheet
+        ref={leaveSheetRef}
+        onBottomsheetClose={closeLeaveBottomsheet}
+        bottomSheetContent={<LeaveBottomsheetContent />}
+      />
+
+      <CustomBottomsheet
+        ref={deleteSheetRef}
+        onBottomsheetClose={closeDeleteBottomsheet}
+        bottomSheetContent={<DeleteBottomsheetContent />}
+      />
+
+      <CustomBottomsheet
+        ref={reportSheetRef}
+        onBottomsheetClose={closeReportBottomsheet}
+        bottomSheetContent={<ReportBottomsheetContent />}
+      />
     </SafeAreaView>
   );
 };

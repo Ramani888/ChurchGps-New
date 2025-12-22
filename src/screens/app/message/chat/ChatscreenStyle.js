@@ -38,4 +38,10 @@ export const styles = StyleSheet.create({
   menuImage: { width: scale(20), height: scale(20) },
   menuText: { fontSize: moderateScale(16), fontFamily: Fonts.interRegular },
   switchView: { marginTop: verticalScale(10), alignSelf: 'center' },
+  devider: {
+    width: scale(128),
+    height: verticalScale(1),
+    backgroundColor: Color.rgba.Gray[1],
+    marginVertical: verticalScale(2),
+  },
 });

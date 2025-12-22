@@ -191,4 +191,6 @@ export const Images = {
   pinIcon: require('../assets/image/pinIcon.png'),
   leaveIcon: require('../assets/image/leaveIcon.png'),
   reportIcon: require('../assets/image/report.png'),
+  deleteIcon: require('../assets/image/deleteIcon.png'),
+  blockIcon: require('../assets/image/blockIcon.png'),
 };
