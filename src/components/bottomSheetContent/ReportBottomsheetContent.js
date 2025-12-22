@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Color from '../../utils/Color';
 import { moderateScale, scale, verticalScale } from '../../utils/Responsive';
@@ -51,7 +51,7 @@ const ReportBottomsheetContent = () => {
   );
 };
 
-export default ReportBottomsheetContent;
+export default memo(ReportBottomsheetContent);
 
 const styles = StyleSheet.create({
   container: { backgroundColor: Color.White, padding: scale(22), paddingTop: verticalScale(5) },

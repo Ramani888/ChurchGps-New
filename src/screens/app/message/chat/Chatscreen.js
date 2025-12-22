@@ -17,6 +17,7 @@ import InfoBottomsheetContent from '../../../../components/bottomSheetContent/In
 import LeaveBottomsheetContent from '../../../../components/bottomSheetContent/LeaveBottomsheetContent';
 import DeleteBottomsheetContent from '../../../../components/bottomSheetContent/DeleteBottomsheetContent';
 import ReportBottomsheetContent from '../../../../components/bottomSheetContent/ReportBottomsheetContent';
+import MembersBottomsheetContent from '../../../../components/bottomSheetContent/MembersBottomsheetContent';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -33,6 +34,7 @@ const Chatscreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const infoSheetRef = useRef();
+  const membersSheetRef = useRef();
   const leaveSheetRef = useRef();
   const deleteSheetRef = useRef();
   const reportSheetRef = useRef();
@@ -61,7 +63,7 @@ const Chatscreen = () => {
         key: 'members',
         icon: Images.chatMultiuserIcon,
         label: strings.members,
-        onSelect: () => openDeleteBottomsheet(),
+        onSelect: () => openMembersBottomsheet(),
       },
       {
         key: 'leave',
@@ -79,7 +81,7 @@ const Chatscreen = () => {
         key: 'search',
         icon: Images.searchIcon1,
         label: strings.search,
-        onSelect: () => alert('Search'),
+        onSelect: () => openDeleteBottomsheet(),
       },
     ],
     [],
@@ -95,6 +97,14 @@ const Chatscreen = () => {
 
   const closeInfoBottomsheet = useCallback(() => {
     infoSheetRef.current.hide();
+  }, []);
+
+  const openMembersBottomsheet = useCallback(() => {
+    membersSheetRef.current.show();
+  }, []);
+
+  const closeMembersBottomsheet = useCallback(() => {
+    membersSheetRef.current.hide();
   }, []);
 
   const openLeaveBottomsheet = useCallback(() => {
@@ -200,6 +210,12 @@ const Chatscreen = () => {
         ref={infoSheetRef}
         onBottomsheetClose={closeInfoBottomsheet}
         bottomSheetContent={<InfoBottomsheetContent image={image} userName={userName} />}
+      />
+
+      <CustomBottomsheet
+        ref={membersSheetRef}
+        onBottomsheetClose={closeMembersBottomsheet}
+        bottomSheetContent={<MembersBottomsheetContent />}
       />
 
       <CustomBottomsheet
