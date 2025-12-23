@@ -38,42 +38,46 @@ const ProfileScreen = () => {
   const [blurVisible, setBlurVisible] = useState(false);
   const [questionnaireVisible, setQuestionnaireVisible] = useState(false);
   const [answers, setAnswers] = useState({});
+  const [profileImage, setProfileImage] = useState('');
   const [referalCode, setRefferalCode] = useState('');
   const [refferalCount, setRefferalCount] = useState('');
 
   const { setVisibleEditAccount, setLanguageChangeFromProfile } = useStateContext();
 
-  const subscriptionData = [
-    { price: 1, image: Images.heartIcon, name: strings.jasper },
-    { price: 5, image: Images.heartIcon, name: strings.jasper },
-    { price: 10, image: Images.heartIcon, name: strings.jasper },
-    { price: 25, image: Images.heartIcon, name: strings.jasper },
-    { price: 50, image: Images.heartIcon, name: strings.jasper },
-    { price: 100, image: Images.heartIcon, name: strings.jasper },
-  ];
+  const subscriptionData = useMemo(
+    () => [
+      { price: 1, image: Images.heartIcon, name: strings.jasper },
+      { price: 5, image: Images.heartIcon, name: strings.jasper },
+      { price: 10, image: Images.heartIcon, name: strings.jasper },
+      { price: 25, image: Images.heartIcon, name: strings.jasper },
+      { price: 50, image: Images.heartIcon, name: strings.jasper },
+      { price: 100, image: Images.heartIcon, name: strings.jasper },
+    ],
+    [strings.jasper],
+  );
 
-  const inviteData = [
-    { image: Images.copyIcon1, name: strings.copyLink },
-    { image: Images.whatsappIcon, name: strings.whatsapp },
-    { image: Images.telegramIcon, name: strings.telegram },
-    { image: Images.messageIcon, name: strings.message },
-    { image: Images.twitterIcon, name: strings.x },
-    { image: Images.facebookIcon, name: strings.facebook },
-  ];
+  const inviteData = useMemo(
+    () => [
+      { image: Images.copyIcon1, name: strings.copyLink },
+      { image: Images.whatsappIcon, name: strings.whatsapp },
+      { image: Images.telegramIcon, name: strings.telegram },
+      { image: Images.messageIcon, name: strings.message },
+      { image: Images.twitterIcon, name: strings.x },
+      { image: Images.facebookIcon, name: strings.facebook },
+    ],
+    [strings.copyLink, strings.whatsapp, strings.telegram, strings.message, strings.x, strings.facebook],
+  );
 
-  const refferalBadgesData = [
-    { id: 1, image: Images.referalImage1, referalCount: 5 },
-    { id: 2, image: Images.referalImage2, referalCount: 10 },
-    { id: 3, image: Images.referalImage3, referalCount: 20 },
-    { id: 4, image: Images.referalImage4, referalCount: 30 },
-    { id: 5, image: Images.referalImage5, referalCount: 50 },
-  ];
-
-  useLayoutEffect(() => {
-    getProfileDataApi();
-  }, [isFocused, getProfileDataApi]);
-
-  // ========================================== Api =========================================== //
+  const refferalBadgesData = useMemo(
+    () => [
+      { id: 1, image: Images.referalImage1, referalCount: 5 },
+      { id: 2, image: Images.referalImage2, referalCount: 10 },
+      { id: 3, image: Images.referalImage3, referalCount: 20 },
+      { id: 4, image: Images.referalImage4, referalCount: 30 },
+      { id: 5, image: Images.referalImage5, referalCount: 50 },
+    ],
+    [],
+  );
 
   const getProfileDataApi = useCallback(async () => {
     try {
@@ -86,11 +90,18 @@ const ProfileScreen = () => {
         setBio(response?.user?.bio || '');
         setDenomination(response?.user?.denomination || '');
         setAnswers(response?.user?.questionnaire ?? []);
+        setProfileImage(response?.user?.profileUrl || '');
       }
     } catch (error) {
       console.log('error in get profile data', error);
     }
   }, []);
+
+  useLayoutEffect(() => {
+    if (isFocused) {
+      getProfileDataApi();
+    }
+  }, [isFocused, getProfileDataApi]);
 
   // ========================================= End =========================================== //
 
@@ -144,7 +155,7 @@ const ProfileScreen = () => {
   }, []);
 
   const questionsData = useMemo(() => {
-    return Array.from({ length: 21 }, (_, index) => {
+    return Array.from({ length: 28 }, (_, index) => {
       const id = (index + 1).toString();
       return {
         id,
@@ -159,7 +170,7 @@ const ProfileScreen = () => {
       { key: 'no', value: strings.no },
       { key: 'skip', value: strings.skip },
     ],
-    [],
+    [strings.yes, strings.no, strings.skip],
   );
 
   const renderQuestion = useCallback(
@@ -267,7 +278,10 @@ const ProfileScreen = () => {
       />
       <ScrollView>
         <View>
-          <Image source={Images.profileImageIcon} style={styles.profileImage} />
+          <Image
+            source={profileImage ? { uri: profileImage } : Images.profileImageIcon}
+            style={styles.profileImage}
+          />
           <Text style={styles.userName}>{strings.myPicture}</Text>
         </View>
 
@@ -377,8 +391,8 @@ const ProfileScreen = () => {
             <FlatList
               data={subscriptionData}
               renderItem={renderSubscription}
+              keyExtractor={(item, index) => `subscription-${item.price}-${index}`}
               numColumns={3}
-              key={'_'}
               style={styles.subscriptionContainer}
             />
           </View>
@@ -423,8 +437,8 @@ const ProfileScreen = () => {
             <FlatList
               data={inviteData}
               renderItem={renderInvite}
+              keyExtractor={(item, index) => `invite-${item.name}-${index}`}
               numColumns={3}
-              key={'_'}
               columnWrapperStyle={styles.inviteColumnStyle}
             />
           </View>
@@ -459,7 +473,12 @@ const ProfileScreen = () => {
               distance={10}
               startColor={'rgba(0, 0, 0, 0.04)'}
             >
-              <FlatList data={refferalBadgesData} renderItem={renderReferalBadges} horizontal />
+              <FlatList
+                data={refferalBadgesData}
+                renderItem={renderReferalBadges}
+                keyExtractor={item => `badge-${item.id}`}
+                horizontal
+              />
             </Shadow>
           </View>
 

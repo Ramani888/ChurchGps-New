@@ -9,8 +9,9 @@ export const styles = StyleSheet.create({
     width: scale(80),
     height: scale(80),
     alignSelf: 'center',
-    marginTop: scale(35),
+    marginTop: scale(15),
     marginBottom: scale(10),
+    borderRadius: scale(40),
   },
   userName: {
     fontSize: moderateScale(17),
