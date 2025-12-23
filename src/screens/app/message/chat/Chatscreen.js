@@ -215,6 +215,7 @@ const Chatscreen = () => {
       <CustomBottomsheet
         ref={membersSheetRef}
         onBottomsheetClose={closeMembersBottomsheet}
+        isModal={false}
         bottomSheetContent={<MembersBottomsheetContent />}
       />
 

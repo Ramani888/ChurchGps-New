@@ -21,6 +21,7 @@ const CustomInputField = ({
   eye,
   secureTextEntry,
   containerStyle,
+  inputWrapperStyle,
   marginBottom,
   marginTop,
   editable,
@@ -61,18 +62,12 @@ const CustomInputField = ({
         </Text>
       )}
 
-      <View style={styles.inputWrapper}>
+      <View style={[styles.inputWrapper, inputWrapperStyle]}>
         {leftIcon && LeftIconComponent ? (
-          <View style={styles.leftSlot}>
-            <LeftIconComponent name={leftIconName} size={leftIconSize} color={leftIconColor} />
-          </View>
+          <LeftIconComponent name={leftIconName} size={leftIconSize} color={leftIconColor} />
         ) : null}
 
-        {leftImage ? (
-          <View style={styles.leftSlot}>
-            <Image source={leftImage} style={[styles.iconImage, leftImageStyle]} />
-          </View>
-        ) : null}
+        {leftImage ? <Image source={leftImage} style={[styles.iconImage, leftImageStyle]} /> : null}
 
         <TextInput
           placeholder={placeholder}
@@ -96,19 +91,11 @@ const CustomInputField = ({
         />
         <View style={styles.rightStack}>
           {rightIcon && RightIconComponent ? (
-            <View style={styles.rightItem}>
-              <RightIconComponent
-                name={rightIconName}
-                size={rightIconSize}
-                color={rightIconColor}
-              />
-            </View>
+            <RightIconComponent name={rightIconName} size={rightIconSize} color={rightIconColor} />
           ) : null}
 
           {rightImage ? (
-            <View style={styles.rightItem}>
-              <Image source={rightImage} style={[styles.iconImage, rightImageStyle]} />
-            </View>
+            <Image source={rightImage} style={[styles.iconImage, rightImageStyle]} />
           ) : null}
         </View>
         {eyeIcon && (
@@ -135,7 +122,9 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(5),
   },
   inputWrapper: {
-    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: scale(10),
   },
   textInput: {
     color: Color.Black,
@@ -150,11 +139,11 @@ const styles = StyleSheet.create({
   },
   // Left slot (absolute)
   leftSlot: {
-    position: 'absolute',
-    left: scale(12),
-    height: INPUT_H,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // position: 'rela',
+    // left: scale(12),
+    // height: INPUT_H,
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
 
   // Right visuals stack (absolute, row)

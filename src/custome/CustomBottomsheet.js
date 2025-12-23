@@ -2,12 +2,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { memo } from 'react';
 import ActionSheet from 'react-native-actions-sheet';
 import Color from '../utils/Color';
-import { moderateScale, verticalScale } from '../utils/Responsive';
+import { moderateScale, scale, verticalScale } from '../utils/Responsive';
 
 const CustomBottomsheet = ({
   ref,
   gestureEnabled,
   onBottomsheetClose,
+  isModal = false,
   bottomsheetContainerStyle,
   bottomSheetContent,
 }) => {
@@ -18,6 +19,7 @@ const CustomBottomsheet = ({
       gestureEnabled={!gestureEnabled}
       indicatorStyle={styles.indicator}
       containerStyle={[styles.actionSheetContainer, bottomsheetContainerStyle]}
+      isModal={isModal}
     >
       {bottomSheetContent}
     </ActionSheet>
@@ -32,5 +34,8 @@ const styles = StyleSheet.create({
     width: moderateScale(60),
     marginTop: verticalScale(20),
   },
-  actionSheetContainer: {},
+  actionSheetContainer: {
+    backgroundColor: 'transparent',
+    borderTopRightRadius: scale(50),
+  },
 });

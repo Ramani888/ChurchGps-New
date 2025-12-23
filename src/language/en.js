@@ -289,6 +289,14 @@ ask for money)`,
   block: 'Block',
   enterReport: 'Enter Short Description of Issue',
   send: 'Send',
+  actionHistory: 'Action History',
+  memberPermission: 'Member Permission',
+  searchMember: 'Search Member',
+  admins: 'Admins',
+  banned: 'Banned',
+  ban: 'Ban',
+  promote: 'Promote',
+  mute: 'Mute',
 };
 
 // userNameRequired; biji language ma baki che
