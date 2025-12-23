@@ -18,6 +18,8 @@ import LeaveBottomsheetContent from '../../../../components/bottomSheetContent/L
 import DeleteBottomsheetContent from '../../../../components/bottomSheetContent/DeleteBottomsheetContent';
 import ReportBottomsheetContent from '../../../../components/bottomSheetContent/ReportBottomsheetContent';
 import MembersBottomsheetContent from '../../../../components/bottomSheetContent/MembersBottomsheetContent';
+import BanBottomsheetContent from '../../../../components/bottomSheetContent/BanBottomsheetContent';
+import AdminRightsBottomsheetContent from '../../../../components/bottomSheetContent/AdminRightsBottomsheetContent';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -38,6 +40,8 @@ const Chatscreen = () => {
   const leaveSheetRef = useRef();
   const deleteSheetRef = useRef();
   const reportSheetRef = useRef();
+  const banSheetRef = useRef();
+  const adminRightsSheetRef = useRef();
 
   const [notification, setNotification] = useState(false);
 
@@ -107,6 +111,14 @@ const Chatscreen = () => {
     membersSheetRef.current.hide();
   }, []);
 
+  const openBanBottomsheet = useCallback(() => {
+    banSheetRef.current.show();
+  }, []);
+
+  const closeBanBottomsheet = useCallback(() => {
+    banSheetRef.current.hide();
+  }, []);
+
   const openLeaveBottomsheet = useCallback(() => {
     leaveSheetRef.current.show();
   }, []);
@@ -129,6 +141,14 @@ const Chatscreen = () => {
 
   const closeReportBottomsheet = useCallback(() => {
     reportSheetRef.current.hide();
+  }, []);
+
+  const openAdminRightsBottomsheet = useCallback(() => {
+    adminRightsSheetRef.current.show();
+  }, []);
+
+  const closeAdminRightsBottomsheet = useCallback(() => {
+    adminRightsSheetRef.current.hide();
   }, []);
 
   return (
@@ -216,7 +236,19 @@ const Chatscreen = () => {
         ref={membersSheetRef}
         onBottomsheetClose={closeMembersBottomsheet}
         isModal={false}
-        bottomSheetContent={<MembersBottomsheetContent />}
+        bottomSheetContent={
+          <MembersBottomsheetContent
+            closeMembersBottomsheet={closeMembersBottomsheet}
+            openBanBottomsheet={openBanBottomsheet}
+            openAdminRightsBottomsheet={openAdminRightsBottomsheet}
+          />
+        }
+      />
+
+      <CustomBottomsheet
+        ref={banSheetRef}
+        onBottomsheetClose={closeBanBottomsheet}
+        bottomSheetContent={<BanBottomsheetContent />}
       />
 
       <CustomBottomsheet
@@ -235,6 +267,12 @@ const Chatscreen = () => {
         ref={reportSheetRef}
         onBottomsheetClose={closeReportBottomsheet}
         bottomSheetContent={<ReportBottomsheetContent />}
+      />
+
+      <CustomBottomsheet
+        ref={adminRightsSheetRef}
+        onBottomsheetClose={closeAdminRightsBottomsheet}
+        bottomSheetContent={<AdminRightsBottomsheetContent />}
       />
     </SafeAreaView>
   );

@@ -297,6 +297,7 @@ ask for money)`,
   ban: 'Ban',
   promote: 'Promote',
   mute: 'Mute',
+  adminRights: 'Admin Rights',
 };
 
 // userNameRequired; biji language ma baki che

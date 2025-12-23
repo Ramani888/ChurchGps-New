@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     marginTop: verticalScale(7),
     borderRadius: scale(16),
     height: verticalScale(46),
+    width: '100%',
   },
   plusIcon: {
     backgroundColor: Color.White,

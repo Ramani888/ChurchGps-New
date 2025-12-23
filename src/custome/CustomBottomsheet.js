@@ -8,7 +8,7 @@ const CustomBottomsheet = ({
   ref,
   gestureEnabled,
   onBottomsheetClose,
-  isModal = false,
+  isModal = true,
   bottomsheetContainerStyle,
   bottomSheetContent,
 }) => {
@@ -34,8 +34,5 @@ const styles = StyleSheet.create({
     width: moderateScale(60),
     marginTop: verticalScale(20),
   },
-  actionSheetContainer: {
-    backgroundColor: 'transparent',
-    borderTopRightRadius: scale(50),
-  },
+  actionSheetContainer: {},
 });

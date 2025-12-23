@@ -124,13 +124,13 @@ const styles = StyleSheet.create({
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: scale(10),
   },
   textInput: {
     color: Color.Black,
     fontFamily: Fonts.interRegular,
     paddingHorizontal: scale(15),
     textAlignVertical: 'center',
+    width: '100%',
   },
   textAreaInput: {
     textAlignVertical: 'top',

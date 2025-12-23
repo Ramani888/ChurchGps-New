@@ -1,5 +1,5 @@
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import GradientText from '../GradientText';
 import Color from '../../utils/Color';
 import { Images } from '../../utils/Images';
@@ -11,6 +11,8 @@ import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-m
 import CustomInputField from '../../custome/CustomInputField';
 import CustomButton from '../../custome/CustomButton';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
+import CustomBottomsheet from '../../custome/CustomBottomsheet';
+import BanBottomsheetContent from './BanBottomsheetContent';
 
 const memberData = [
   {
@@ -45,7 +47,11 @@ const memberData = [
   },
 ];
 
-const MembersBottomsheetContent = () => {
+const MembersBottomsheetContent = ({
+  closeMembersBottomsheet,
+  openBanBottomsheet,
+  openAdminRightsBottomsheet,
+}) => {
   const [memberName, setMemberName] = useState('');
 
   const renderMembers = useCallback(({ item }) => {
@@ -65,7 +71,12 @@ const MembersBottomsheetContent = () => {
               optionsContainer: styles.menuPopup1,
             }}
           >
-            <MenuOption onSelect={() => {}}>
+            <MenuOption
+              onSelect={() => {
+                openBanBottomsheet();
+                closeMembersBottomsheet();
+              }}
+            >
               <Text style={styles.menuText}>{strings.ban}</Text>
             </MenuOption>
             <View style={styles.menuDevider} />
@@ -130,7 +141,10 @@ const MembersBottomsheetContent = () => {
           fontSize={moderateScale(12)}
           fontColor={Color.Black}
           fontFamily={Fonts.interMedium}
-          onPress={() => {}}
+          onPress={() => {
+            closeMembersBottomsheet();
+            openAdminRightsBottomsheet();
+          }}
         />
         <CustomButton
           title={strings.banned}
