@@ -308,6 +308,10 @@ ask for money)`,
   modifyCalender: 'Modify Calender',
   back: 'Back',
   transferOwnership: 'Transfer Ownership',
+  transferringOwner: 'Transferring Owner',
+  transferrinText:
+    'You are transferring group ownership and giving control of all settings to this user.',
+  memberPermissions: 'Member Permissions',
 };
 
 // userNameRequired; biji language ma baki che

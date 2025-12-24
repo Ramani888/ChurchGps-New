@@ -223,7 +223,10 @@ const SettingRow = memo(({ label, isOn, onToggle }) => {
   );
 });
 
-const AdminRightsBottomsheetContent = () => {
+const AdminRightsBottomsheetContent = ({
+  closeAdminRightsBottomsheet,
+  openTransferOwnerBottomsheet,
+}) => {
   const [rights, setRights] = useState({
     deleteMessage: false,
     banUser: false,
@@ -321,7 +324,10 @@ const AdminRightsBottomsheetContent = () => {
             fontFamily={Fonts.sfProBold}
             marginTop={verticalScale(10)}
             marginBottom={verticalScale(15)}
-            onPress={() => {}}
+            onPress={() => {
+              closeAdminRightsBottomsheet();
+              openTransferOwnerBottomsheet();
+            }}
           />
         </View>
       </ScrollView>

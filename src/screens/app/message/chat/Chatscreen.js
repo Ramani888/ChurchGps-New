@@ -20,6 +20,10 @@ import ReportBottomsheetContent from '../../../../components/bottomSheetContent/
 import MembersBottomsheetContent from '../../../../components/bottomSheetContent/MembersBottomsheetContent';
 import BanBottomsheetContent from '../../../../components/bottomSheetContent/BanBottomsheetContent';
 import AdminRightsBottomsheetContent from '../../../../components/bottomSheetContent/AdminRightsBottomsheetContent';
+import TransferOwnerBottomsheetContent from '../../../../components/bottomSheetContent/TransferOwnerBottomsheetContent';
+import RemoveAdminBottomsheetContent from '../../../../components/bottomSheetContent/RemoveAdminBottomsheetContent';
+import MemberPermissionBottomsheetContent from '../../../../components/bottomSheetContent/MemberPermissionBottomsheetContent';
+import CustomInputField from '../../../../custome/CustomInputField';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -42,8 +46,12 @@ const Chatscreen = () => {
   const reportSheetRef = useRef();
   const banSheetRef = useRef();
   const adminRightsSheetRef = useRef();
+  const transferOwnerSheetRef = useRef();
+  const removeAdminSheetRef = useRef();
+  const memberPermissionSheetRef = useRef();
 
   const [notification, setNotification] = useState(false);
+  const [message, setMessage] = useState('');
 
   const { userName = '', image = '' } = route?.params ?? {};
 
@@ -85,7 +93,7 @@ const Chatscreen = () => {
         key: 'search',
         icon: Images.searchIcon1,
         label: strings.search,
-        onSelect: () => openDeleteBottomsheet(),
+        onSelect: () => openRemoveAdminBottomsheet(),
       },
     ],
     [],
@@ -149,6 +157,30 @@ const Chatscreen = () => {
 
   const closeAdminRightsBottomsheet = useCallback(() => {
     adminRightsSheetRef.current.hide();
+  }, []);
+
+  const openTransferOwnerBottomsheet = useCallback(() => {
+    transferOwnerSheetRef.current.show();
+  }, []);
+
+  const closeTransferOwnerBottomsheet = useCallback(() => {
+    transferOwnerSheetRef.current.hide();
+  }, []);
+
+  const openRemoveAdminBottomsheet = useCallback(() => {
+    removeAdminSheetRef.current.show();
+  }, []);
+
+  const closeRemoveAdminBottomsheet = useCallback(() => {
+    removeAdminSheetRef.current.hide();
+  }, []);
+
+  const openMemberPermissionBottomsheet = useCallback(() => {
+    memberPermissionSheetRef.current.show();
+  }, []);
+
+  const closeMemberPermissionBottomsheet = useCallback(() => {
+    memberPermissionSheetRef.current.hide();
   }, []);
 
   return (
@@ -226,6 +258,21 @@ const Chatscreen = () => {
         </View>
       </View>
 
+      <View style={styles.messageInput}>
+        <TouchableOpacity onPress={() => {}}>
+          <Image source={Images.gridIcon} style={styles.icon} />
+        </TouchableOpacity>
+        <CustomInputField
+          placeholder={strings.message}
+          onChangeText={setMessage}
+          value={message}
+          inputStyle={styles.inputStyle}
+        />
+        <TouchableOpacity onPress={() => {}}>
+          <Image source={Images.microphoneIcon} style={styles.icon} />
+        </TouchableOpacity>
+      </View>
+
       <CustomBottomsheet
         ref={infoSheetRef}
         onBottomsheetClose={closeInfoBottomsheet}
@@ -241,6 +288,7 @@ const Chatscreen = () => {
             closeMembersBottomsheet={closeMembersBottomsheet}
             openBanBottomsheet={openBanBottomsheet}
             openAdminRightsBottomsheet={openAdminRightsBottomsheet}
+            openMemberPermissionBottomsheet={openMemberPermissionBottomsheet}
           />
         }
       />
@@ -273,8 +321,31 @@ const Chatscreen = () => {
         ref={adminRightsSheetRef}
         gestureEnabled={true}
         onBottomsheetClose={closeAdminRightsBottomsheet}
-        bottomSheetContent={<AdminRightsBottomsheetContent />}
+        bottomSheetContent={
+          <AdminRightsBottomsheetContent
+            closeAdminRightsBottomsheet={closeAdminRightsBottomsheet}
+            openTransferOwnerBottomsheet={openTransferOwnerBottomsheet}
+          />
+        }
         bottomsheetContainerStyle={{ height: '93%' }}
+      />
+
+      <CustomBottomsheet
+        ref={transferOwnerSheetRef}
+        onBottomsheetClose={closeTransferOwnerBottomsheet}
+        bottomSheetContent={<TransferOwnerBottomsheetContent />}
+      />
+
+      <CustomBottomsheet
+        ref={removeAdminSheetRef}
+        onBottomsheetClose={closeRemoveAdminBottomsheet}
+        bottomSheetContent={<RemoveAdminBottomsheetContent />}
+      />
+
+      <CustomBottomsheet
+        ref={memberPermissionSheetRef}
+        onBottomsheetClose={closeMemberPermissionBottomsheet}
+        bottomSheetContent={<MemberPermissionBottomsheetContent />}
       />
     </SafeAreaView>
   );

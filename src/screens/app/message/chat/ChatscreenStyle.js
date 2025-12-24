@@ -44,4 +44,22 @@ export const styles = StyleSheet.create({
     backgroundColor: Color.rgba.Gray[1],
     marginVertical: verticalScale(2),
   },
+  messageInput: {
+    position: 'absolute',
+    bottom: verticalScale(10),
+    width: scale(343),
+    height: scale(56),
+    backgroundColor: Color.rgba.Gray[1],
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: scale(16),
+    paddingHorizontal: scale(16),
+    borderRadius: scale(50),
+  },
+  inputStyle: {
+    width: scale(258),
+    height: scale(50),
+    marginTop: verticalScale(8.5),
+    marginRight: scale(10),
+  },
 });

@@ -193,4 +193,6 @@ export const Images = {
   reportIcon: require('../assets/image/report.png'),
   deleteIcon: require('../assets/image/deleteIcon.png'),
   blockIcon: require('../assets/image/blockIcon.png'),
+  gridIcon: require('../assets/image/gridIcon.png'),
+  microphoneIcon: require('../assets/image/microphoneIcon.png'),
 };

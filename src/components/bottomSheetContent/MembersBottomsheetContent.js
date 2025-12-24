@@ -51,6 +51,7 @@ const MembersBottomsheetContent = ({
   closeMembersBottomsheet,
   openBanBottomsheet,
   openAdminRightsBottomsheet,
+  openMemberPermissionBottomsheet,
 }) => {
   const [memberName, setMemberName] = useState('');
 
@@ -114,7 +115,12 @@ const MembersBottomsheetContent = ({
               <Text style={styles.menuText}>{strings.actionHistory}</Text>
             </MenuOption>
             <View style={[styles.menuDevider, { width: scale(166) }]} />
-            <MenuOption onSelect={() => {}}>
+            <MenuOption
+              onSelect={() => {
+                closeMembersBottomsheet();
+                openMemberPermissionBottomsheet();
+              }}
+            >
               <Text style={styles.menuText}>{strings.memberPermission}</Text>
             </MenuOption>
           </MenuOptions>
