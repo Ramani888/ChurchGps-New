@@ -271,8 +271,10 @@ const Chatscreen = () => {
 
       <CustomBottomsheet
         ref={adminRightsSheetRef}
+        gestureEnabled={true}
         onBottomsheetClose={closeAdminRightsBottomsheet}
         bottomSheetContent={<AdminRightsBottomsheetContent />}
+        bottomsheetContainerStyle={{ height: '93%' }}
       />
     </SafeAreaView>
   );

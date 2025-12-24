@@ -298,6 +298,16 @@ ask for money)`,
   promote: 'Promote',
   mute: 'Mute',
   adminRights: 'Admin Rights',
+  deleteMessage: 'Delete Message',
+  banUser: 'Ban User',
+  pinMessage: 'Pin Message',
+  addNewAdmins: 'Add New Admins',
+  startVoiceChat: 'Start Voice Chat',
+  createPoll: 'Create Poll',
+  removeAdmins: 'Remove Admins',
+  modifyCalender: 'Modify Calender',
+  back: 'Back',
+  transferOwnership: 'Transfer Ownership',
 };
 
 // userNameRequired; biji language ma baki che
