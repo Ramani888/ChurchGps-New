@@ -35,6 +35,8 @@ const ProfileScreen = () => {
   const [userName, setUserName] = useState('');
   const [bio, setBio] = useState('');
   const [denomination, setDenomination] = useState('');
+  const [protestDenomination, setProtestDenomination] = useState('');
+  const [otherDenomination, setOtherDenomination] = useState('');
   const [blurVisible, setBlurVisible] = useState(false);
   const [questionnaireVisible, setQuestionnaireVisible] = useState(false);
   const [answers, setAnswers] = useState({});
@@ -89,6 +91,8 @@ const ProfileScreen = () => {
         setUserName(response?.user?.username || '');
         setBio(response?.user?.bio || '');
         setDenomination(response?.user?.denomination || '');
+        setProtestDenomination(response?.user?.protestDenomination || '');
+        setOtherDenomination(response?.user?.otherDenomination || '');
         setAnswers(response?.user?.questionnaire ?? []);
         setProfileImage(response?.user?.profileUrl || '');
       }
@@ -282,7 +286,7 @@ const ProfileScreen = () => {
             source={profileImage ? { uri: profileImage } : Images.profileImageIcon}
             style={styles.profileImage}
           />
-          <Text style={styles.userName}>{strings.myPicture}</Text>
+          <Text style={styles.userName}>{profileName ? profileName : strings.myPicture}</Text>
         </View>
 
         <View style={styles.form}>
@@ -330,6 +334,16 @@ const ProfileScreen = () => {
               <View>
                 <Text style={styles.heading}>{strings.denomination}</Text>
                 <Text style={styles.text}>{denomination}</Text>
+                {protestDenomination && (
+                  <Text style={[styles.text, { marginTop: verticalScale(-17) }]}>
+                    {protestDenomination}
+                  </Text>
+                )}
+                {otherDenomination && (
+                  <Text style={[styles.text, { marginTop: verticalScale(-17) }]}>
+                    {otherDenomination}
+                  </Text>
+                )}
               </View>
             </>
           )}
