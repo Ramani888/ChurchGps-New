@@ -4,8 +4,8 @@ const StateContext = createContext();
 
 export const StateProvider = ({ children }) => {
   const [visibleEditAccount, setVisibleEditAccount] = useState(false);
-  const [languageChangeFromProfile, setLanguageChangeFromProfile] =
-    useState(false);
+  const [languageChangeFromProfile, setLanguageChangeFromProfile] = useState(false);
+  const [changeBackgroundNumber, setChangeBackgroundNumber] = useState(1);
 
   return (
     <StateContext.Provider
@@ -14,6 +14,8 @@ export const StateProvider = ({ children }) => {
         visibleEditAccount,
         setLanguageChangeFromProfile,
         languageChangeFromProfile,
+        setChangeBackgroundNumber,
+        changeBackgroundNumber,
       }}
     >
       {children}

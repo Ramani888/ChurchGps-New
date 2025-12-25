@@ -61,5 +61,17 @@ export const styles = StyleSheet.create({
     height: scale(50),
     marginTop: verticalScale(8.5),
     marginRight: scale(10),
+    fontSize: moderateScale(14),
+  },
+  searchInput: {
+    width: scale(343),
+    height: scale(56),
+    backgroundColor: Color.rgba.Gray[1],
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: scale(16),
+    paddingHorizontal: scale(16),
+    borderRadius: scale(50),
+    marginTop: verticalScale(15),
   },
 });

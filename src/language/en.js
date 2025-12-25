@@ -312,6 +312,8 @@ ask for money)`,
   transferrinText:
     'You are transferring group ownership and giving control of all settings to this user.',
   memberPermissions: 'Member Permissions',
+  search: 'Search ...',
+  select: 'Select',
 };
 
 // userNameRequired; biji language ma baki che

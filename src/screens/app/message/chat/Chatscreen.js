@@ -6,12 +6,14 @@ import AntDesign from '@react-native-vector-icons/ant-design';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import ToggleSwitch from 'toggle-switch-react-native';
 import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
-
 import { styles } from './ChatscreenStyle';
-import { moderateScale, scale } from '../../../../utils/Responsive';
+import { moderateScale, scale, verticalScale } from '../../../../utils/Responsive';
 import Color from '../../../../utils/Color';
 import { Images } from '../../../../utils/Images';
 import { strings } from '../../../../language/strings';
+import CustomInputField from '../../../../custome/CustomInputField';
+import CustomButton from '../../../../custome/CustomButton';
+import { Fonts } from '../../../../utils/Font';
 import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import InfoBottomsheetContent from '../../../../components/bottomSheetContent/InfoBottomsheetContent';
 import LeaveBottomsheetContent from '../../../../components/bottomSheetContent/LeaveBottomsheetContent';
@@ -23,7 +25,8 @@ import AdminRightsBottomsheetContent from '../../../../components/bottomSheetCon
 import TransferOwnerBottomsheetContent from '../../../../components/bottomSheetContent/TransferOwnerBottomsheetContent';
 import RemoveAdminBottomsheetContent from '../../../../components/bottomSheetContent/RemoveAdminBottomsheetContent';
 import MemberPermissionBottomsheetContent from '../../../../components/bottomSheetContent/MemberPermissionBottomsheetContent';
-import CustomInputField from '../../../../custome/CustomInputField';
+import ChangeBackgroundBottomsheetContent from '../../../../components/bottomSheetContent/ChangeBackgroundBottomsheetContent';
+import { useStateContext } from '../../../../context/StateContext';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -49,9 +52,15 @@ const Chatscreen = () => {
   const transferOwnerSheetRef = useRef();
   const removeAdminSheetRef = useRef();
   const memberPermissionSheetRef = useRef();
+  const changeBackgroundSheetRef = useRef();
 
   const [notification, setNotification] = useState(false);
   const [message, setMessage] = useState('');
+  const [searchFieldVisible, setSearchFieldVisible] = useState(false);
+  const [search, setSearch] = useState('');
+
+  const { changeBackgroundNumber } = useStateContext();
+  //   console.log('changeBackgroundNumber', changeBackgroundNumber);
 
   const { userName = '', image = '' } = route?.params ?? {};
 
@@ -93,7 +102,7 @@ const Chatscreen = () => {
         key: 'search',
         icon: Images.searchIcon1,
         label: strings.search,
-        onSelect: () => openRemoveAdminBottomsheet(),
+        onSelect: () => setSearchFieldVisible(true),
       },
     ],
     [],
@@ -183,6 +192,14 @@ const Chatscreen = () => {
     memberPermissionSheetRef.current.hide();
   }, []);
 
+  const openChangeBackgroundBottomsheet = useCallback(() => {
+    changeBackgroundSheetRef.current.show();
+  }, []);
+
+  const closeChangeBackgroundBottomsheet = useCallback(() => {
+    changeBackgroundSheetRef.current.hide();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -200,11 +217,11 @@ const Chatscreen = () => {
         </View>
 
         <View style={styles.headerIconView}>
-          <TouchableOpacity activeOpacity={0.7} onPress={() => alert('Pin')}>
+          <TouchableOpacity activeOpacity={0.7} onPress={() => openRemoveAdminBottomsheet()}>
             <Image source={Images.pinIcon} style={styles.icon} />
           </TouchableOpacity>
 
-          <TouchableOpacity activeOpacity={0.7} onPress={() => alert('Calendar')}>
+          <TouchableOpacity activeOpacity={0.7} onPress={() => openChangeBackgroundBottomsheet()}>
             <Image source={Images.calenderIcon} style={styles.icon} />
           </TouchableOpacity>
 
@@ -257,6 +274,37 @@ const Chatscreen = () => {
           </Menu>
         </View>
       </View>
+
+      {searchFieldVisible && (
+        <>
+          <View style={styles.searchInput}>
+            <TouchableOpacity onPress={() => {}}>
+              <Image source={Images.searchIcon1} style={styles.icon} tintColor={Color.Gray} />
+            </TouchableOpacity>
+            <CustomInputField
+              placeholder={strings.search}
+              onChangeText={setSearch}
+              value={search}
+              inputStyle={styles.inputStyle}
+            />
+            <TouchableOpacity onPress={() => {}}>
+              <Image source={Images.userIcon} style={styles.icon} tintColor={Color.Gray} />
+            </TouchableOpacity>
+          </View>
+          <CustomButton
+            title={strings.close}
+            buttonWidth={scale(96)}
+            buttonHeight={verticalScale(26)}
+            backgroundColor={Color.rgba.Gray[2]}
+            borderRadius={scale(10)}
+            fontSize={moderateScale(12)}
+            fontColor={Color.Gray}
+            fontFamily={Fonts.interRegular}
+            marginTop={verticalScale(5)}
+            onPress={() => setSearchFieldVisible(false)}
+          />
+        </>
+      )}
 
       <View style={styles.messageInput}>
         <TouchableOpacity onPress={() => {}}>
@@ -346,6 +394,12 @@ const Chatscreen = () => {
         ref={memberPermissionSheetRef}
         onBottomsheetClose={closeMemberPermissionBottomsheet}
         bottomSheetContent={<MemberPermissionBottomsheetContent />}
+      />
+
+      <CustomBottomsheet
+        ref={changeBackgroundSheetRef}
+        onBottomsheetClose={closeChangeBackgroundBottomsheet}
+        bottomSheetContent={<ChangeBackgroundBottomsheetContent />}
       />
     </SafeAreaView>
   );
