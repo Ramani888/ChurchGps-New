@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
-import { Image, ImageBackground, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Pressable, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AntDesign from '@react-native-vector-icons/ant-design';
@@ -11,9 +11,6 @@ import { moderateScale, scale, verticalScale } from '../../../../utils/Responsiv
 import Color from '../../../../utils/Color';
 import { Images } from '../../../../utils/Images';
 import { strings } from '../../../../language/strings';
-import CustomInputField from '../../../../custome/CustomInputField';
-import CustomButton from '../../../../custome/CustomButton';
-import { Fonts } from '../../../../utils/Font';
 import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import InfoBottomsheetContent from '../../../../components/bottomSheetContent/InfoBottomsheetContent';
 import LeaveBottomsheetContent from '../../../../components/bottomSheetContent/LeaveBottomsheetContent';
@@ -26,8 +23,8 @@ import TransferOwnerBottomsheetContent from '../../../../components/bottomSheetC
 import RemoveAdminBottomsheetContent from '../../../../components/bottomSheetContent/RemoveAdminBottomsheetContent';
 import MemberPermissionBottomsheetContent from '../../../../components/bottomSheetContent/MemberPermissionBottomsheetContent';
 import ChangeBackgroundBottomsheetContent from '../../../../components/bottomSheetContent/ChangeBackgroundBottomsheetContent';
-import { useStateContext } from '../../../../context/StateContext';
-import LinearGradient from 'react-native-linear-gradient';
+import ChatComponent from '../../../../components/message/ChatComponent';
+import { Shadow } from 'react-native-shadow-2';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -56,12 +53,7 @@ const Chatscreen = () => {
   const changeBackgroundSheetRef = useRef();
 
   const [notification, setNotification] = useState(false);
-  const [message, setMessage] = useState('');
   const [searchFieldVisible, setSearchFieldVisible] = useState(false);
-  const [search, setSearch] = useState('');
-
-  const { changeBackgroundNumber } = useStateContext();
-  //   console.log('changeBackgroundNumber', changeBackgroundNumber);
 
   const { userName = '', image = '' } = route?.params ?? {};
 
@@ -203,222 +195,92 @@ const Chatscreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Pressable onPress={onBack} style={styles.backBtn} hitSlop={10}>
-          <AntDesign name="left" size={scale(16)} color={Color.Black} />
-        </Pressable>
+      <StatusBar backgroundColor={Color.White} />
+      <Shadow
+        distance={2}
+        startColor="rgba(0,0,0,0.04)"
+        offset={[0, 1]}
+        containerViewStyle={{ width: '100%' }}
+        style={{ width: '100%' }}
+      >
+        <View style={styles.header}>
+          <Pressable onPress={onBack} style={styles.backBtn} hitSlop={10}>
+            <AntDesign name="left" size={scale(16)} color={Color.Black} />
+          </Pressable>
 
-        <Image source={headerImageSource} style={styles.userImage} />
+          <Image source={headerImageSource} style={styles.userImage} />
 
-        <View style={{ flex: 1 }}>
-          <Text style={styles.headerTitle} numberOfLines={1}>
-            {userName}
-          </Text>
-          <Text style={styles.memberLength}>8 Member</Text>
-        </View>
-
-        <View style={styles.headerIconView}>
-          <TouchableOpacity activeOpacity={0.7} onPress={() => openRemoveAdminBottomsheet()}>
-            <Image source={Images.pinIcon} style={styles.icon} />
-          </TouchableOpacity>
-
-          <TouchableOpacity activeOpacity={0.7} onPress={() => openChangeBackgroundBottomsheet()}>
-            <Image source={Images.calenderIcon} style={styles.icon} />
-          </TouchableOpacity>
-
-          <Menu>
-            <MenuTrigger customStyles={{ TriggerTouchableComponent: TouchableOpacity }}>
-              <MaterialDesignIcons name="dots-vertical" size={scale(24)} color={Color.Black} />
-            </MenuTrigger>
-
-            <MenuOptions
-              customStyles={{
-                optionsContainer: styles.menuPopup,
-              }}
-            >
-              {menuActions.map(item => (
-                <>
-                  <HeaderMenuItem
-                    key={item.key}
-                    icon={item.icon}
-                    label={item.label}
-                    onSelect={item.onSelect}
-                  />
-                  <View style={styles.devider} />
-                </>
-              ))}
-
-              <MenuOption>
-                <Text style={[styles.menuText, { textAlign: 'center' }]}>
-                  {strings.notification}
-                </Text>
-
-                <View style={[styles.menuView, styles.switchView]}>
-                  <Text style={[styles.menuText, { fontSize: moderateScale(14) }]}>
-                    {strings.off}
-                  </Text>
-
-                  <ToggleSwitch
-                    isOn={notification}
-                    onColor={Color.theme1}
-                    offColor={Color.rgba.Gray[5]}
-                    size="medium"
-                    onToggle={onToggleNotification}
-                  />
-
-                  <Text style={[styles.menuText, { fontSize: moderateScale(14) }]}>
-                    {strings.on}
-                  </Text>
-                </View>
-              </MenuOption>
-            </MenuOptions>
-          </Menu>
-        </View>
-      </View>
-      {console.log('changeBackgroundNumber', changeBackgroundNumber)}
-
-      {changeBackgroundNumber !== '1' ? (
-        <LinearGradient
-          colors={
-            changeBackgroundNumber === '2'
-              ? Color.gradientBackground2
-              : changeBackgroundNumber === '3'
-              ? Color.gradientBackground3
-              : changeBackgroundNumber === '4'
-              ? Color.gradientBackground4
-              : changeBackgroundNumber === '5'
-              ? Color.gradientBackground5
-              : changeBackgroundNumber === '6'
-              ? Color.gradientBackground6
-              : changeBackgroundNumber === '7'
-              ? Color.gradientBackground7
-              : changeBackgroundNumber === '8'
-              ? Color.gradientBackground8
-              : changeBackgroundNumber === '9'
-              ? Color.gradientBackground9
-              : [Color.White]
-          }
-          style={styles.backgroundImage}
-        >
-          <ImageBackground
-            source={Images.backgroundImage}
-            style={styles.backgroundImage}
-            imageStyle={{ opacity: 0.85 }}
-          >
-            {searchFieldVisible && (
-              <>
-                <View
-                  style={[
-                    styles.searchInput,
-                    {
-                      backgroundColor:
-                        changeBackgroundNumber !== '1' ? Color.OffWhite : Color.rgba.Gray[1],
-                    },
-                  ]}
-                >
-                  <TouchableOpacity onPress={() => {}}>
-                    <Image source={Images.searchIcon1} style={styles.icon} tintColor={Color.Gray} />
-                  </TouchableOpacity>
-                  <CustomInputField
-                    placeholder={strings.search}
-                    onChangeText={setSearch}
-                    value={search}
-                    inputStyle={styles.inputStyle}
-                  />
-                  <TouchableOpacity onPress={() => {}}>
-                    <Image source={Images.userIcon} style={styles.icon} tintColor={Color.Gray} />
-                  </TouchableOpacity>
-                </View>
-                <CustomButton
-                  title={strings.close}
-                  buttonWidth={scale(96)}
-                  buttonHeight={verticalScale(26)}
-                  backgroundColor={
-                    changeBackgroundNumber !== '1' ? Color.OffWhite : Color.rgba.Gray[1]
-                  }
-                  borderRadius={scale(10)}
-                  fontSize={moderateScale(12)}
-                  fontColor={Color.Gray}
-                  fontFamily={Fonts.interRegular}
-                  marginTop={verticalScale(5)}
-                  onPress={() => setSearchFieldVisible(false)}
-                />
-              </>
-            )}
-
-            <View
-              style={[
-                styles.messageInput,
-                {
-                  backgroundColor:
-                    changeBackgroundNumber !== '1' ? Color.OffWhite : Color.rgba.Gray[1],
-                },
-              ]}
-            >
-              <TouchableOpacity onPress={() => {}}>
-                <Image source={Images.gridIcon} style={styles.icon} />
-              </TouchableOpacity>
-              <CustomInputField
-                placeholder={strings.message}
-                onChangeText={setMessage}
-                value={message}
-                inputStyle={styles.inputStyle}
-              />
-              <TouchableOpacity onPress={() => {}}>
-                <Image source={Images.microphoneIcon} style={styles.icon} />
-              </TouchableOpacity>
-            </View>
-          </ImageBackground>
-        </LinearGradient>
-      ) : (
-        <>
-          {searchFieldVisible && (
-            <>
-              <View style={styles.searchInput}>
-                <TouchableOpacity onPress={() => {}}>
-                  <Image source={Images.searchIcon1} style={styles.icon} tintColor={Color.Gray} />
-                </TouchableOpacity>
-                <CustomInputField
-                  placeholder={strings.search}
-                  onChangeText={setSearch}
-                  value={search}
-                  inputStyle={styles.inputStyle}
-                />
-                <TouchableOpacity onPress={() => {}}>
-                  <Image source={Images.userIcon} style={styles.icon} tintColor={Color.Gray} />
-                </TouchableOpacity>
-              </View>
-              <CustomButton
-                title={strings.close}
-                buttonWidth={scale(96)}
-                buttonHeight={verticalScale(26)}
-                backgroundColor={Color.rgba.Gray[2]}
-                borderRadius={scale(10)}
-                fontSize={moderateScale(12)}
-                fontColor={Color.Gray}
-                fontFamily={Fonts.interRegular}
-                marginTop={verticalScale(5)}
-                onPress={() => setSearchFieldVisible(false)}
-              />
-            </>
-          )}
-
-          <View style={styles.messageInput}>
-            <TouchableOpacity onPress={() => {}}>
-              <Image source={Images.gridIcon} style={styles.icon} />
-            </TouchableOpacity>
-            <CustomInputField
-              placeholder={strings.message}
-              onChangeText={setMessage}
-              value={message}
-              inputStyle={styles.inputStyle}
-            />
-            <TouchableOpacity onPress={() => {}}>
-              <Image source={Images.microphoneIcon} style={styles.icon} />
-            </TouchableOpacity>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.headerTitle} numberOfLines={1}>
+              {userName}
+            </Text>
+            <Text style={styles.memberLength}>8 Member</Text>
           </View>
-        </>
-      )}
+
+          <View style={styles.headerIconView}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => openRemoveAdminBottomsheet()}>
+              <Image source={Images.pinIcon} style={styles.icon} />
+            </TouchableOpacity>
+
+            <TouchableOpacity activeOpacity={0.7} onPress={() => openChangeBackgroundBottomsheet()}>
+              <Image source={Images.calenderIcon} style={styles.icon} />
+            </TouchableOpacity>
+
+            <Menu>
+              <MenuTrigger customStyles={{ TriggerTouchableComponent: TouchableOpacity }}>
+                <MaterialDesignIcons name="dots-vertical" size={scale(24)} color={Color.Black} />
+              </MenuTrigger>
+
+              <MenuOptions
+                customStyles={{
+                  optionsContainer: styles.menuPopup,
+                }}
+              >
+                {menuActions.map(item => (
+                  <>
+                    <HeaderMenuItem
+                      key={item.key}
+                      icon={item.icon}
+                      label={item.label}
+                      onSelect={item.onSelect}
+                    />
+                    <View style={styles.devider} />
+                  </>
+                ))}
+
+                <MenuOption>
+                  <Text style={[styles.menuText, { textAlign: 'center' }]}>
+                    {strings.notification}
+                  </Text>
+
+                  <View style={[styles.menuView, styles.switchView]}>
+                    <Text style={[styles.menuText, { fontSize: moderateScale(14) }]}>
+                      {strings.off}
+                    </Text>
+
+                    <ToggleSwitch
+                      isOn={notification}
+                      onColor={Color.theme1}
+                      offColor={Color.rgba.Gray[5]}
+                      size="medium"
+                      onToggle={onToggleNotification}
+                    />
+
+                    <Text style={[styles.menuText, { fontSize: moderateScale(14) }]}>
+                      {strings.on}
+                    </Text>
+                  </View>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
+          </View>
+        </View>
+      </Shadow>
+
+      <ChatComponent
+        searchFieldVisible={searchFieldVisible}
+        setSearchFieldVisible={setSearchFieldVisible}
+      />
 
       <CustomBottomsheet
         ref={infoSheetRef}

@@ -312,7 +312,7 @@ ask for money)`,
   transferrinText:
     'You are transferring group ownership and giving control of all settings to this user.',
   memberPermissions: 'Member Permissions',
-  search: 'Search ...',
+  searchPlaceholder: 'Search ...',
   select: 'Select',
   communityInformationText2:
     'If you’re organizing, inviting, offering help, or requesting support — this is the place to do it.”',
