@@ -1,16 +1,20 @@
 import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import { styles } from './FriendsScreenStyle';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomHeader from '../../../custome/CustomHeader';
-import { strings } from '../../../language/strings';
-import { Images } from '../../../utils/Images';
-import Color from '../../../utils/Color';
+import CustomHeader from '../../../../custome/CustomHeader';
+import { strings } from '../../../../language/strings';
+import { Images } from '../../../../utils/Images';
+import Color from '../../../../utils/Color';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-import { scale } from '../../../utils/Responsive';
+import { scale } from '../../../../utils/Responsive';
+import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
+import AddFriendBottomsheetContent from '../../../../components/bottomSheetContent/AddFriendBottomsheetContent';
 
 const FriendsScreen = () => {
+  const addFriendSheetRef = useRef();
+
   const [search, setSearch] = useState('');
 
   const friendsData = [
@@ -41,6 +45,14 @@ const FriendsScreen = () => {
     },
   ];
 
+  const openAddFriendBottomsheet = useCallback(() => {
+    addFriendSheetRef.current.show();
+  }, []);
+
+  const closeAddFriendBottomsheet = useCallback(() => {
+    addFriendSheetRef.current.hide();
+  }, []);
+
   const renderFreinds = useCallback(({ item }) => {
     return (
       <View style={styles.itemContainer}>
@@ -49,7 +61,7 @@ const FriendsScreen = () => {
         <TouchableOpacity>
           <Ionicons name="chatbubble-ellipses-outline" size={scale(24)} color={Color.Black} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => openAddFriendBottomsheet()}>
           <MaterialDesignIcons name="dots-vertical" size={scale(24)} color={Color.Black} />
         </TouchableOpacity>
       </View>
@@ -83,6 +95,12 @@ const FriendsScreen = () => {
 
         <FlatList data={friendsData} renderItem={renderFreinds} style={styles.flatlist} />
       </View>
+
+      <CustomBottomsheet
+        ref={addFriendSheetRef}
+        onBottomsheetClose={closeAddFriendBottomsheet}
+        bottomSheetContent={<AddFriendBottomsheetContent />}
+      />
     </SafeAreaView>
   );
 };

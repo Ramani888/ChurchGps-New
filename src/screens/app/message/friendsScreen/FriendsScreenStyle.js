@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import Color from '../../../utils/Color';
-import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
-import { Fonts } from '../../../utils/Font';
+import Color from '../../../../utils/Color';
+import { moderateScale, scale, verticalScale } from '../../../../utils/Responsive';
+import { Fonts } from '../../../../utils/Font';
 
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Color.White },

@@ -128,7 +128,10 @@ const MessageScreen = () => {
         <View style={styles.tabView}>
           <TabButton image={Images.chatLocationIcon} onPress={() => {}} />
           <TabButton image={Images.chatNotificationIcon} onPress={() => {}} />
-          <TabButton image={Images.chatMultiuserIcon} onPress={() => {}} />
+          <TabButton
+            image={Images.chatMultiuserIcon}
+            onPress={() => navigation.navigate(screenName.friendsScreen)}
+          />
         </View>
 
         <FlatList
