@@ -195,6 +195,7 @@ export const Images = {
   blockIcon: require('../assets/image/blockIcon.png'),
   gridIcon: require('../assets/image/gridIcon.png'),
   microphoneIcon: require('../assets/image/microphoneIcon.png'),
+  backgroundImage: require('../assets/image/background.png'),
   background1: require('../assets/image/background1.png'),
   background2: require('../assets/image/background2.png'),
   background3: require('../assets/image/background3.png'),

@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
-import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AntDesign from '@react-native-vector-icons/ant-design';
@@ -27,6 +27,7 @@ import RemoveAdminBottomsheetContent from '../../../../components/bottomSheetCon
 import MemberPermissionBottomsheetContent from '../../../../components/bottomSheetContent/MemberPermissionBottomsheetContent';
 import ChangeBackgroundBottomsheetContent from '../../../../components/bottomSheetContent/ChangeBackgroundBottomsheetContent';
 import { useStateContext } from '../../../../context/StateContext';
+import LinearGradient from 'react-native-linear-gradient';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -274,52 +275,150 @@ const Chatscreen = () => {
           </Menu>
         </View>
       </View>
+      {console.log('changeBackgroundNumber', changeBackgroundNumber)}
 
-      {searchFieldVisible && (
+      {changeBackgroundNumber !== '1' ? (
+        <LinearGradient
+          colors={
+            changeBackgroundNumber === '2'
+              ? Color.gradientBackground2
+              : changeBackgroundNumber === '3'
+              ? Color.gradientBackground3
+              : changeBackgroundNumber === '4'
+              ? Color.gradientBackground4
+              : changeBackgroundNumber === '5'
+              ? Color.gradientBackground5
+              : changeBackgroundNumber === '6'
+              ? Color.gradientBackground6
+              : changeBackgroundNumber === '7'
+              ? Color.gradientBackground7
+              : changeBackgroundNumber === '8'
+              ? Color.gradientBackground8
+              : changeBackgroundNumber === '9'
+              ? Color.gradientBackground9
+              : [Color.White]
+          }
+          style={styles.backgroundImage}
+        >
+          <ImageBackground
+            source={Images.backgroundImage}
+            style={styles.backgroundImage}
+            imageStyle={{ opacity: 0.85 }}
+          >
+            {searchFieldVisible && (
+              <>
+                <View
+                  style={[
+                    styles.searchInput,
+                    {
+                      backgroundColor:
+                        changeBackgroundNumber !== '1' ? Color.OffWhite : Color.rgba.Gray[1],
+                    },
+                  ]}
+                >
+                  <TouchableOpacity onPress={() => {}}>
+                    <Image source={Images.searchIcon1} style={styles.icon} tintColor={Color.Gray} />
+                  </TouchableOpacity>
+                  <CustomInputField
+                    placeholder={strings.search}
+                    onChangeText={setSearch}
+                    value={search}
+                    inputStyle={styles.inputStyle}
+                  />
+                  <TouchableOpacity onPress={() => {}}>
+                    <Image source={Images.userIcon} style={styles.icon} tintColor={Color.Gray} />
+                  </TouchableOpacity>
+                </View>
+                <CustomButton
+                  title={strings.close}
+                  buttonWidth={scale(96)}
+                  buttonHeight={verticalScale(26)}
+                  backgroundColor={
+                    changeBackgroundNumber !== '1' ? Color.OffWhite : Color.rgba.Gray[1]
+                  }
+                  borderRadius={scale(10)}
+                  fontSize={moderateScale(12)}
+                  fontColor={Color.Gray}
+                  fontFamily={Fonts.interRegular}
+                  marginTop={verticalScale(5)}
+                  onPress={() => setSearchFieldVisible(false)}
+                />
+              </>
+            )}
+
+            <View
+              style={[
+                styles.messageInput,
+                {
+                  backgroundColor:
+                    changeBackgroundNumber !== '1' ? Color.OffWhite : Color.rgba.Gray[1],
+                },
+              ]}
+            >
+              <TouchableOpacity onPress={() => {}}>
+                <Image source={Images.gridIcon} style={styles.icon} />
+              </TouchableOpacity>
+              <CustomInputField
+                placeholder={strings.message}
+                onChangeText={setMessage}
+                value={message}
+                inputStyle={styles.inputStyle}
+              />
+              <TouchableOpacity onPress={() => {}}>
+                <Image source={Images.microphoneIcon} style={styles.icon} />
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+        </LinearGradient>
+      ) : (
         <>
-          <View style={styles.searchInput}>
+          {searchFieldVisible && (
+            <>
+              <View style={styles.searchInput}>
+                <TouchableOpacity onPress={() => {}}>
+                  <Image source={Images.searchIcon1} style={styles.icon} tintColor={Color.Gray} />
+                </TouchableOpacity>
+                <CustomInputField
+                  placeholder={strings.search}
+                  onChangeText={setSearch}
+                  value={search}
+                  inputStyle={styles.inputStyle}
+                />
+                <TouchableOpacity onPress={() => {}}>
+                  <Image source={Images.userIcon} style={styles.icon} tintColor={Color.Gray} />
+                </TouchableOpacity>
+              </View>
+              <CustomButton
+                title={strings.close}
+                buttonWidth={scale(96)}
+                buttonHeight={verticalScale(26)}
+                backgroundColor={Color.rgba.Gray[2]}
+                borderRadius={scale(10)}
+                fontSize={moderateScale(12)}
+                fontColor={Color.Gray}
+                fontFamily={Fonts.interRegular}
+                marginTop={verticalScale(5)}
+                onPress={() => setSearchFieldVisible(false)}
+              />
+            </>
+          )}
+
+          <View style={styles.messageInput}>
             <TouchableOpacity onPress={() => {}}>
-              <Image source={Images.searchIcon1} style={styles.icon} tintColor={Color.Gray} />
+              <Image source={Images.gridIcon} style={styles.icon} />
             </TouchableOpacity>
             <CustomInputField
-              placeholder={strings.search}
-              onChangeText={setSearch}
-              value={search}
+              placeholder={strings.message}
+              onChangeText={setMessage}
+              value={message}
               inputStyle={styles.inputStyle}
             />
             <TouchableOpacity onPress={() => {}}>
-              <Image source={Images.userIcon} style={styles.icon} tintColor={Color.Gray} />
+              <Image source={Images.microphoneIcon} style={styles.icon} />
             </TouchableOpacity>
           </View>
-          <CustomButton
-            title={strings.close}
-            buttonWidth={scale(96)}
-            buttonHeight={verticalScale(26)}
-            backgroundColor={Color.rgba.Gray[2]}
-            borderRadius={scale(10)}
-            fontSize={moderateScale(12)}
-            fontColor={Color.Gray}
-            fontFamily={Fonts.interRegular}
-            marginTop={verticalScale(5)}
-            onPress={() => setSearchFieldVisible(false)}
-          />
         </>
       )}
-
-      <View style={styles.messageInput}>
-        <TouchableOpacity onPress={() => {}}>
-          <Image source={Images.gridIcon} style={styles.icon} />
-        </TouchableOpacity>
-        <CustomInputField
-          placeholder={strings.message}
-          onChangeText={setMessage}
-          value={message}
-          inputStyle={styles.inputStyle}
-        />
-        <TouchableOpacity onPress={() => {}}>
-          <Image source={Images.microphoneIcon} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
 
       <CustomBottomsheet
         ref={infoSheetRef}
@@ -399,7 +498,11 @@ const Chatscreen = () => {
       <CustomBottomsheet
         ref={changeBackgroundSheetRef}
         onBottomsheetClose={closeChangeBackgroundBottomsheet}
-        bottomSheetContent={<ChangeBackgroundBottomsheetContent />}
+        bottomSheetContent={
+          <ChangeBackgroundBottomsheetContent
+            closeChangeBackgroundBottomsheet={closeChangeBackgroundBottomsheet}
+          />
+        }
       />
     </SafeAreaView>
   );

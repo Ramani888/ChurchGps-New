@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: scale(14),
+    backgroundColor: Color.White,
   },
   userImage: { width: scale(36), height: scale(36) },
   headerTitle: {
@@ -45,6 +46,7 @@ export const styles = StyleSheet.create({
     marginVertical: verticalScale(2),
   },
   messageInput: {
+    zIndex: 1,
     position: 'absolute',
     bottom: verticalScale(10),
     width: scale(343),
@@ -56,6 +58,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: scale(16),
     borderRadius: scale(50),
   },
+  backgroundImage: { flex: 1 },
   inputStyle: {
     width: scale(258),
     height: scale(50),
@@ -64,6 +67,7 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(14),
   },
   searchInput: {
+    zIndex: 1,
     width: scale(343),
     height: scale(56),
     backgroundColor: Color.rgba.Gray[1],
@@ -73,5 +77,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: scale(16),
     borderRadius: scale(50),
     marginTop: verticalScale(15),
+  },
+  gradient: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
   },
 });

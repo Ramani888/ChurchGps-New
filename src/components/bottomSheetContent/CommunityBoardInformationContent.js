@@ -11,7 +11,8 @@ const CommunityBoardInformationContent = ({ closeBottomsheet }) => {
   return (
     <View>
       <GradientText text={strings.information} colors={Color.gradientColor1} style={styles.title} />
-      <Text style={styles.text}>{strings.communityInformationText}</Text>
+      <Text style={styles.text}>{strings.communityInformationText1}</Text>
+      <Text style={styles.text}>{strings.communityInformationText2}</Text>
 
       <CustomButton
         title={strings.close}
@@ -47,5 +48,7 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(13),
     textAlign: 'center',
     color: Color.Gray,
+    width: scale(331),
+    alignSelf: 'center',
   },
 });

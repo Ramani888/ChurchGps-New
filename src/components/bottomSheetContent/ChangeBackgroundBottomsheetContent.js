@@ -8,37 +8,44 @@ import Color from '../../utils/Color';
 import { Fonts } from '../../utils/Font';
 import { strings } from '../../language/strings';
 import { useStateContext } from '../../context/StateContext';
+import { useFocusEffect } from '@react-navigation/native';
 
-const ChangeBackgroundBottomsheetContent = () => {
-  const { setChangeBackgroundNumber, changeBackgroundNumber } = useStateContext();
+const ChangeBackgroundBottomsheetContent = ({ closeChangeBackgroundBottomsheet }) => {
+  const [backgroundNumber, setBackgroundNumber] = useState('1');
+  const { handleBackgrounChange, changeBackgroundNumber } = useStateContext();
+
+  useFocusEffect(
+    useCallback(() => {
+      setBackgroundNumber(changeBackgroundNumber);
+    }, [changeBackgroundNumber]),
+  );
 
   const imageData = [
-    { id: 1, image: Images.background1 },
-    { id: 2, image: Images.background2 },
-    { id: 3, image: Images.background3 },
-    { id: 4, image: Images.background4 },
-    { id: 5, image: Images.background5 },
-    { id: 6, image: Images.background6 },
-    { id: 7, image: Images.background7 },
-    { id: 8, image: Images.background8 },
-    { id: 9, image: Images.background9 },
+    { id: '1', image: Images.background1 },
+    { id: '2', image: Images.background2 },
+    { id: '3', image: Images.background3 },
+    { id: '4', image: Images.background4 },
+    { id: '5', image: Images.background5 },
+    { id: '6', image: Images.background6 },
+    { id: '7', image: Images.background7 },
+    { id: '8', image: Images.background8 },
+    { id: '9', image: Images.background9 },
   ];
 
   const renderImages = useCallback(
     ({ item }) => {
-      const selected = changeBackgroundNumber === item?.id;
-      console.log('selected', selected);
+      const selected = backgroundNumber === item?.id;
 
       return (
         <TouchableOpacity
           style={[styles.itemContainer, { borderWidth: selected ? scale(2) : 0 }]}
-          onPress={() => setChangeBackgroundNumber(item?.id)}
+          onPress={() => setBackgroundNumber(item?.id)}
         >
           <Image source={item?.image} style={styles.image} />
         </TouchableOpacity>
       );
     },
-    [changeBackgroundNumber],
+    [backgroundNumber],
   );
 
   return (
@@ -60,7 +67,10 @@ const ChangeBackgroundBottomsheetContent = () => {
         fontColor={Color.Black}
         fontFamily={Fonts.sfProBold}
         marginTop={verticalScale(10)}
-        onPress={() => {}}
+        onPress={() => {
+          closeChangeBackgroundBottomsheet();
+          handleBackgrounChange(backgroundNumber);
+        }}
       />
     </SafeAreaView>
   );

@@ -17,80 +17,80 @@ import CustomBottomsheet from '../../../custome/CustomBottomsheet';
 import AddGroupBottomsheetContent from '../../../components/bottomSheetContent/AddGroupBottomsheetContent';
 import { keyboardDismiss } from '../../../utils/ReusableFunctions';
 
-const DropdownItem = memo(({ label, value, selected, onSelect }) => {
-  return (
-    <View style={styles.dropdownItemStyle}>
-      <CheckBox isChecked={value === selected} checkboxColor={Color.theme1} pressable={false} />
-      <Text style={styles.checkboxTitleStyle}>{label}</Text>
-    </View>
-  );
-});
+// const DropdownItem = memo(({ label, value, selected, onSelect }) => {
+//   return (
+//     <View style={styles.dropdownItemStyle}>
+//       <CheckBox isChecked={value === selected} checkboxColor={Color.theme1} pressable={false} />
+//       <Text style={styles.checkboxTitleStyle}>{label}</Text>
+//     </View>
+//   );
+// });
 
 const CreateCommunityBoardScreen = () => {
   const sheetRef = useRef();
 
   const [description, setDescription] = useState('');
-  const [denomination, setDenomination] = useState('');
-  const [protestantDenominations, setProtestantDenominations] = useState('');
-  const [otherDenomination, setOtherDenomination] = useState('');
+  //   const [denomination, setDenomination] = useState('');
+  //   const [protestantDenominations, setProtestantDenominations] = useState('');
+  //   const [otherDenomination, setOtherDenomination] = useState('');
 
-  const denominationData = useMemo(
-    () => [
-      { label: strings.noPreference, value: 'No Preference' },
-      { label: strings.catholic, value: 'Catholic' },
-      { label: strings.protestant, value: 'Protestant' },
-      { label: strings.orthodox, value: 'Orthodox' },
-      { label: strings.otherCristian, value: 'Other Christian' },
-    ],
-    [strings],
-  );
+  //   const denominationData = useMemo(
+  //     () => [
+  //       { label: strings.noPreference, value: 'No Preference' },
+  //       { label: strings.catholic, value: 'Catholic' },
+  //       { label: strings.protestant, value: 'Protestant' },
+  //       { label: strings.orthodox, value: 'Orthodox' },
+  //       { label: strings.otherCristian, value: 'Other Christian' },
+  //     ],
+  //     [strings],
+  //   );
 
-  const protestonDenominationData = useMemo(
-    () => [
-      { label: strings.noPreference, value: 'No Preference' },
-      { label: strings.baptist, value: 'Baptist' },
-      {
-        label: strings.pentecostalCharismatic,
-        value: 'Pentecostal/Charismatic',
-      },
-      { label: strings.lutheran, value: 'Lutheran' },
-      { label: strings.methodistWesleyan, value: 'Methodist/Wesleyan' },
-      { label: strings.anglicanEpiscopal, value: 'Anglican/Episcopal' },
-      { label: strings.presbyterianReformed, value: 'Presbyterian/Reformed' },
-      { label: strings.adventist, value: 'Adventist' },
-      { label: strings.nonDenominetionals, value: 'Non-Denominetional' },
-      { label: strings.otherProtestant, value: 'Other Protestant' },
-      { label: strings.otherCristian, value: 'Other Cristian' },
-    ],
-    [strings],
-  );
+  //   const protestonDenominationData = useMemo(
+  //     () => [
+  //       { label: strings.noPreference, value: 'No Preference' },
+  //       { label: strings.baptist, value: 'Baptist' },
+  //       {
+  //         label: strings.pentecostalCharismatic,
+  //         value: 'Pentecostal/Charismatic',
+  //       },
+  //       { label: strings.lutheran, value: 'Lutheran' },
+  //       { label: strings.methodistWesleyan, value: 'Methodist/Wesleyan' },
+  //       { label: strings.anglicanEpiscopal, value: 'Anglican/Episcopal' },
+  //       { label: strings.presbyterianReformed, value: 'Presbyterian/Reformed' },
+  //       { label: strings.adventist, value: 'Adventist' },
+  //       { label: strings.nonDenominetionals, value: 'Non-Denominetional' },
+  //       { label: strings.otherProtestant, value: 'Other Protestant' },
+  //       { label: strings.otherCristian, value: 'Other Cristian' },
+  //     ],
+  //     [strings],
+  //   );
 
-  const otherDenominationData = useMemo(
-    () => [
-      { label: strings.jevovahWitness, value: 'Jehovah Witness' },
-      { label: strings.mormon, value: 'Mormon' },
-      { label: strings.messianicJew, value: 'messianic Jew' },
-      { label: strings.other, value: 'Other' },
-    ],
-    [strings],
-  );
+  //   const otherDenominationData = useMemo(
+  //     () => [
+  //       { label: strings.jevovahWitness, value: 'Jehovah Witness' },
+  //       { label: strings.mormon, value: 'Mormon' },
+  //       { label: strings.messianicJew, value: 'messianic Jew' },
+  //       { label: strings.other, value: 'Other' },
+  //     ],
+  //     [strings],
+  //   );
 
-  const renderDenominationItem = useCallback(
-    item => <DropdownItem label={item.label} value={item.value} selected={denomination} />,
-    [denomination],
-  );
+  //   const renderDenominationItem = useCallback(
+  //     item => <DropdownItem label={item.label} value={item.value} selected={denomination} />,
+  //     [denomination],
+  //   );
 
-  const renderProtestantItem = useCallback(
-    item => (
-      <DropdownItem label={item.label} value={item.value} selected={protestantDenominations} />
-    ),
-    [protestantDenominations],
-  );
+  //   const renderProtestantItem = useCallback(
+  //     item => (
+  //       <DropdownItem label={item.label} value={item.value} selected={protestantDenominations} />
+  //     ),
+  //     [protestantDenominations],
+  //   );
 
-  const renderOtherDenominationItem = useCallback(
-    item => <DropdownItem label={item.label} value={item.value} selected={otherDenomination} />,
-    [otherDenomination],
-  );
+  //   const renderOtherDenominationItem = useCallback(
+  //     item => <DropdownItem label={item.label} value={item.value} selected={otherDenomination} />,
+  //     [otherDenomination],
+  //   );
 
   const openBottomsheet = useCallback(() => {
     sheetRef.current.show();
@@ -137,11 +137,11 @@ const CreateCommunityBoardScreen = () => {
           onPress={openBottomsheet}
           marginVertical={verticalScale(10)}
         />
-
+        {/* 
         <Text style={styles.optionalText}>({strings.optional})</Text>
-        <Text style={styles.text}>{strings.communityBoardNote1}</Text>
+        <Text style={styles.text}>{strings.communityBoardNote1}</Text> */}
 
-        <View style={styles.dropdownView}>
+        {/* <View style={styles.dropdownView}>
           <CustomDropdown
             dropdownPlaceholder={strings.denomination}
             data={denominationData}
@@ -179,7 +179,7 @@ const CreateCommunityBoardScreen = () => {
           />
         </View>
 
-        <Text style={[styles.text, { textAlign: 'center' }]}>{strings.communityBoardNote2}</Text>
+        <Text style={[styles.text, { textAlign: 'center' }]}>{strings.communityBoardNote2}</Text> */}
 
         <CustomButton
           title={strings.create}

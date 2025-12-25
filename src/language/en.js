@@ -270,8 +270,8 @@ ask for money)`,
   addGroup: 'Add Group',
   yourGroup: 'Your Group',
   information: 'Information',
-  communityInformationText:
-    'Community Board filter settings are the same you set in the map filter section (Distance location & Denomination)',
+  communityInformationText1:
+    'A shared bulletin where anyone can post updates, needs, events, prayer requests, meetups, studies, service opportunities, and more',
   descriptionRequired: 'Description is required',
 
   chat: 'Chat',
@@ -314,6 +314,8 @@ ask for money)`,
   memberPermissions: 'Member Permissions',
   search: 'Search ...',
   select: 'Select',
+  communityInformationText2:
+    'If you’re organizing, inviting, offering help, or requesting support — this is the place to do it.”',
 };
 
 // userNameRequired; biji language ma baki che
