@@ -273,7 +273,6 @@ ask for money)`,
   communityInformationText1:
     'A shared bulletin where anyone can post updates, needs, events, prayer requests, meetups, studies, service opportunities, and more',
   descriptionRequired: 'Description is required',
-
   chat: 'Chat',
   friends: 'Friends',
   enterUsernameOrRefferal: 'Enter @username or Referral Code',
