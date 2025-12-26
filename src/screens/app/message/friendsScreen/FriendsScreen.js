@@ -11,9 +11,11 @@ import MaterialDesignIcons from '@react-native-vector-icons/material-design-icon
 import { scale } from '../../../../utils/Responsive';
 import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import AddFriendBottomsheetContent from '../../../../components/bottomSheetContent/AddFriendBottomsheetContent';
+import CreatePollBottomsheetContent from '../../../../components/bottomSheetContent/CreatePollBottomsheetContent';
 
 const FriendsScreen = () => {
   const addFriendSheetRef = useRef();
+  const createPollSheetRef = useRef();
 
   const [search, setSearch] = useState('');
 
@@ -53,12 +55,20 @@ const FriendsScreen = () => {
     addFriendSheetRef.current.hide();
   }, []);
 
+  const openCreatePollBottomsheet = useCallback(() => {
+    createPollSheetRef.current.show();
+  }, []);
+
+  const closeCreatePollBottomsheet = useCallback(() => {
+    createPollSheetRef.current.hide();
+  }, []);
+
   const renderFreinds = useCallback(({ item }) => {
     return (
       <View style={styles.itemContainer}>
         <Image source={{ uri: item?.image }} style={styles.friendsImage} />
         <Text style={styles.title}>{item?.title}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => openCreatePollBottomsheet()}>
           <Ionicons name="chatbubble-ellipses-outline" size={scale(24)} color={Color.Black} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => openAddFriendBottomsheet()}>
@@ -101,8 +111,15 @@ const FriendsScreen = () => {
         onBottomsheetClose={closeAddFriendBottomsheet}
         bottomSheetContent={<AddFriendBottomsheetContent />}
       />
+
+      <CustomBottomsheet
+        ref={createPollSheetRef}
+        gestureEnabled={true}
+        onBottomsheetClose={closeCreatePollBottomsheet}
+        bottomSheetContent={<CreatePollBottomsheetContent />}
+        bottomsheetContainerStyle={{ height: '93%' }}
+      />
     </SafeAreaView>
   );
 };
-
 export default memo(FriendsScreen);

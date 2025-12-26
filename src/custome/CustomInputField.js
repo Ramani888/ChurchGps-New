@@ -27,6 +27,7 @@ const CustomInputField = ({
   editable,
   multiline,
   numberOfLines,
+  textAreaHeight,
   maxLength,
   keyboardType,
   rightIcon,
@@ -77,6 +78,7 @@ const CustomInputField = ({
             styles.textInput,
             inputStyle,
             multiline && styles.textAreaInput,
+            textAreaHeight && { height: textAreaHeight },
             eyeIcon && { paddingRight: scale(40) },
           ]}
           keyboardType={keyboardType}
