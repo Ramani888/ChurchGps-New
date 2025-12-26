@@ -153,11 +153,6 @@ const VoiceChatPermissionBottomsheetContent = () => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {}} style={styles.bottomIconView}>
-          {/* <Image
-            source={mute ? Images.muteIcon : Images.microphoneIcon}
-            style={styles.microphoneImage}
-            tintColor={Color.Black}
-          /> */}
           <Text style={styles.handImage}>👋</Text>
           <Text style={styles.text}>{strings.speakRequest}</Text>
         </TouchableOpacity>
