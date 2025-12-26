@@ -13,6 +13,8 @@ import { scale } from '../../../../utils/Responsive';
 import { screenName } from '../../../../utils/NavigationKey';
 import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import ShowMessageFromBottomsheetContent from '../../../../components/bottomSheetContent/ShowMessageFromBottomsheetContent';
+import StartVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/StartVoiceChatBottomsheetContent';
+import EndVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/EndVoiceChatBottomsheetContent';
 
 const USER_DATA = [
   {
@@ -94,6 +96,8 @@ const UserRow = memo(function UserRow({ item, onRowPress, onMenuPress }) {
 const MessageScreen = () => {
   const navigation = useNavigation();
   const showMessageFromSheetRef = useRef();
+  const startVoiceChatSheetRef = useRef();
+  const endVoiceChatSheetRef = useRef();
 
   const userData = useMemo(() => USER_DATA, []);
 
@@ -103,6 +107,22 @@ const MessageScreen = () => {
 
   const closeShowMessageFromBottomsheet = useCallback(() => {
     showMessageFromSheetRef.current.hide();
+  }, []);
+
+  const openStartVoiceChatBottomsheet = useCallback(() => {
+    startVoiceChatSheetRef.current.show();
+  }, []);
+
+  const closeStartVoiceChatBottomsheet = useCallback(() => {
+    startVoiceChatSheetRef.current.hide();
+  }, []);
+
+  const openEndVoiceChatBottomsheet = useCallback(() => {
+    endVoiceChatSheetRef.current.show();
+  }, []);
+
+  const closeEndVoiceChatBottomsheet = useCallback(() => {
+    endVoiceChatSheetRef.current.hide();
   }, []);
 
   const onRowPress = useCallback(
@@ -117,6 +137,7 @@ const MessageScreen = () => {
 
   const onMenuPress = useCallback(item => {
     console.log('Menu pressed for:', item?.id, item?.title);
+    openEndVoiceChatBottomsheet();
   }, []);
 
   const renderItem = useCallback(
@@ -141,7 +162,10 @@ const MessageScreen = () => {
             image={Images.chatLocationIcon}
             onPress={() => openShowMessageFromBottomsheet()}
           />
-          <TabButton image={Images.chatNotificationIcon} onPress={() => {}} />
+          <TabButton
+            image={Images.chatNotificationIcon}
+            onPress={() => openStartVoiceChatBottomsheet()}
+          />
           <TabButton
             image={Images.chatMultiuserIcon}
             onPress={() => navigation.navigate(screenName.friendsScreen)}
@@ -166,6 +190,18 @@ const MessageScreen = () => {
         ref={showMessageFromSheetRef}
         onBottomsheetClose={closeShowMessageFromBottomsheet}
         bottomSheetContent={<ShowMessageFromBottomsheetContent />}
+      />
+
+      <CustomBottomsheet
+        ref={startVoiceChatSheetRef}
+        onBottomsheetClose={closeStartVoiceChatBottomsheet}
+        bottomSheetContent={<StartVoiceChatBottomsheetContent />}
+      />
+
+      <CustomBottomsheet
+        ref={endVoiceChatSheetRef}
+        onBottomsheetClose={closeEndVoiceChatBottomsheet}
+        bottomSheetContent={<EndVoiceChatBottomsheetContent />}
       />
     </SafeAreaView>
   );

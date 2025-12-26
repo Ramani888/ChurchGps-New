@@ -318,6 +318,11 @@ ask for money)`,
   addFriends: ' Add Friends',
 
   showMessageFrom: 'Show Message From',
+  startGroupVoiceChat: 'Start Group Voice Chat',
+  endVoiceChat: 'End Voice Chat',
+  generalDiscussion: 'General Discussion',
+  anyoneCanSpeak: 'Anyone can Speak',
+  givePermissionToSpeak: 'Give Permission to Speak',
 };
 
 // userNameRequired; biji language ma baki che
