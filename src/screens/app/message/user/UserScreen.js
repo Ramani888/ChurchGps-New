@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
@@ -11,6 +11,8 @@ import { Images } from '../../../../utils/Images';
 import Color from '../../../../utils/Color';
 import { scale } from '../../../../utils/Responsive';
 import { screenName } from '../../../../utils/NavigationKey';
+import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
+import ShowMessageFromBottomsheetContent from '../../../../components/bottomSheetContent/ShowMessageFromBottomsheetContent';
 
 const USER_DATA = [
   {
@@ -91,8 +93,17 @@ const UserRow = memo(function UserRow({ item, onRowPress, onMenuPress }) {
 
 const MessageScreen = () => {
   const navigation = useNavigation();
+  const showMessageFromSheetRef = useRef();
 
   const userData = useMemo(() => USER_DATA, []);
+
+  const openShowMessageFromBottomsheet = useCallback(() => {
+    showMessageFromSheetRef.current.show();
+  }, []);
+
+  const closeShowMessageFromBottomsheet = useCallback(() => {
+    showMessageFromSheetRef.current.hide();
+  }, []);
 
   const onRowPress = useCallback(
     item => {
@@ -126,7 +137,10 @@ const MessageScreen = () => {
 
       <View style={styles.bodyContainer}>
         <View style={styles.tabView}>
-          <TabButton image={Images.chatLocationIcon} onPress={() => {}} />
+          <TabButton
+            image={Images.chatLocationIcon}
+            onPress={() => openShowMessageFromBottomsheet()}
+          />
           <TabButton image={Images.chatNotificationIcon} onPress={() => {}} />
           <TabButton
             image={Images.chatMultiuserIcon}
@@ -147,6 +161,12 @@ const MessageScreen = () => {
           getItemLayout={getItemLayout}
         />
       </View>
+
+      <CustomBottomsheet
+        ref={showMessageFromSheetRef}
+        onBottomsheetClose={closeShowMessageFromBottomsheet}
+        bottomSheetContent={<ShowMessageFromBottomsheetContent />}
+      />
     </SafeAreaView>
   );
 };

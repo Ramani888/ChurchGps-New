@@ -316,6 +316,8 @@ ask for money)`,
   communityInformationText2:
     'If you’re organizing, inviting, offering help, or requesting support — this is the place to do it.”',
   addFriends: ' Add Friends',
+
+  showMessageFrom: 'Show Message From',
 };
 
 // userNameRequired; biji language ma baki che
