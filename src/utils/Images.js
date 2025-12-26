@@ -205,4 +205,5 @@ export const Images = {
   background7: require('../assets/image/background7.png'),
   background8: require('../assets/image/background8.png'),
   background9: require('../assets/image/background9.png'),
+  muteIcon: require('../assets/image/mute.png'),
 };

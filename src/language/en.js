@@ -329,6 +329,14 @@ ask for money)`,
   enterQuestion: 'Enter Question',
   max10: '10 MAX',
   pollEnds: 'Poll Ends',
+  voiceChat: 'Voice Chat',
+  end: 'End',
+  kick: 'Kick',
+  mute: 'Mute',
+  allowToSpeak: 'Allow to Speak',
+  leave: 'Leave',
+  minimize: 'Minimize',
+  speakRequest: 'Speak Request',
 };
 
 // userNameRequired; biji language ma baki che

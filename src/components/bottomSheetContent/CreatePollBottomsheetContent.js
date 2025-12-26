@@ -258,8 +258,8 @@ const styles = StyleSheet.create({
     borderRadius: scale(2),
     backgroundColor: Color.Gray,
     alignSelf: 'center',
-    marginTop: verticalScale(15),
-    marginBottom: verticalScale(10),
+    marginTop: verticalScale(20),
+    marginBottom: verticalScale(5),
   },
   title: {
     fontSize: moderateScale(24),

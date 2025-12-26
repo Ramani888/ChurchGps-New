@@ -12,10 +12,12 @@ import { scale } from '../../../../utils/Responsive';
 import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import AddFriendBottomsheetContent from '../../../../components/bottomSheetContent/AddFriendBottomsheetContent';
 import CreatePollBottomsheetContent from '../../../../components/bottomSheetContent/CreatePollBottomsheetContent';
+import VoiceChatPermissionBottomsheetContent from '../../../../components/bottomSheetContent/VoiceChatPermissionBottomsheetContent';
 
 const FriendsScreen = () => {
   const addFriendSheetRef = useRef();
   const createPollSheetRef = useRef();
+  const voiceChatPermissionSheetRef = useState();
 
   const [search, setSearch] = useState('');
 
@@ -63,6 +65,14 @@ const FriendsScreen = () => {
     createPollSheetRef.current.hide();
   }, []);
 
+  const openVoiceChatPermissionBottomsheet = useCallback(() => {
+    voiceChatPermissionSheetRef.current.show();
+  }, []);
+
+  const closeVoiceChatPermissionBottomsheet = useCallback(() => {
+    voiceChatPermissionSheetRef.current.hide();
+  }, []);
+
   const renderFreinds = useCallback(({ item }) => {
     return (
       <View style={styles.itemContainer}>
@@ -84,7 +94,7 @@ const FriendsScreen = () => {
         backArrowVisible
         gradientTitle={strings.friends}
         searchIcon={Images.searchIcon1}
-        searchIconPress={() => {}}
+        searchIconPress={() => openVoiceChatPermissionBottomsheet()}
       />
 
       <View style={styles.bodyContainer}>
@@ -118,6 +128,13 @@ const FriendsScreen = () => {
         onBottomsheetClose={closeCreatePollBottomsheet}
         bottomSheetContent={<CreatePollBottomsheetContent />}
         bottomsheetContainerStyle={{ height: '93%' }}
+      />
+
+      <CustomBottomsheet
+        ref={voiceChatPermissionSheetRef}
+        onBottomsheetClose={closeVoiceChatPermissionBottomsheet}
+        bottomSheetContent={<VoiceChatPermissionBottomsheetContent />}
+        isModal={false}
       />
     </SafeAreaView>
   );
