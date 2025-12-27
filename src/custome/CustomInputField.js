@@ -105,12 +105,12 @@ const CustomInputField = ({
             <Ionicons name={eye ? 'eye' : 'eye-off-sharp'} size={scale(20)} color={Color.Black} />
           </Pressable>
         )}
-        {errors && touched && (
-          <View style={[styles.viewError, errorViewStyle]}>
-            <Text style={[styles.textError, errorTextStyle]}>{errors}</Text>
-          </View>
-        )}
       </View>
+      {errors && touched && (
+        <View style={[styles.viewError, errorViewStyle]}>
+          <Text style={[styles.textError, errorTextStyle]}>{errors}</Text>
+        </View>
+      )}
     </View>
   );
 };

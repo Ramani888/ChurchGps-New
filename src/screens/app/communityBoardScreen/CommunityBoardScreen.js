@@ -1,5 +1,5 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native';
-import React, { memo, useCallback, useRef } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './CommunityBoardScreenStyle';
 import CustomHeader from '../../../custome/CustomHeader';
@@ -11,10 +11,13 @@ import { Images } from '../../../utils/Images';
 import Color from '../../../utils/Color';
 import CustomBottomsheet from '../../../custome/CustomBottomsheet';
 import CommunityBoardInformationContent from '../../../components/bottomSheetContent/CommunityBoardInformationContent';
+import { BlurView } from '@react-native-community/blur';
 
 const CommunityBoardScreen = () => {
   const navigation = useNavigation();
   const sheetRef = useRef();
+
+  const [blurVisible, setBlurVisible] = useState(false);
 
   const data = [
     {
@@ -130,12 +133,7 @@ const CommunityBoardScreen = () => {
       />
 
       <View>
-        <FlatList
-          data={data}
-          renderItem={renderList}
-          contentContainerStyle={styles.flatlistView}
-          //   contentContainerStyle={{ paddingBottom: verticalScale(120) }}
-        />
+        <FlatList data={data} renderItem={renderList} contentContainerStyle={styles.flatlistView} />
       </View>
 
       <Pressable
@@ -145,13 +143,18 @@ const CommunityBoardScreen = () => {
         <Image source={Images.plusFabIcon} style={styles.fabIcon} />
       </Pressable>
 
-      <CustomBottomsheet
-        ref={sheetRef}
-        onBottomsheetClose={closeBottomsheet}
-        bottomSheetContent={
-          <CommunityBoardInformationContent closeBottomsheet={closeBottomsheet} />
-        }
-      />
+      {blurVisible && (
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={4}
+          reducedTransparencyFallbackColor="white"
+        />
+      )}
+
+      <CustomBottomsheet ref={sheetRef} setBlurVisible={setBlurVisible}>
+        <CommunityBoardInformationContent closeBottomsheet={closeBottomsheet} />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

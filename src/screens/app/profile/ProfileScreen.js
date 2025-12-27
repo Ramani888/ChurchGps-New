@@ -109,37 +109,25 @@ const ProfileScreen = () => {
 
   const openLanguageBottomsheet = useCallback(() => {
     languageSheetRef.current.show();
-    setTimeout(() => {
-      setBlurVisible(true);
-    }, 300);
   }, []);
 
   const closeLanguageBottomsheet = useCallback(() => {
-    setBlurVisible(false);
     languageSheetRef.current.hide();
   }, []);
 
   const openCancelSubscriptionBottomSheet = useCallback(() => {
     cancelSubscriptionSheetRef.current.show();
-    setTimeout(() => {
-      setBlurVisible(true);
-    }, 300);
   }, []);
 
   const closeCancelSubscriptionBottomSheet = useCallback(() => {
-    setBlurVisible(false);
     cancelSubscriptionSheetRef.current.hide();
   }, []);
 
   const openRefferalBottomSheet = useCallback(() => {
     refferalSheetRef.current.show();
-    setTimeout(() => {
-      setBlurVisible(true);
-    }, 300);
   }, []);
 
   const closeRefferalBottomSheet = useCallback(() => {
-    setBlurVisible(false);
     refferalSheetRef.current.hide();
   }, []);
 
@@ -484,6 +472,7 @@ const ProfileScreen = () => {
           </View>
         </View>
       </ScrollView>
+
       {blurVisible && (
         <BlurView
           style={styles.absolute}
@@ -492,21 +481,18 @@ const ProfileScreen = () => {
           reducedTransparencyFallbackColor="white"
         />
       )}
-      <CustomBottomsheet
-        ref={languageSheetRef}
-        onBottomsheetClose={closeLanguageBottomsheet}
-        bottomSheetContent={<LanguageBottomsheetContent />}
-      />
-      <CustomBottomsheet
-        ref={cancelSubscriptionSheetRef}
-        onBottomsheetClose={closeCancelSubscriptionBottomSheet}
-        bottomSheetContent={<CancelSubscriptionBottomsheetContent />}
-      />
-      <CustomBottomsheet
-        ref={refferalSheetRef}
-        onBottomsheetClose={closeRefferalBottomSheet}
-        bottomSheetContent={<RefferalBottomsheetContent />}
-      />
+
+      <CustomBottomsheet ref={languageSheetRef} setBlurVisible={setBlurVisible}>
+        <LanguageBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={cancelSubscriptionSheetRef} setBlurVisible={setBlurVisible}>
+        <CancelSubscriptionBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={refferalSheetRef} setBlurVisible={setBlurVisible}>
+        <RefferalBottomsheetContent />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

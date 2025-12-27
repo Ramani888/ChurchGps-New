@@ -45,4 +45,11 @@ export const styles = StyleSheet.create({
     marginVertical: verticalScale(15),
     alignSelf: 'center',
   },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 });

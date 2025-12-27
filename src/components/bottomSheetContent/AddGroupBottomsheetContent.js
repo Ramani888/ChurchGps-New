@@ -31,7 +31,6 @@ const AddGroupBottomsheetContent = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.indicator} />
       <GradientText text={strings.yourGroup} colors={Color.gradientColor1} style={styles.title} />
 
       <View>
@@ -45,19 +44,10 @@ export default memo(AddGroupBottomsheetContent);
 
 const styles = StyleSheet.create({
   container: { marginHorizontal: scale(15) },
-  indicator: {
-    backgroundColor: Color.Gray,
-    width: moderateScale(60),
-    height: verticalScale(5),
-    marginTop: verticalScale(20),
-    borderRadius: scale(10),
-    alignSelf: 'center',
-  },
   title: {
     fontSize: moderateScale(24),
     fontFamily: Fonts.spaceGroteskBold,
     alignSelf: 'center',
-    paddingTop: verticalScale(10),
     letterSpacing: scale(-1),
   },
   listContainer: {

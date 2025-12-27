@@ -117,22 +117,17 @@ const SignUpScreen = () => {
     try {
       setIsLoading(true);
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      
+
       const { data } = await GoogleSignin.signIn();
       const { user } = data;
-      
+
       if (!user?.id || !user?.email) {
         ToastMessage('Failed to get Google user info');
         return;
       }
-      
-      const signUpResponse = await googleSignUp(
-        user.id,
-        user.email,
-        user.name,
-        user.photo
-      );
-      
+
+      const signUpResponse = await googleSignUp(user.id, user.email, user.name, user.photo);
+
       if (signUpResponse?.success) {
         goToNext(signUpResponse.user);
       } else {
@@ -140,12 +135,12 @@ const SignUpScreen = () => {
       }
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) return;
-      
+
       const errorMessages = {
         [statusCodes.IN_PROGRESS]: 'Sign-in already in progress',
         [statusCodes.PLAY_SERVICES_NOT_AVAILABLE]: 'Google Play Services not available or outdated',
       };
-      
+
       const errorMsg = errorMessages[error.code] || error.message || strings.somethingWentWrong;
       ToastMessage(errorMsg);
     } finally {
@@ -170,37 +165,25 @@ const SignUpScreen = () => {
 
   const openLanguageBottomsheet = () => {
     languageSheetRef.current.show();
-    setTimeout(() => {
-      setBlurVisible(true);
-    }, 300);
   };
 
   const closeLanguageBottomsheet = () => {
-    setBlurVisible(false);
     languageSheetRef.current.hide();
   };
 
   const openCalenderBottomsheet = () => {
     datePickerSheetRef.current.show();
-    setTimeout(() => {
-      setBlurVisible(true);
-    }, 300);
   };
 
   const closeCalenderBottomsheet = () => {
-    setBlurVisible(false);
     datePickerSheetRef.current.hide();
   };
 
   const openSuccessBottomsheet = () => {
     successSheetRef.current.show();
-    setTimeout(() => {
-      setBlurVisible(true);
-    }, 300);
   };
 
   const closeSuccessBottomsheet = () => {
-    setBlurVisible(false);
     successSheetRef.current.hide();
   };
 
@@ -445,19 +428,15 @@ const SignUpScreen = () => {
                 onPress={handleSubmit}
               />
 
-              <CustomBottomsheet
-                ref={datePickerSheetRef}
-                onBottomsheetClose={closeCalenderBottomsheet}
-                bottomSheetContent={
-                  <DatePickerBottomsheetContent
-                    setDob={date => {
-                      setDob(date);
-                      setFieldValue('dob', date.sendFormateDate);
-                    }}
-                    setEighteenPlus={setEighteenPlus}
-                  />
-                }
-              />
+              <CustomBottomsheet ref={datePickerSheetRef} setBlurVisible={setBlurVisible}>
+                <DatePickerBottomsheetContent
+                  setDob={date => {
+                    setDob(date);
+                    setFieldValue('dob', date.sendFormateDate);
+                  }}
+                  setEighteenPlus={setEighteenPlus}
+                />
+              </CustomBottomsheet>
             </View>
           )}
         </Formik>
@@ -472,17 +451,13 @@ const SignUpScreen = () => {
         />
       )}
 
-      <CustomBottomsheet
-        ref={languageSheetRef}
-        onBottomsheetClose={closeLanguageBottomsheet}
-        bottomSheetContent={<LanguageBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={languageSheetRef} setBlurVisible={setBlurVisible}>
+        <LanguageBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={successSheetRef}
-        onBottomsheetClose={closeSuccessBottomsheet}
-        bottomSheetContent={<SuccessBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={successSheetRef} setBlurVisible={setBlurVisible}>
+        <SuccessBottomsheetContent />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };
