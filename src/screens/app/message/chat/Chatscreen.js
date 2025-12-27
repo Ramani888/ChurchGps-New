@@ -25,6 +25,7 @@ import MemberPermissionBottomsheetContent from '../../../../components/bottomShe
 import ChangeBackgroundBottomsheetContent from '../../../../components/bottomSheetContent/ChangeBackgroundBottomsheetContent';
 import ChatComponent from '../../../../components/message/ChatComponent';
 import { Shadow } from 'react-native-shadow-2';
+import { BlurView } from '@react-native-community/blur';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -54,6 +55,7 @@ const Chatscreen = () => {
 
   const [notification, setNotification] = useState(false);
   const [searchFieldVisible, setSearchFieldVisible] = useState(false);
+  const [blurVisible, setBlurVisible] = useState(false);
 
   const { userName = '', image = '' } = route?.params ?? {};
 
@@ -109,10 +111,6 @@ const Chatscreen = () => {
     infoSheetRef.current.show();
   }, []);
 
-  const closeInfoBottomsheet = useCallback(() => {
-    infoSheetRef.current.hide();
-  }, []);
-
   const openMembersBottomsheet = useCallback(() => {
     membersSheetRef.current.show();
   }, []);
@@ -125,32 +123,16 @@ const Chatscreen = () => {
     banSheetRef.current.show();
   }, []);
 
-  const closeBanBottomsheet = useCallback(() => {
-    banSheetRef.current.hide();
-  }, []);
-
   const openLeaveBottomsheet = useCallback(() => {
     leaveSheetRef.current.show();
-  }, []);
-
-  const closeLeaveBottomsheet = useCallback(() => {
-    leaveSheetRef.current.hide();
   }, []);
 
   const openDeleteBottomsheet = useCallback(() => {
     deleteSheetRef.current.show();
   }, []);
 
-  const closeDeleteBottomsheet = useCallback(() => {
-    deleteSheetRef.current.hide();
-  }, []);
-
   const openReportBottomsheet = useCallback(() => {
     reportSheetRef.current.show();
-  }, []);
-
-  const closeReportBottomsheet = useCallback(() => {
-    reportSheetRef.current.hide();
   }, []);
 
   const openAdminRightsBottomsheet = useCallback(() => {
@@ -165,24 +147,12 @@ const Chatscreen = () => {
     transferOwnerSheetRef.current.show();
   }, []);
 
-  const closeTransferOwnerBottomsheet = useCallback(() => {
-    transferOwnerSheetRef.current.hide();
-  }, []);
-
   const openRemoveAdminBottomsheet = useCallback(() => {
     removeAdminSheetRef.current.show();
   }, []);
 
-  const closeRemoveAdminBottomsheet = useCallback(() => {
-    removeAdminSheetRef.current.hide();
-  }, []);
-
   const openMemberPermissionBottomsheet = useCallback(() => {
     memberPermissionSheetRef.current.show();
-  }, []);
-
-  const closeMemberPermissionBottomsheet = useCallback(() => {
-    memberPermissionSheetRef.current.hide();
   }, []);
 
   const openChangeBackgroundBottomsheet = useCallback(() => {
@@ -282,11 +252,20 @@ const Chatscreen = () => {
         setSearchFieldVisible={setSearchFieldVisible}
       />
 
-      <CustomBottomsheet ref={infoSheetRef}>
+      {blurVisible && (
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={4}
+          reducedTransparencyFallbackColor="white"
+        />
+      )}
+
+      <CustomBottomsheet ref={infoSheetRef} setBlurVisible={setBlurVisible}>
         <InfoBottomsheetContent image={image} userName={userName} />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={membersSheetRef} isModal={false}>
+      <CustomBottomsheet ref={membersSheetRef} isModal={false} setBlurVisible={setBlurVisible}>
         <MembersBottomsheetContent
           closeMembersBottomsheet={closeMembersBottomsheet}
           openBanBottomsheet={openBanBottomsheet}
@@ -295,55 +274,47 @@ const Chatscreen = () => {
         />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={banSheetRef}>
+      <CustomBottomsheet ref={banSheetRef} setBlurVisible={setBlurVisible}>
         <BanBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={leaveSheetRef}>
+      <CustomBottomsheet ref={leaveSheetRef} setBlurVisible={setBlurVisible}>
         <LeaveBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={deleteSheetRef}>
+      <CustomBottomsheet ref={deleteSheetRef} setBlurVisible={setBlurVisible}>
         <DeleteBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={reportSheetRef}>
+      <CustomBottomsheet ref={reportSheetRef} setBlurVisible={setBlurVisible}>
         <ReportBottomsheetContent />
       </CustomBottomsheet>
 
-      {/* <CustomBottomsheet
+      <CustomBottomsheet
         ref={adminRightsSheetRef}
-        gestureEnabled={true}
-        onBottomsheetClose={closeAdminRightsBottomsheet}
-        bottomSheetContent={
-          <AdminRightsBottomsheetContent
-            closeAdminRightsBottomsheet={closeAdminRightsBottomsheet}
-            openTransferOwnerBottomsheet={openTransferOwnerBottomsheet}
-          />
-        }
-        bottomsheetContainerStyle={{ height: '93%' }}
-      /> */}
-
-      <CustomBottomsheet ref={adminRightsSheetRef} gestureEnabled={false} height={'93%'}>
+        gestureEnabled={false}
+        height={'93%'}
+        setBlurVisible={setBlurVisible}
+      >
         <AdminRightsBottomsheetContent
           closeAdminRightsBottomsheet={closeAdminRightsBottomsheet}
           openTransferOwnerBottomsheet={openTransferOwnerBottomsheet}
         />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={transferOwnerSheetRef}>
+      <CustomBottomsheet ref={transferOwnerSheetRef} setBlurVisible={setBlurVisible}>
         <TransferOwnerBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={removeAdminSheetRef}>
+      <CustomBottomsheet ref={removeAdminSheetRef} setBlurVisible={setBlurVisible}>
         <RemoveAdminBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={memberPermissionSheetRef}>
+      <CustomBottomsheet ref={memberPermissionSheetRef} setBlurVisible={setBlurVisible}>
         <MemberPermissionBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={changeBackgroundSheetRef}>
+      <CustomBottomsheet ref={changeBackgroundSheetRef} setBlurVisible={setBlurVisible}>
         <ChangeBackgroundBottomsheetContent
           closeChangeBackgroundBottomsheet={closeChangeBackgroundBottomsheet}
         />

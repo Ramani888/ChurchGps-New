@@ -23,11 +23,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: verticalScale(25),
     gap: scale(10),
-    // backgroundColor: 'red',
   },
   itemWrapper: {
-    borderRadius: scale(12), // choose any radius you want
-    overflow: 'hidden', // ✅ IMPORTANT for ripple clipping
+    borderRadius: scale(12),
+    overflow: 'hidden',
   },
   userImage: {
     width: scale(46),
@@ -37,4 +36,11 @@ export const styles = StyleSheet.create({
   },
   title: { fontSize: moderateScale(16), fontFamily: Fonts.interSemiBold, color: Color.Black },
   message: { fontSize: moderateScale(14), fontFamily: Fonts.interRegular, color: Color.Black },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 });

@@ -45,4 +45,11 @@ export const styles = StyleSheet.create({
     backgroundColor: Color.rgba.Gray[1],
     marginVertical: verticalScale(2),
   },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 });

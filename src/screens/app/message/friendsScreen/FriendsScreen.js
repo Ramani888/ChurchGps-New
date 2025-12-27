@@ -13,13 +13,15 @@ import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import AddFriendBottomsheetContent from '../../../../components/bottomSheetContent/AddFriendBottomsheetContent';
 import CreatePollBottomsheetContent from '../../../../components/bottomSheetContent/CreatePollBottomsheetContent';
 import VoiceChatPermissionBottomsheetContent from '../../../../components/bottomSheetContent/VoiceChatPermissionBottomsheetContent';
+import { BlurView } from '@react-native-community/blur';
 
 const FriendsScreen = () => {
   const addFriendSheetRef = useRef();
   const createPollSheetRef = useRef();
-  const voiceChatPermissionSheetRef = useState();
+  const voiceChatPermissionSheetRef = useRef();
 
   const [search, setSearch] = useState('');
+  const [blurVisible, setBlurVisible] = useState(false);
 
   const friendsData = [
     {
@@ -53,24 +55,12 @@ const FriendsScreen = () => {
     addFriendSheetRef.current.show();
   }, []);
 
-  const closeAddFriendBottomsheet = useCallback(() => {
-    addFriendSheetRef.current.hide();
-  }, []);
-
   const openCreatePollBottomsheet = useCallback(() => {
     createPollSheetRef.current.show();
   }, []);
 
-  const closeCreatePollBottomsheet = useCallback(() => {
-    createPollSheetRef.current.hide();
-  }, []);
-
   const openVoiceChatPermissionBottomsheet = useCallback(() => {
     voiceChatPermissionSheetRef.current.show();
-  }, []);
-
-  const closeVoiceChatPermissionBottomsheet = useCallback(() => {
-    voiceChatPermissionSheetRef.current.hide();
   }, []);
 
   const renderFreinds = useCallback(({ item }) => {
@@ -116,15 +106,33 @@ const FriendsScreen = () => {
         <FlatList data={friendsData} renderItem={renderFreinds} style={styles.flatlist} />
       </View>
 
-      <CustomBottomsheet ref={addFriendSheetRef}>
+      {blurVisible && (
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={4}
+          reducedTransparencyFallbackColor="white"
+        />
+      )}
+
+      <CustomBottomsheet ref={addFriendSheetRef} setBlurVisible={setBlurVisible}>
         <AddFriendBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={createPollSheetRef} gestureEnabled={false} height={'93%'}>
+      <CustomBottomsheet
+        ref={createPollSheetRef}
+        gestureEnabled={false}
+        height={'93%'}
+        setBlurVisible={setBlurVisible}
+      >
         <CreatePollBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={voiceChatPermissionSheetRef} isModal={false}>
+      <CustomBottomsheet
+        ref={voiceChatPermissionSheetRef}
+        isModal={false}
+        setBlurVisible={setBlurVisible}
+      >
         <VoiceChatPermissionBottomsheetContent />
       </CustomBottomsheet>
     </SafeAreaView>

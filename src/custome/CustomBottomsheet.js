@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import Color from '../utils/Color';
 
 const CustomBottomsheet = forwardRef(function CustomBottomsheet(
-  { children, radius = scale(36), gestureEnabled = true, isModal = true, height },
+  { children, radius = scale(36), gestureEnabled = true, isModal = true, height, setBlurVisible },
   ref,
 ) {
   return (
@@ -19,6 +19,12 @@ const CustomBottomsheet = forwardRef(function CustomBottomsheet(
         ...(height ? { height } : {}),
       }}
       isModal={isModal}
+      onOpen={() => {
+        setTimeout(() => {
+          setBlurVisible(true);
+        }, 100);
+      }}
+      onClose={() => setBlurVisible(false)}
     >
       {children}
     </ActionSheet>

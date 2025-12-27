@@ -1,9 +1,8 @@
-import React, { memo, useCallback, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import { useNavigation } from '@react-navigation/native';
-
 import { styles } from './UserScreenStyle';
 import CustomHeader from '../../../../custome/CustomHeader';
 import { strings } from '../../../../language/strings';
@@ -15,7 +14,7 @@ import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import ShowMessageFromBottomsheetContent from '../../../../components/bottomSheetContent/ShowMessageFromBottomsheetContent';
 import StartVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/StartVoiceChatBottomsheetContent';
 import EndVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/EndVoiceChatBottomsheetContent';
-import ActionSheet from 'react-native-actions-sheet';
+import { BlurView } from '@react-native-community/blur';
 
 const USER_DATA = [
   {
@@ -100,30 +99,20 @@ const MessageScreen = () => {
   const startVoiceChatSheetRef = useRef();
   const endVoiceChatSheetRef = useRef();
 
+  const [blurVisible, setBlurVisible] = useState(false);
+
   const userData = useMemo(() => USER_DATA, []);
 
   const openShowMessageFromBottomsheet = useCallback(() => {
     showMessageFromSheetRef.current.show();
   }, []);
 
-  const closeShowMessageFromBottomsheet = useCallback(() => {
-    showMessageFromSheetRef.current.hide();
-  }, []);
-
   const openStartVoiceChatBottomsheet = useCallback(() => {
     startVoiceChatSheetRef.current.show();
   }, []);
 
-  const closeStartVoiceChatBottomsheet = useCallback(() => {
-    startVoiceChatSheetRef.current.hide();
-  }, []);
-
   const openEndVoiceChatBottomsheet = useCallback(() => {
     endVoiceChatSheetRef.current.show();
-  }, []);
-
-  const closeEndVoiceChatBottomsheet = useCallback(() => {
-    endVoiceChatSheetRef.current.hide();
   }, []);
 
   const onRowPress = useCallback(
@@ -187,15 +176,24 @@ const MessageScreen = () => {
         />
       </View>
 
-      <CustomBottomsheet ref={showMessageFromSheetRef}>
+      {blurVisible && (
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={4}
+          reducedTransparencyFallbackColor="white"
+        />
+      )}
+
+      <CustomBottomsheet ref={showMessageFromSheetRef} setBlurVisible={setBlurVisible}>
         <ShowMessageFromBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={startVoiceChatSheetRef}>
+      <CustomBottomsheet ref={startVoiceChatSheetRef} setBlurVisible={setBlurVisible}>
         <StartVoiceChatBottomsheetContent />
       </CustomBottomsheet>
 
-      <CustomBottomsheet ref={endVoiceChatSheetRef}>
+      <CustomBottomsheet ref={endVoiceChatSheetRef} setBlurVisible={setBlurVisible}>
         <EndVoiceChatBottomsheetContent />
       </CustomBottomsheet>
     </SafeAreaView>
