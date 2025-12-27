@@ -316,7 +316,6 @@ ask for money)`,
   communityInformationText2:
     'If you’re organizing, inviting, offering help, or requesting support — this is the place to do it.”',
   addFriends: ' Add Friends',
-
   showMessageFrom: 'Show Message From',
   startGroupVoiceChat: 'Start Group Voice Chat',
   endVoiceChat: 'End Voice Chat',
