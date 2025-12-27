@@ -169,7 +169,6 @@ const CreatePollBottomsheetContent = () => {
       <KeyboardAwareScrollView
         ScrollViewComponent={GestureScrollView}
         keyboardShouldPersistTaps="handled"
-        // bottomOffset={verticalScale(70)}
         extraKeyboardSpace={0}
       >
         <CustomInputField
@@ -249,7 +248,6 @@ export default memo(CreatePollBottomsheetContent);
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Color.White,
     paddingHorizontal: scale(22),
   },
   indicator: {

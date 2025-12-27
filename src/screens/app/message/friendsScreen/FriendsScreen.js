@@ -116,26 +116,17 @@ const FriendsScreen = () => {
         <FlatList data={friendsData} renderItem={renderFreinds} style={styles.flatlist} />
       </View>
 
-      <CustomBottomsheet
-        ref={addFriendSheetRef}
-        onBottomsheetClose={closeAddFriendBottomsheet}
-        bottomSheetContent={<AddFriendBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={addFriendSheetRef}>
+        <AddFriendBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={createPollSheetRef}
-        gestureEnabled={true}
-        onBottomsheetClose={closeCreatePollBottomsheet}
-        bottomSheetContent={<CreatePollBottomsheetContent />}
-        bottomsheetContainerStyle={{ height: '93%' }}
-      />
+      <CustomBottomsheet ref={createPollSheetRef} gestureEnabled={false} height={'93%'}>
+        <CreatePollBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={voiceChatPermissionSheetRef}
-        onBottomsheetClose={closeVoiceChatPermissionBottomsheet}
-        bottomSheetContent={<VoiceChatPermissionBottomsheetContent />}
-        isModal={false}
-      />
+      <CustomBottomsheet ref={voiceChatPermissionSheetRef} isModal={false}>
+        <VoiceChatPermissionBottomsheetContent />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

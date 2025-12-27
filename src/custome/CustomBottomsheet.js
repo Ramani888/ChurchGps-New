@@ -1,32 +1,31 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { memo } from 'react';
+import React, { forwardRef } from 'react';
 import ActionSheet from 'react-native-actions-sheet';
-import Color from '../utils/Color';
 import { moderateScale, scale, verticalScale } from '../utils/Responsive';
+import { StyleSheet } from 'react-native';
+import Color from '../utils/Color';
 
-const CustomBottomsheet = ({
+const CustomBottomsheet = forwardRef(function CustomBottomsheet(
+  { children, radius = scale(36), gestureEnabled = true, isModal = true, height },
   ref,
-  gestureEnabled,
-  onBottomsheetClose,
-  isModal = true,
-  bottomsheetContainerStyle,
-  bottomSheetContent,
-}) => {
+) {
   return (
     <ActionSheet
       ref={ref}
-      onClose={onBottomsheetClose}
-      gestureEnabled={!gestureEnabled}
+      gestureEnabled={gestureEnabled}
       indicatorStyle={styles.indicator}
-      containerStyle={[styles.actionSheetContainer, bottomsheetContainerStyle]}
+      containerStyle={{
+        borderTopLeftRadius: radius,
+        borderTopRightRadius: radius,
+        ...(height ? { height } : {}),
+      }}
       isModal={isModal}
     >
-      {bottomSheetContent}
+      {children}
     </ActionSheet>
   );
-};
+});
 
-export default memo(CustomBottomsheet);
+export default CustomBottomsheet;
 
 const styles = StyleSheet.create({
   indicator: {

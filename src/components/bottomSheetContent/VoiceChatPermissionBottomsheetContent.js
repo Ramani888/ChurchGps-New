@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Color.White,
     paddingHorizontal: scale(22),
-    paddingTop: verticalScale(20),
+    paddingTop: verticalScale(10),
   },
   shadowView: {
     width: '100%',
@@ -237,6 +237,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    marginBottom: verticalScale(10),
   },
   bottomIconView: { alignItems: 'center' },
   handImage: { fontSize: moderateScale(20) },

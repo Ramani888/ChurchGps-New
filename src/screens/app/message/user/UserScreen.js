@@ -15,6 +15,7 @@ import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import ShowMessageFromBottomsheetContent from '../../../../components/bottomSheetContent/ShowMessageFromBottomsheetContent';
 import StartVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/StartVoiceChatBottomsheetContent';
 import EndVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/EndVoiceChatBottomsheetContent';
+import ActionSheet from 'react-native-actions-sheet';
 
 const USER_DATA = [
   {
@@ -186,23 +187,17 @@ const MessageScreen = () => {
         />
       </View>
 
-      <CustomBottomsheet
-        ref={showMessageFromSheetRef}
-        onBottomsheetClose={closeShowMessageFromBottomsheet}
-        bottomSheetContent={<ShowMessageFromBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={showMessageFromSheetRef}>
+        <ShowMessageFromBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={startVoiceChatSheetRef}
-        onBottomsheetClose={closeStartVoiceChatBottomsheet}
-        bottomSheetContent={<StartVoiceChatBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={startVoiceChatSheetRef}>
+        <StartVoiceChatBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={endVoiceChatSheetRef}
-        onBottomsheetClose={closeEndVoiceChatBottomsheet}
-        bottomSheetContent={<EndVoiceChatBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={endVoiceChatSheetRef}>
+        <EndVoiceChatBottomsheetContent />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

@@ -282,51 +282,36 @@ const Chatscreen = () => {
         setSearchFieldVisible={setSearchFieldVisible}
       />
 
-      <CustomBottomsheet
-        ref={infoSheetRef}
-        onBottomsheetClose={closeInfoBottomsheet}
-        bottomSheetContent={<InfoBottomsheetContent image={image} userName={userName} />}
-      />
+      <CustomBottomsheet ref={infoSheetRef}>
+        <InfoBottomsheetContent image={image} userName={userName} />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={membersSheetRef}
-        onBottomsheetClose={closeMembersBottomsheet}
-        isModal={false}
-        bottomSheetContent={
-          <MembersBottomsheetContent
-            closeMembersBottomsheet={closeMembersBottomsheet}
-            openBanBottomsheet={openBanBottomsheet}
-            openAdminRightsBottomsheet={openAdminRightsBottomsheet}
-            openMemberPermissionBottomsheet={openMemberPermissionBottomsheet}
-          />
-        }
-      />
+      <CustomBottomsheet ref={membersSheetRef} isModal={false}>
+        <MembersBottomsheetContent
+          closeMembersBottomsheet={closeMembersBottomsheet}
+          openBanBottomsheet={openBanBottomsheet}
+          openAdminRightsBottomsheet={openAdminRightsBottomsheet}
+          openMemberPermissionBottomsheet={openMemberPermissionBottomsheet}
+        />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={banSheetRef}
-        onBottomsheetClose={closeBanBottomsheet}
-        bottomSheetContent={<BanBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={banSheetRef}>
+        <BanBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={leaveSheetRef}
-        onBottomsheetClose={closeLeaveBottomsheet}
-        bottomSheetContent={<LeaveBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={leaveSheetRef}>
+        <LeaveBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={deleteSheetRef}
-        onBottomsheetClose={closeDeleteBottomsheet}
-        bottomSheetContent={<DeleteBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={deleteSheetRef}>
+        <DeleteBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={reportSheetRef}
-        onBottomsheetClose={closeReportBottomsheet}
-        bottomSheetContent={<ReportBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={reportSheetRef}>
+        <ReportBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
+      {/* <CustomBottomsheet
         ref={adminRightsSheetRef}
         gestureEnabled={true}
         onBottomsheetClose={closeAdminRightsBottomsheet}
@@ -337,35 +322,32 @@ const Chatscreen = () => {
           />
         }
         bottomsheetContainerStyle={{ height: '93%' }}
-      />
+      /> */}
 
-      <CustomBottomsheet
-        ref={transferOwnerSheetRef}
-        onBottomsheetClose={closeTransferOwnerBottomsheet}
-        bottomSheetContent={<TransferOwnerBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={adminRightsSheetRef} gestureEnabled={false} height={'93%'}>
+        <AdminRightsBottomsheetContent
+          closeAdminRightsBottomsheet={closeAdminRightsBottomsheet}
+          openTransferOwnerBottomsheet={openTransferOwnerBottomsheet}
+        />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={removeAdminSheetRef}
-        onBottomsheetClose={closeRemoveAdminBottomsheet}
-        bottomSheetContent={<RemoveAdminBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={transferOwnerSheetRef}>
+        <TransferOwnerBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={memberPermissionSheetRef}
-        onBottomsheetClose={closeMemberPermissionBottomsheet}
-        bottomSheetContent={<MemberPermissionBottomsheetContent />}
-      />
+      <CustomBottomsheet ref={removeAdminSheetRef}>
+        <RemoveAdminBottomsheetContent />
+      </CustomBottomsheet>
 
-      <CustomBottomsheet
-        ref={changeBackgroundSheetRef}
-        onBottomsheetClose={closeChangeBackgroundBottomsheet}
-        bottomSheetContent={
-          <ChangeBackgroundBottomsheetContent
-            closeChangeBackgroundBottomsheet={closeChangeBackgroundBottomsheet}
-          />
-        }
-      />
+      <CustomBottomsheet ref={memberPermissionSheetRef}>
+        <MemberPermissionBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={changeBackgroundSheetRef}>
+        <ChangeBackgroundBottomsheetContent
+          closeChangeBackgroundBottomsheet={closeChangeBackgroundBottomsheet}
+        />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

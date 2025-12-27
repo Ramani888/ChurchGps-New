@@ -66,7 +66,13 @@ const StartVoiceChatBottomsheetContent = () => {
 export default memo(StartVoiceChatBottomsheetContent);
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: Color.White, paddingHorizontal: scale(22) },
+  container: {
+    backgroundColor: Color.White,
+    paddingHorizontal: scale(22),
+    borderTopLeftRadius: scale(30),
+    borderTopRightRadius: scale(30),
+    overflow: 'hidden',
+  },
   headingText: {
     fontSize: moderateScale(24),
     fontFamily: Fonts.spaceGroteskBold,
