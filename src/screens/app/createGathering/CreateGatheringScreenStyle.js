@@ -3,6 +3,8 @@ import Color from '../../../utils/Color';
 import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
 import { Fonts } from '../../../utils/Font';
 
+const screenHeight = Math.round(require('react-native').Dimensions.get('window').height);
+
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Color.White },
   tabIcon: { width: scale(16), height: verticalScale(16) },
@@ -10,13 +12,13 @@ export const styles = StyleSheet.create({
   childContainer: {
     flex: 1,
     alignItems: 'center',
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(10),
   },
   shadowView: {
-    height: verticalScale(650),
+    height: screenHeight - verticalScale(200),
     backgroundColor: Color.White,
     padding: scale(12),
-    width: scale(343),
+    marginHorizontal: scale(16),
     borderRadius: scale(24),
   },
   headingStyle: {

@@ -1,38 +1,47 @@
-import { Image, Text, View } from 'react-native';
 import React, { memo, useCallback } from 'react';
+import { Image, StatusBar, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Color from '../../../utils/Color';
-import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
+import { useNavigation } from '@react-navigation/native';
+
 import GradientText from '../../../components/GradientText';
-import { Fonts } from '../../../utils/Font';
+import BottomFadeLinear from '../../../components/BottomFadeLinear';
 import CustomButton from '../../../custome/CustomButton';
 import { strings } from '../../../language/strings';
-import BottomFadeLinear from '../../../components/BottomFadeLinear';
-import { useNavigation } from '@react-navigation/native';
 import { screenName } from '../../../utils/NavigationKey';
-import { styles } from './OnBoardingStyle';
-import Loader from '../../../utils/Loader';
+import Color from '../../../utils/Color';
+import { Fonts } from '../../../utils/Font';
 import { Images } from '../../../utils/Images';
+import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
+
+import { styles } from './OnBoardingStyle';
 
 const OnBoardingScreen = () => {
   const navigation = useNavigation();
 
   const handleSignUpPress = useCallback(() => {
     navigation.navigate(screenName.signUp);
-  }, []);
+  }, [navigation]);
 
   const handleLoginPress = useCallback(() => {
     navigation.navigate(screenName.login);
-  }, []);
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      
       <Image
         source={Images.gpsMobileImage}
         style={styles.gpsImage}
         resizeMode="contain"
+        fadeDuration={0}
       />
-      <View style={{ marginTop: verticalScale(-25) }}>
+      
+      <View style={styles.fadeContainer}>
         <BottomFadeLinear
           height={350}
           bottomOpacity={1}
@@ -41,15 +50,16 @@ const OnBoardingScreen = () => {
           midAt={0.5}
         />
       </View>
+      
       <View style={styles.titleView}>
         <GradientText
           text={strings.churchGps}
           colors={Color.gradientColor1}
           style={styles.title}
         />
-
         <Text style={styles.subTitle}>{strings.createOrJoinString}</Text>
       </View>
+      
       <CustomButton
         title={strings.login}
         backgroundColor={Color.theme1}
@@ -60,6 +70,7 @@ const OnBoardingScreen = () => {
         fontFamily={Fonts.sfProBold}
         onPress={handleLoginPress}
       />
+      
       <CustomButton
         title={strings.signup}
         backgroundColor={Color.theme2}

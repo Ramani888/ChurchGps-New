@@ -1,35 +1,37 @@
-import { Image, Keyboard, Text, View } from 'react-native';
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
-import CustomHeader from '../../../custome/CustomHeader';
-import { strings } from '../../../language/strings';
-import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
-import { Fonts } from '../../../utils/Font';
-import Color from '../../../utils/Color';
-import CustomButton from '../../../custome/CustomButton';
-import FontAwesome from '@react-native-vector-icons/fontawesome';
-import CustomInputField from '../../../custome/CustomInputField';
-import { OtpInput } from 'react-native-otp-entry';
+import { Image, Keyboard, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomBottomsheet from '../../../custome/CustomBottomsheet';
-import { BlurView } from '@react-native-community/blur';
-import { styles } from './SignupStyle';
-import { Formik } from 'formik';
-import Loader from '../../../utils/Loader';
-import ToastMessage from '../../../utils/ToastMessage';
-import { sendOtp, signUp, SignupSchema, verifyOtp, googleSignUp } from './UseSignup';
-import CheckBox from '../../../custome/CustomCheckbox';
+import { useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { GestureScrollView } from 'react-native-gesture-handler';
-import { useLanguage } from '../../../context/languageContext/LanguageContext';
+import { BlurView } from '@react-native-community/blur';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { OtpInput } from 'react-native-otp-entry';
+import { Formik } from 'formik';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import FontAwesome from '@react-native-vector-icons/fontawesome';
+
+import CustomHeader from '../../../custome/CustomHeader';
+import CustomButton from '../../../custome/CustomButton';
+import CustomInputField from '../../../custome/CustomInputField';
+import CustomBottomsheet from '../../../custome/CustomBottomsheet';
+import CheckBox from '../../../custome/CustomCheckbox';
 import LanguageBottomsheetContent from '../../../components/bottomSheetContent/LanguageBottomsheetContent';
 import SuccessBottomsheetContent from '../../../components/bottomSheetContent/SuccessBottomsheetContent';
 import DatePickerBottomsheetContent from '../../../components/bottomSheetContent/DatePickerBottomsheetContent';
-import { Images } from '../../../utils/Images';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLanguage } from '../../../context/languageContext/LanguageContext';
 import { useUserDetail } from '../../../context/UserContext';
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { strings } from '../../../language/strings';
+import { sendOtp, signUp, SignupSchema, verifyOtp, googleSignUp } from './UseSignup';
 import { screenName } from '../../../utils/NavigationKey';
-import { useNavigation } from '@react-navigation/native';
+import Color from '../../../utils/Color';
+import { Fonts } from '../../../utils/Font';
+import { Images } from '../../../utils/Images';
+import { moderateScale, scale, verticalScale } from '../../../utils/Responsive';
+import Loader from '../../../utils/Loader';
+import ToastMessage from '../../../utils/ToastMessage';
+
+import { styles } from './SignupStyle';
 
 const SignUpScreen = () => {
   const otpRef = useRef();
@@ -43,6 +45,7 @@ const SignUpScreen = () => {
   const [blurVisible, setBlurVisible] = useState(false);
   const [enableOtpField, setEnableOtpField] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
+  const [showAgeError, setShowAgeError] = useState(false);
 
   const languageSheetRef = useRef();
   const datePickerSheetRef = useRef();
@@ -50,6 +53,28 @@ const SignUpScreen = () => {
 
   const { currentLanguage } = useLanguage();
   const { signIn } = useUserDetail();
+
+  const calculateAge = useCallback((birthDate) => {
+    if (!birthDate) return 0;
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    return age;
+  }, []);
+
+  const isUnder18 = useMemo(() => {
+    if (!dob?.sendFormateDate) return false;
+    const age = calculateAge(dob.sendFormateDate);
+    return age < 18;
+  }, [dob, calculateAge]);
+
+  const clearOtp = useCallback(() => {
+    otpRef.current?.clear();
+  }, []);
 
   const getOtp = useCallback(async email => {
     try {
@@ -71,7 +96,7 @@ const SignUpScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [clearOtp]);
 
   const handleOtpFilled = useCallback(async (otp, email) => {
     try {
@@ -91,8 +116,23 @@ const SignUpScreen = () => {
     }
   }, []);
 
+  const goToNext = useCallback(
+    async user => {
+      await AsyncStorage.setItem('USER', JSON.stringify(user));
+      signIn();
+      openSuccessBottomsheet();
+    },
+    [signIn, openSuccessBottomsheet],
+  );
+
   const handleCreateAccount = useCallback(async values => {
     try {
+      if (isUnder18) {
+        setShowAgeError(true);
+        ToastMessage(strings.must18Plus);
+        return;
+      }
+      
       setIsLoading(true);
       const response = await signUp({
         email: values.email,
@@ -100,8 +140,8 @@ const SignUpScreen = () => {
         dob: values.dob,
         acceptedTnC: values.termsAndCondition,
       });
-      console.log('response', response);
-      if (response.success) {
+      
+      if (response?.success) {
         goToNext(response?.user);
       }
     } catch (error) {
@@ -111,7 +151,7 @@ const SignUpScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [goToNext, isUnder18]);
 
   const handleGoogleSignUp = useCallback(async () => {
     try {
@@ -146,22 +186,7 @@ const SignUpScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [navigation, signIn, goToNext]);
-
-  const goToNext = useCallback(
-    async user => {
-      await AsyncStorage.setItem('USER', JSON.stringify(user));
-      signIn();
-      openSuccessBottomsheet();
-    },
-    [openSuccessBottomsheet],
-  );
-
-  const clearOtp = () => {
-    if (otpRef.current) {
-      otpRef.current.clear();
-    }
-  };
+  }, [goToNext]);
 
   const openLanguageBottomsheet = () => {
     languageSheetRef.current.show();
@@ -234,7 +259,6 @@ const SignUpScreen = () => {
             setFieldTouched,
           }) => (
             <View style={styles.contentContainer}>
-              <Text style={styles.subTitle}>{strings.createSearchAndConnect}</Text>
 
               <View style={styles.btnView}>
                 <CustomButton
@@ -291,21 +315,25 @@ const SignUpScreen = () => {
                 <Text style={styles.heading}>{strings.dateOfBirth}</Text>
                 <CustomButton
                   title={dob?.showDate ?? 'dd/mm/yyyy'}
-                  backgroundColor={'#9F9F9F1A'}
+                  backgroundColor={isUnder18 && dob?.showDate ? '#FFE5E5' : '#9F9F9F1A'}
                   marginTop={verticalScale(8)}
                   borderRadius={scale(16)}
                   buttonHeight={verticalScale(46)}
                   rightIcon={<FontAwesome name="angle-down" size={scale(25)} color={Color.Black} />}
                   justifyContent={'space-between'}
                   paddingHorizontal={scale(20)}
-                  //   marginBottom={verticalScale(10)}
                   fontSize={scale(14)}
                   fontFamily={Fonts.interRegular}
-                  fontColor={dob?.showDate ? Color.Black : Color.Gray}
+                  fontColor={isUnder18 && dob?.showDate ? '#DC143C' : (dob?.showDate ? Color.Black : Color.Gray)}
+                  borderWidth={isUnder18 && dob?.showDate ? scale(1) : 0}
+                  borderColor={isUnder18 && dob?.showDate ? '#DC143C' : 'transparent'}
                   onPress={openCalenderBottomsheet}
                 />
                 {touched.dob && errors.dob ? (
                   <Text style={styles.errorText}>{errors.dob}</Text>
+                ) : null}
+                {isUnder18 && dob?.showDate && showAgeError ? (
+                  <Text style={styles.errorText}>{strings.must18Plus}</Text>
                 ) : null}
               </View>
 
@@ -328,7 +356,8 @@ const SignUpScreen = () => {
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
                   value={values.email}
-                  keyboardType={'email-address'}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
                   inputStyle={[styles.inputStyle, { width: scale(244) }]}
                 />
                 <CustomButton
@@ -342,9 +371,7 @@ const SignUpScreen = () => {
                   marginTop={verticalScale(30)}
                   onPress={() => {
                     setFieldTouched('email', true);
-                    if (errors.email) {
-                      return;
-                    }
+                    if (errors.email) return;
                     Keyboard.dismiss();
                     getOtp(values.email);
                   }}
@@ -433,6 +460,7 @@ const SignUpScreen = () => {
                   setDob={date => {
                     setDob(date);
                     setFieldValue('dob', date.sendFormateDate);
+                    setShowAgeError(false);
                   }}
                   setEighteenPlus={setEighteenPlus}
                 />

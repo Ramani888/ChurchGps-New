@@ -1,13 +1,12 @@
 // German
 
 export default {
-  churchGps: 'Kirche GPS',
-  createOrJoinString: 'Erstellen oder Beitreten - Versammlungen überall',
+  churchGps: 'KIRCHE GPS',
+  createOrJoinString: 'Navigiere deinen Glauben - Erstellen. Finden. Treffen. Verbinde dich mit Christen überall, lokal oder online.',
   login: 'Anmelden',
   login1: 'Login',
   signup: 'Registrieren',
   welcome: 'Willkommen',
-  createSearchAndConnect: 'Erstellen, Suchen und Verbinden',
   signupWithGoogle: 'Mit Google registrieren',
   signUpWithApple: 'Mit Apple registrieren',
   selectLanguage: 'Sprache auswählen',
@@ -103,6 +102,13 @@ export default {
   question20: 'Das tausendjährige Reich ist ein zukünftiges Ereignis.',
   question21:
     'Es wird eine Entrückung vor der Trübsal geben, die sich von der sichtbaren Wiederkunft Christi unterscheidet.',
+  question22: 'Die Kirche ist Israel, das sowohl Juden als auch Heiden umfasst.',
+  question23: 'Christen müssen vollständig auf Alkohol verzichten.',
+  question24: 'Die Ehe ist nur zwischen einem Mann und einer Frau.',
+  question25: 'Evangelisation und der Missionsbefehl sind wesentliche Aufgaben aller Gläubigen.',
+  question26: 'Moderne Bibelübersetzungen (nicht nur die KJV) sind für den christlichen Gebrauch akzeptabel.',
+  question27: 'Apokryphen werden als Teil der offiziellen Heiligen Schrift betrachtet.',
+  question28: 'Es gibt zwei Auferstehungen: Die Auferstehung aller Heiligen im Laufe der Geschichte und später die Auferstehung aller Menschen.',
   save: 'Speichern',
   somethingWentWrong: 'Etwas ist schiefgelaufen',
   logout: 'Abmelden',
@@ -146,8 +152,8 @@ export default {
   recordNew: 'Neu aufnehmen',
   introVideoInfotext:
     'Ein einfacher Weg, damit Nutzer Sie schnell kennenlernen. Teilen Sie kurz Ihre Geschichte, Überzeugungen, Ziele oder alles, was andere wissen sollten',
-  profileNameRequired: 'Profilname ist erforderlich',
-  bioValidation: 'Die Biografie darf 500 Zeichen nicht überschreiten',
+  profileNameRequired: 'Profilname ist erforderlich',  userNameRequired: 'Benutzername ist erforderlich',
+  profileImageRequired: 'Bitte wählen Sie ein Profilbild aus',  bioValidation: 'Die Biografie darf 500 Zeichen nicht überschreiten',
   bioRequired: 'Bio ist erforderlich',
   denominationRequired: 'Konfession ist erforderlich',
   protestantDenominationRequired: 'Protestantische Konfession ist erforderlich',

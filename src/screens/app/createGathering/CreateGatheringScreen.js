@@ -82,7 +82,6 @@ const CreateGatheringScreen = () => {
 
   const denominationData = useMemo(
     () => [
-      { label: strings.noPreference, value: 'No Preference' },
       { label: strings.catholic, value: 'Catholic' },
       { label: strings.protestant, value: 'Protestant' },
       { label: strings.orthodox, value: 'Orthodox' },
@@ -93,7 +92,7 @@ const CreateGatheringScreen = () => {
 
   const protestonDenominationData = useMemo(
     () => [
-      { label: strings.noPreference, value: 'No Preference' },
+      { label: strings.nonDenominetionals, value: 'Non-Denominetional' },
       { label: strings.baptist, value: 'Baptist' },
       {
         label: strings.pentecostalCharismatic,
@@ -104,9 +103,7 @@ const CreateGatheringScreen = () => {
       { label: strings.anglicanEpiscopal, value: 'Anglican/Episcopal' },
       { label: strings.presbyterianReformed, value: 'Presbyterian/Reformed' },
       { label: strings.adventist, value: 'Adventist' },
-      { label: strings.nonDenominetionals, value: 'Non-Denominetional' },
-      { label: strings.otherProtestant, value: 'Other Protestant' },
-      { label: strings.otherCristian, value: 'Other Cristian' },
+      { label: strings.otherProtestant, value: 'Other Protestant' }
     ],
     [strings],
   );
@@ -444,6 +441,15 @@ const CreateGatheringScreen = () => {
                             keyboardDismiss();
                             setDenomination(v);
                             setFieldValue('denomination', v);
+                            // Reset sub-denominations when main denomination changes
+                            if (v !== 'Protestant') {
+                              setProtestantDenominations('');
+                              setFieldValue('protestantDenomination', '');
+                            }
+                            if (v !== 'Other Christian') {
+                              setOtherDenomination('');
+                              setFieldValue('otherDenomination', '');
+                            }
                           }}
                           value={values.denomination}
                           touched={touched.denomination}
@@ -451,35 +457,39 @@ const CreateGatheringScreen = () => {
                           dropdownStyle={styles.dropdownStyle}
                         />
 
-                        <CustomDropdown
-                          dropdownPlaceholder={strings.protestonDenominationData}
-                          data={protestonDenominationData}
-                          renderItem={renderProtestantItem}
-                          setValue={v => {
-                            keyboardDismiss();
-                            setProtestantDenominations(v);
-                            setFieldValue('protestantDenomination', v);
-                          }}
-                          value={values.protestantDenomination}
-                          touched={touched.protestantDenomination}
-                          errors={errors.protestantDenomination}
-                          dropdownStyle={styles.dropdownStyle}
-                        />
+                        {values.denomination === 'Protestant' && (
+                          <CustomDropdown
+                            dropdownPlaceholder={strings.protestonDenominationData}
+                            data={protestonDenominationData}
+                            renderItem={renderProtestantItem}
+                            setValue={v => {
+                              keyboardDismiss();
+                              setProtestantDenominations(v);
+                              setFieldValue('protestantDenomination', v);
+                            }}
+                            value={values.protestantDenomination}
+                            touched={touched.protestantDenomination}
+                            errors={errors.protestantDenomination}
+                            dropdownStyle={styles.dropdownStyle}
+                          />
+                        )}
 
-                        <CustomDropdown
-                          dropdownPlaceholder={strings.otherDenomination}
-                          data={otherDenominationData}
-                          renderItem={renderOtherDenominationItem}
-                          setValue={v => {
-                            keyboardDismiss();
-                            setOtherDenomination(v);
-                            setFieldValue('otherDenomination', v);
-                          }}
-                          value={values.otherDenomination}
-                          touched={touched.otherDenomination}
-                          errors={errors.otherDenomination}
-                          dropdownStyle={styles.dropdownStyle}
-                        />
+                        {values.denomination === 'Other Christian' && (
+                          <CustomDropdown
+                            dropdownPlaceholder={strings.otherDenomination}
+                            data={otherDenominationData}
+                            renderItem={renderOtherDenominationItem}
+                            setValue={v => {
+                              keyboardDismiss();
+                              setOtherDenomination(v);
+                              setFieldValue('otherDenomination', v);
+                            }}
+                            value={values.otherDenomination}
+                            touched={touched.otherDenomination}
+                            errors={errors.otherDenomination}
+                            dropdownStyle={styles.dropdownStyle}
+                          />
+                        )}
                       </View>
 
                       <Text style={styles.headingStyle}>{strings.locationType}</Text>

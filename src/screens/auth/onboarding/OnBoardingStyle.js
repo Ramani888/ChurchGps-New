@@ -13,6 +13,9 @@ export const styles = StyleSheet.create({
     height: '87%',
     alignSelf: 'center',
   },
+  fadeContainer: {
+    marginTop: verticalScale(-25),
+  },
   titleView: {
     backgroundColor: Color.White,
     marginTop: verticalScale(-130),
@@ -31,5 +34,6 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingTop: verticalScale(7),
     color: Color.rgba.Black[4],
+    textAlign: 'center',
   },
 });

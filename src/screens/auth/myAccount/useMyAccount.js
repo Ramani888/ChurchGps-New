@@ -15,15 +15,33 @@ export const saveAccount = body => {
   return apiPut(Api.saveAccount, body);
 };
 
-export const AccountSchema = () => {
+export const AccountSchema = (skipBelowSection = false, skipImageSection = false) => {
   return Yup.object().shape({
     profileName: Yup.string().trim().required(strings.profileNameRequired),
 
     userName: Yup.string().trim().required(strings.userNameRequired),
 
-    bio: Yup.string().trim().max(500, strings.bioValidation),
+    // Conditionally require profile image if section is not skipped
+    profileImage: skipImageSection
+      ? Yup.mixed().nullable()
+      : Yup.mixed()
+          .nullable()
+          .test('fileRequired', strings.profileImageRequired, function(value) {
+            if (!value || (!value.uri && !value.path)) {
+              return this.createError({ message: strings.profileImageRequired });
+            }
+            return true;
+          }),
 
-    denomination: Yup.string(),
+    // Conditionally require bio if section is not skipped
+    bio: skipBelowSection 
+      ? Yup.string().trim().max(500, strings.bioValidation)
+      : Yup.string().trim().required(strings.bioRequired).max(500, strings.bioValidation),
+
+    // Conditionally require denomination if section is not skipped
+    denomination: skipBelowSection
+      ? Yup.string()
+      : Yup.string().required(strings.denominationRequired),
 
     protestantDenomination: Yup.string().trim(),
 

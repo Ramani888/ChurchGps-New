@@ -6,12 +6,6 @@ import { Fonts } from '../../../utils/Font';
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Color.White },
   contentContainer: { marginHorizontal: scale(15) },
-  subTitle: {
-    fontSize: moderateScale(16),
-    color: Color.rgba.Black[4],
-    fontFamily: Fonts.interRegular,
-    textAlign: 'center',
-  },
   btnView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -26,7 +20,7 @@ export const styles = StyleSheet.create({
   emailView: {
     marginTop: verticalScale(5),
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     marginBottom: verticalScale(-7),
   },

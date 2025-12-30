@@ -93,9 +93,6 @@ const MyAccountScreen = () => {
   const questionnaireRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
-  const [denomination, setDenomination] = useState('');
-  const [protestantDenominations, setProtestantDenominations] = useState('');
-  const [otherDenomination, setOtherDenomination] = useState('');
   const [answers, setAnswers] = useState([]);
   const [profileImage, setProfileImage] = useState({});
   const [profileData, setProfileData] = useState({});
@@ -108,6 +105,16 @@ const MyAccountScreen = () => {
 
   const editQuestion = route.params?.editQuestion || false;
 
+  const questionsData = useMemo(() => {
+    return Array.from({ length: 28 }, (_, index) => {
+      const id = (index + 1).toString();
+      return {
+        id,
+        text: strings[`question${id}`],
+      };
+    });
+  }, [strings]);
+
   useLayoutEffect(() => {
     if (global.token) {
       getProfileDataApi();
@@ -117,7 +124,7 @@ const MyAccountScreen = () => {
         setVisibleEditAccount(false);
       }
     };
-  }, []);
+  }, [getProfileDataApi, visibleEditAccount, setVisibleEditAccount]);
 
   useEffect(() => {
     if (!questionsData?.length) return;
@@ -153,21 +160,10 @@ const MyAccountScreen = () => {
 
   // ========================================== Api =========================================== //
 
-  const uploadProfileImageApi = useCallback(async imageFile => {
+  const handleImageUpload = useCallback((imageFile, setFieldValue) => {
     setProfileImage(imageFile);
-    const body = new FormData();
-    body.append('image', imageFile);
-
-    try {
-      setVisible(true);
-      const response = await uploadProfileImage(body);
-      if (response?.success) {
-        ToastMessage(response?.message);
-      }
-    } catch (error) {
-      console.log('error in upload profile image', error);
-    } finally {
-      setVisible(false);
+    if (setFieldValue) {
+      setFieldValue('profileImage', imageFile);
     }
   }, []);
 
@@ -179,13 +175,17 @@ const MyAccountScreen = () => {
         setProfileData(response?.user);
         setAnswers(response?.user?.questionnaire ?? []);
         onUpdateProfile(response?.user);
+        // Update profile image state with fetched profile URL
+        if (response?.user?.profileUrl) {
+          setProfileImage({ uri: response?.user?.profileUrl });
+        }
       }
     } catch (error) {
       console.log('error in get profile data', error);
     } finally {
       setVisible(false);
     }
-  }, []);
+  }, [onUpdateProfile]);
 
   const handleSaveAccount = useCallback(
     async (values, resetForm) => {
@@ -193,19 +193,38 @@ const MyAccountScreen = () => {
         _id: user?._id,
         username: user?.username ?? '',
         profileName: values?.profileName ?? '',
-        bio: values?.bio ?? '',
-        denomination: values?.denomination ?? '',
-        protestantDenomination: values?.protestantDenomination ?? '',
-        otherDenomination: values?.otherDenomination ?? '',
-        questionnaire: answers ?? [],
+        // Only include below section data if not skipped
+        ...(skipBelowSection ? {} : {
+          bio: values?.bio ?? '',
+          denomination: values?.denomination ?? '',
+          protestantDenomination: values?.protestantDenomination ?? '',
+          otherDenomination: values?.otherDenomination ?? '',
+          questionnaire: answers ?? [],
+        }),
       };
 
       try {
         setVisible(true);
         const response = await saveAccount(JSON.stringify(body));
+        
+        // Only upload image if image section is not skipped
+        if (!skipImageSection && profileImage?.uri && !profileImage?.uri?.startsWith('http')) {
+          const formData = new FormData();
+          formData.append('image', profileImage);
+          formData.append('_id', user?._id);
+          const uploadResponse = await uploadProfileImage(formData);
+          
+          if (uploadResponse?.success && uploadResponse?.user) {
+            setProfileData(uploadResponse?.user);
+            onUpdateProfile(uploadResponse?.user);
+            if (uploadResponse?.user?.profileUrl) {
+              setProfileImage({ uri: uploadResponse?.user?.profileUrl });
+            }
+          }
+        }
+        
         if (response?.success) {
           ToastMessage(response?.message);
-          getProfileDataApi();
           if (visibleEditAccount === false) {
             await AsyncStorage.setItem(`SETUP_ACCOUNT_${user?._id}`, 'true');
             resetForm();
@@ -224,17 +243,18 @@ const MyAccountScreen = () => {
     [
       answers,
       visibleEditAccount,
-      visible,
       navigation,
-      screenName?.tabStack,
-      getProfileDataApi,
+      screenName?.login,
       user,
+      profileImage,
+      onUpdateProfile,
+      skipImageSection,
+      skipBelowSection,
     ],
   );
 
   const denominationData = useMemo(
     () => [
-      { label: strings.noPreference, value: 'No Preference' },
       { label: strings.catholic, value: 'Catholic' },
       { label: strings.protestant, value: 'Protestant' },
       { label: strings.orthodox, value: 'Orthodox' },
@@ -245,7 +265,7 @@ const MyAccountScreen = () => {
 
   const protestonDenominationData = useMemo(
     () => [
-      { label: strings.noPreference, value: 'No Preference' },
+      { label: strings.nonDenominetionals, value: 'Non-Denominetional' },
       { label: strings.baptist, value: 'Baptist' },
       {
         label: strings.pentecostalCharismatic,
@@ -256,9 +276,7 @@ const MyAccountScreen = () => {
       { label: strings.anglicanEpiscopal, value: 'Anglican/Episcopal' },
       { label: strings.presbyterianReformed, value: 'Presbyterian/Reformed' },
       { label: strings.adventist, value: 'Adventist' },
-      { label: strings.nonDenominetionals, value: 'Non-Denominetional' },
-      { label: strings.otherProtestant, value: 'Other Protestant' },
-      { label: strings.otherCristian, value: 'Other Cristian' },
+      { label: strings.otherProtestant, value: 'Other Protestant' }
     ],
     [strings],
   );
@@ -272,16 +290,6 @@ const MyAccountScreen = () => {
     ],
     [strings],
   );
-
-  const questionsData = useMemo(() => {
-    return Array.from({ length: 21 }, (_, index) => {
-      const id = (index + 1).toString();
-      return {
-        id,
-        text: strings[`question${id}`], // will map question1, question2, … question21
-      };
-    });
-  }, [strings]);
 
   const options = useMemo(
     () => [
@@ -312,20 +320,18 @@ const MyAccountScreen = () => {
   };
 
   const renderDenominationItem = useCallback(
-    item => <DropdownItem label={item.label} value={item.value} selected={denomination} />,
-    [denomination],
+    (item, selected) => <DropdownItem label={item.label} value={item.value} selected={selected} />,
+    [],
   );
 
   const renderProtestantItem = useCallback(
-    item => (
-      <DropdownItem label={item.label} value={item.value} selected={protestantDenominations} />
-    ),
-    [protestantDenominations],
+    (item, selected) => <DropdownItem label={item.label} value={item.value} selected={selected} />,
+    [],
   );
 
   const renderOtherDenominationItem = useCallback(
-    item => <DropdownItem label={item.label} value={item.value} selected={otherDenomination} />,
-    [otherDenomination],
+    (item, selected) => <DropdownItem label={item.label} value={item.value} selected={selected} />,
+    [],
   );
 
   const renderQuestion = ({ item }) => {
@@ -357,7 +363,7 @@ const MyAccountScreen = () => {
     );
   };
 
-  const schema = useMemo(() => AccountSchema(), []);
+  const schema = useMemo(() => AccountSchema(skipBelowSection, skipImageSection), [skipBelowSection, skipImageSection]);
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -380,6 +386,7 @@ const MyAccountScreen = () => {
           initialValues={{
             userName: user?.username ?? '',
             profileName: visibleEditAccount ? profileData?.profileName : '',
+            profileImage: profileImage?.uri ? profileImage : null,
             bio: visibleEditAccount ? profileData?.bio : '',
             denomination: visibleEditAccount ? profileData?.denomination : '',
             protestantDenomination: visibleEditAccount ? profileData?.protestantDenomination : '',
@@ -445,24 +452,28 @@ const MyAccountScreen = () => {
                 <View>
                   <Image
                     source={
-                      Images.profileImageIcon
-                      // profileImage?.uri || profileData?.profileUrl
-                      //   ? { uri: profileImage?.uri || profileData?.profileUrl }
-                      //   : Images.profileImageIcon
+                      profileImage?.uri
+                        ? { uri: profileImage?.uri }
+                        : Images.profileImageIcon
                     }
                     style={styles.accountIconImage}
                   />
                   <Text style={styles.name}>{strings.myPicture}</Text>
                 </View>
                 <View style={styles.btnMainView}>
-                  <Pressable onPress={() => handleGallery(uploadProfileImageApi)}>
+                  <Pressable onPress={() => handleGallery((file) => handleImageUpload(file, setFieldValue))}>
                     <ActionButton icon={Images.plusIcon} label={strings.upload} />
                   </Pressable>
-                  <Pressable onPress={() => handleCamera(uploadProfileImageApi)}>
+                  <Pressable onPress={() => handleCamera((file) => handleImageUpload(file, setFieldValue))}>
                     <ActionButton icon={Images.cameraIcon} label={strings.takeSelfi} />
                   </Pressable>
                 </View>
               </SectionBlock>
+              {!skipImageSection && touched.profileImage && errors.profileImage && (
+                <Text style={[styles.errorText, { marginTop: verticalScale(10), textAlign: 'center', color: Color.Red }]}>
+                  {errors.profileImage}
+                </Text>
+              )}
 
               <View style={[styles.devider, { marginTop: verticalScale(20) }]} />
 
@@ -507,11 +518,17 @@ const MyAccountScreen = () => {
                   <CustomDropdown
                     dropdownPlaceholder={strings.denomination}
                     data={denominationData}
-                    renderItem={renderDenominationItem}
+                    renderItem={item => renderDenominationItem(item, values.denomination)}
                     setValue={v => {
                       keyboardDismiss();
                       setFieldValue('denomination', v);
-                      setDenomination(v);
+                      // Clear sub-category values when main denomination changes
+                      if (v !== 'Protestant') {
+                        setFieldValue('protestantDenomination', '');
+                      }
+                      if (v !== 'Other Christian') {
+                        setFieldValue('otherDenomination', '');
+                      }
                     }}
                     value={values.denomination}
                     touched={touched.denomination}
@@ -519,35 +536,39 @@ const MyAccountScreen = () => {
                     dropdownStyle={styles.dropdownStyle}
                   />
 
-                  <CustomDropdown
-                    dropdownPlaceholder={strings.protestonDenominationData}
-                    data={protestonDenominationData}
-                    renderItem={renderProtestantItem}
-                    setValue={v => {
-                      keyboardDismiss();
-                      setFieldValue('protestantDenomination', v);
-                      setProtestantDenominations(v);
-                    }}
-                    value={values.protestantDenomination}
-                    touched={touched.protestantDenomination}
-                    errors={errors.protestantDenomination}
-                    dropdownStyle={styles.dropdownStyle}
-                  />
+                  {/* Show Protestant sub-category only when Protestant is selected */}
+                  {values.denomination === 'Protestant' && (
+                    <CustomDropdown
+                      dropdownPlaceholder={strings.protestonDenominationData}
+                      data={protestonDenominationData}
+                      renderItem={item => renderProtestantItem(item, values.protestantDenomination)}
+                      setValue={v => {
+                        keyboardDismiss();
+                        setFieldValue('protestantDenomination', v);
+                      }}
+                      value={values.protestantDenomination}
+                      touched={touched.protestantDenomination}
+                      errors={errors.protestantDenomination}
+                      dropdownStyle={styles.dropdownStyle}
+                    />
+                  )}
 
-                  <CustomDropdown
-                    dropdownPlaceholder={strings.otherDenomination}
-                    data={otherDenominationData}
-                    renderItem={renderOtherDenominationItem}
-                    setValue={v => {
-                      keyboardDismiss();
-                      setFieldValue('otherDenomination', v);
-                      setOtherDenomination(v);
-                    }}
-                    value={values.otherDenomination}
-                    touched={touched.otherDenomination}
-                    errors={errors.otherDenomination}
-                    dropdownStyle={styles.dropdownStyle}
-                  />
+                  {/* Show Other Denomination sub-category only when Other Christian is selected */}
+                  {values.denomination === 'Other Christian' && (
+                    <CustomDropdown
+                      dropdownPlaceholder={strings.otherDenomination}
+                      data={otherDenominationData}
+                      renderItem={item => renderOtherDenominationItem(item, values.otherDenomination)}
+                      setValue={v => {
+                        keyboardDismiss();
+                        setFieldValue('otherDenomination', v);
+                      }}
+                      value={values.otherDenomination}
+                      touched={touched.otherDenomination}
+                      errors={errors.otherDenomination}
+                      dropdownStyle={styles.dropdownStyle}
+                    />
+                  )}
                 </View>
 
                 <View style={styles.questionnaireView} ref={questionnaireRef}>
@@ -569,7 +590,13 @@ const MyAccountScreen = () => {
                 fontColor={Color.Black}
                 fontFamily={Fonts.sfProBold}
                 marginBottom={verticalScale(15)}
-                onPress={handleSubmit}
+                onPress={() => {
+                  // Mark profileImage as touched to show validation error if not selected
+                  if (!skipImageSection && !profileImage?.uri) {
+                    setFieldValue('profileImage', null, true);
+                  }
+                  handleSubmit();
+                }}
               />
             </View>
           )}
