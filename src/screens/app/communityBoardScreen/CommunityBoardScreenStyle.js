@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     lineHeight: verticalScale(18),
     color: Color.rgba.Black[6],
   },
-  desc: { width: scale(299), marginTop: verticalScale(7) },
+  desc: { width: scale(299), marginVertical: verticalScale(7) },
   distanceView: {
     flexDirection: 'row',
     justifyContent: 'flex-end',

@@ -65,4 +65,12 @@ export const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
+  bottomView: { position: 'absolute', bottom: verticalScale(5), width: '100%' },
+  infoText: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    color: Color.Black,
+    textAlign: 'center',
+    lineHeight: verticalScale(18),
+  },
 });

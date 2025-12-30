@@ -1,11 +1,5 @@
 import { Alert, Keyboard, Platform } from 'react-native';
-import {
-  check,
-  request,
-  PERMISSIONS,
-  RESULTS,
-  openSettings,
-} from 'react-native-permissions';
+import { check, request, PERMISSIONS, RESULTS, openSettings } from 'react-native-permissions';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 export const keyboardDismiss = () => Keyboard.dismiss();
@@ -136,4 +130,16 @@ export const selectFromGallery = async onSelect => {
     console.log('pickFromGallery error:', err);
     return null;
   }
+};
+
+export const formatDateTime = isoString => {
+  const date = new Date(isoString);
+
+  return date.toLocaleString('en-US', {
+    month: 'short', // July
+    day: 'numeric', // 3
+    hour: 'numeric', // 5
+    minute: '2-digit', // 15
+    hour12: true, // AM/PM
+  });
 };

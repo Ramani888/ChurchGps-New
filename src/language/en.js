@@ -336,6 +336,10 @@ ask for money)`,
   leave: 'Leave',
   minimize: 'Minimize',
   speakRequest: 'Speak Request',
+  giveLocationExcess: 'Give Location Access to App',
+  selectDescription: 'Please enter your Description',
+  successCreateCommunityText: 'Successfully Created Community Post',
+  continue: 'Continue',
 };
 
 // userNameRequired; biji language ma baki che
