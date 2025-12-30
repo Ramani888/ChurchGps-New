@@ -13,12 +13,9 @@ const BottomTabNav = () => {
       tabBar={props => <CustomBottomTab {...props} />}
       screenOptions={{ headerShown: false }}
     >
-      <Tab.Screen name={screenName.message} component={screen.MessageScreen} />
+      <Tab.Screen name={screenName.user} component={screen.UserScreen} />
       <Tab.Screen name={screenName.map} component={screen.MapScreen} />
-      <Tab.Screen
-        name={screenName.communityBoard}
-        component={screen.CommunityBoardScreen}
-      />
+      <Tab.Screen name={screenName.communityBoard} component={screen.CommunityBoardScreen} />
       <Tab.Screen name={screenName.profile} component={screen.ProfileScreen} />
     </Tab.Navigator>
   );

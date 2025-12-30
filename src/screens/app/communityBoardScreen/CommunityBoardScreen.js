@@ -1,5 +1,5 @@
 import { FlatList, Image, Pressable, Text, View } from 'react-native';
-import React, { memo, useCallback, useRef } from 'react';
+import React, { memo, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './CommunityBoardScreenStyle';
 import CustomHeader from '../../../custome/CustomHeader';
@@ -11,78 +11,40 @@ import { Images } from '../../../utils/Images';
 import Color from '../../../utils/Color';
 import CustomBottomsheet from '../../../custome/CustomBottomsheet';
 import CommunityBoardInformationContent from '../../../components/bottomSheetContent/CommunityBoardInformationContent';
+import { BlurView } from '@react-native-community/blur';
+import { getCommunityPostApi } from './useCommunity';
+import Geolocation from '@react-native-community/geolocation';
+import { formatDateTime, requestLocationPermission } from '../../../utils/ReusableFunctions';
+import Loader from '../../../utils/Loader';
 
 const CommunityBoardScreen = () => {
   const navigation = useNavigation();
   const sheetRef = useRef();
 
-  const data = [
-    {
-      image:
-        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
-      title: 'Allison Gouse',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      dateTime: 'July 3, 5:15 AM',
-      distance: 2,
-    },
+  const [visible, setVisible] = useState(false);
+  const [blurVisible, setBlurVisible] = useState(false);
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setlongitude] = useState('');
+  const [communityPostData, setCommunityPostData] = useState([]);
 
-    {
-      image:
-        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
-      title: 'Allison Gouse',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      dateTime: 'July 3, 5:15 AM',
-      distance: 2,
-    },
-    {
-      image:
-        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
-      title: 'Allison Gouse',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      dateTime: 'July 3, 5:15 AM',
-      distance: 2,
-    },
-    {
-      image:
-        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
-      title: 'Allison Gouse',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      dateTime: 'July 3, 5:15 AM',
-      distance: 2,
-    },
-    {
-      image:
-        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
-      title: 'Allison Gouse',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      dateTime: 'July 3, 5:15 AM',
-      distance: 2,
-    },
-    {
-      image:
-        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
-      title: 'Allison Gouse',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      dateTime: 'July 3, 5:15 AM',
-      distance: 2,
-    },
-    {
-      image:
-        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
-      title: 'Allison Gouse',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      dateTime: 'July 3, 5:15 AM',
-      distance: 2,
-    },
-    {
-      image:
-        'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png',
-      title: 'Allison Gouse',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      dateTime: 'July 3, 5:15 AM',
-      distance: 2,
-    },
-  ];
+  useLayoutEffect(() => {
+    getCurrentLocation();
+  }, []);
+
+  // ========================================== Api =========================================== //
+
+  const getCoomunityDataApi = useCallback(async (latitude, longitude) => {
+    try {
+      const response = await getCommunityPostApi(latitude, longitude);
+      if (response?.success) {
+        setCommunityPostData(response?.data);
+      }
+    } catch (error) {
+      console.log('error in get community post data', error);
+    }
+  }, []);
+
+  // ========================================= End =========================================== //
 
   const openBottomsheet = useCallback(() => {
     sheetRef.current.show();
@@ -92,20 +54,48 @@ const CommunityBoardScreen = () => {
     sheetRef.current.hide();
   }, []);
 
+  const getCurrentLocation = useCallback(async () => {
+    try {
+      const hasPermission = await requestLocationPermission();
+      if (!hasPermission) {
+        Alert.alert(
+          'Permission Required',
+          'Location permission is required to get your current location.',
+        );
+        return null;
+      }
+      if (hasPermission) {
+        setVisible(true);
+        Geolocation.getCurrentPosition(position => {
+          const { latitude, longitude } = position.coords;
+          setLatitude(latitude);
+          setlongitude(longitude);
+          getCoomunityDataApi(latitude, longitude);
+        });
+      }
+    } catch (error) {
+      console.log('error in get current location', error);
+    } finally {
+      setVisible(false);
+    }
+  }, []);
+
   const renderList = useCallback(({ item, index }) => {
     return (
       <View>
         <View style={styles.listContainer}>
-          <Image source={{ uri: item?.image }} style={styles.profileImage} />
+          <Image source={{ uri: item?.userData?.profileUrl }} style={styles.profileImage} />
           <View>
             <View style={styles.firstlineView}>
-              <Text style={styles.titleStyle}>{item?.title}</Text>
-              <Text style={[styles.textStyle, { color: Color.Gray }]}>{item?.dateTime}</Text>
+              <Text style={styles.titleStyle}>{item?.userData?.username}</Text>
+              <Text style={[styles.textStyle, { color: Color.Gray }]}>
+                {formatDateTime(item?.createdAt)}
+              </Text>
               <Pressable onPress={() => {}}>
                 <Image source={Images.threedotCircleImage} style={styles.image} />
               </Pressable>
             </View>
-            <Text style={[styles.textStyle, styles.desc]}>{item?.desc}</Text>
+            <Text style={[styles.textStyle, styles.desc]}>{item?.description}</Text>
             <View style={styles.distanceView}>
               <Image source={Images.locationIconImage} style={styles.image} />
               <Text style={[styles.textStyle, { color: Color.Black }]}>
@@ -114,13 +104,14 @@ const CommunityBoardScreen = () => {
             </View>
           </View>
         </View>
-        {data?.length !== index + 1 && <View style={styles.devider} />}
+        {communityPostData?.length !== index + 1 && <View style={styles.devider} />}
       </View>
     );
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
+      <Loader visible={visible} />
       <CustomHeader
         backArrowVisible
         gradientTitle={strings.communityBoard}
@@ -131,27 +122,36 @@ const CommunityBoardScreen = () => {
 
       <View>
         <FlatList
-          data={data}
+          data={communityPostData}
           renderItem={renderList}
           contentContainerStyle={styles.flatlistView}
-          //   contentContainerStyle={{ paddingBottom: verticalScale(120) }}
         />
       </View>
 
       <Pressable
         style={styles.fabButton}
-        onPress={() => navigation.navigate(screenName.createCommunityBoard)}
+        onPress={() =>
+          navigation.navigate(screenName.createCommunityBoard, {
+            latitude: latitude,
+            longitude: longitude,
+          })
+        }
       >
         <Image source={Images.plusFabIcon} style={styles.fabIcon} />
       </Pressable>
 
-      <CustomBottomsheet
-        ref={sheetRef}
-        onBottomsheetClose={closeBottomsheet}
-        bottomSheetContent={
-          <CommunityBoardInformationContent closeBottomsheet={closeBottomsheet} />
-        }
-      />
+      {blurVisible && (
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={4}
+          reducedTransparencyFallbackColor="white"
+        />
+      )}
+
+      <CustomBottomsheet ref={sheetRef} setBlurVisible={setBlurVisible}>
+        <CommunityBoardInformationContent closeBottomsheet={closeBottomsheet} />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

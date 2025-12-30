@@ -17,6 +17,7 @@ const baseColors = {
   theme2: '#1A1E24',
   Black: '#000000',
   White: '#FFFFFF',
+  OffWhite: '#F5F5F5',
   Gray: '#9F9F9F',
   Gray1: '#BABABA',
   Red: '#FF0000',
@@ -30,6 +31,15 @@ const baseColors = {
   gradientColor1: ['#343434', '#454545', '#89D332'],
   gradientColor2: ['#343434', '#89D332'],
   gradientColor3: ['#343434', '#343434', '#333333', '#333333', '#89D332', '#89D332'],
+
+  gradientBackground2: ['transparent', 'transparent'],
+  gradientBackground3: ['#BFFFA0', '#89FFB9'],
+  gradientBackground4: ['#B5EF87', '#E8E577'],
+  gradientBackground5: ['#DCDFC0', '#E6F280'],
+  gradientBackground6: ['#5D657C', '#708FEA'],
+  gradientBackground7: ['#8185C5', '#7595EF'],
+  gradientBackground8: ['#A486F3', '#CA76F5'],
+  gradientBackground9: ['#989898', '#767676'],
 };
 
 const Color = {

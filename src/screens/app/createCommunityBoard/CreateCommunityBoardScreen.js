@@ -1,5 +1,5 @@
-import { View, Text } from 'react-native';
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { Text, View } from 'react-native';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './CreateCommunityBoardStyle';
 import CustomHeader from '../../../custome/CustomHeader';
@@ -10,86 +10,60 @@ import CustomInputField from '../../../custome/CustomInputField';
 import CustomButton from '../../../custome/CustomButton';
 import Color from '../../../utils/Color';
 import { Fonts } from '../../../utils/Font';
-import Entypo from '@react-native-vector-icons/entypo';
-import CustomDropdown from '../../../custome/CustomDropdown';
-import CheckBox from '../../../custome/CustomCheckbox';
+import { BlurView } from '@react-native-community/blur';
 import CustomBottomsheet from '../../../custome/CustomBottomsheet';
-import AddGroupBottomsheetContent from '../../../components/bottomSheetContent/AddGroupBottomsheetContent';
-
-const DropdownItem = memo(({ label, value, selected, onSelect }) => {
-  return (
-    <View style={styles.dropdownItemStyle}>
-      <CheckBox isChecked={value === selected} checkboxColor={Color.theme1} pressable={false} />
-      <Text style={styles.checkboxTitleStyle}>{label}</Text>
-    </View>
-  );
-});
+import CreateCommunityPostBottomsheet from '../../../components/bottomSheetContent/CreateCommunityPostBottomsheet';
+import Geolocation from '@react-native-community/geolocation';
+import Loader from '../../../utils/Loader';
+import { requestLocationPermission } from '../../../utils/ReusableFunctions';
+import ToastMessage from '../../../utils/ToastMessage';
+import { apiPost } from '../../../api/ApiServices';
+import { createCommunityPostApi } from './useCreateCommunity';
+import CreateCommunitySuccessBottomsheet from '../../../components/bottomSheetContent/CreateCommunitySuccessBottomsheet';
+import { useRoute } from '@react-navigation/native';
 
 const CreateCommunityBoardScreen = () => {
+  const route = useRoute();
   const sheetRef = useRef();
+  const successSheetRef = useRef();
 
+  const [visible, setVisible] = useState(false);
   const [description, setDescription] = useState('');
-  const [denomination, setDenomination] = useState('');
-  const [protestantDenominations, setProtestantDenominations] = useState('');
-  const [otherDenomination, setOtherDenomination] = useState('');
+  const [blurVisible, setBlurVisible] = useState(false);
+  //   const [latitude, setLatitude] = useState('');
+  //   const [longitude, setlongitude] = useState('');
 
-  const denominationData = useMemo(
-    () => [
-      { label: strings.noPreference, value: 'No Preference' },
-      { label: strings.catholic, value: 'Catholic' },
-      { label: strings.protestant, value: 'Protestant' },
-      { label: strings.orthodox, value: 'Orthodox' },
-      { label: strings.otherCristian, value: 'Other Christian' },
-    ],
-    [strings],
-  );
+  const { latitude, longitude } = route.params ?? {};
 
-  const protestonDenominationData = useMemo(
-    () => [
-      { label: strings.noPreference, value: 'No Preference' },
-      { label: strings.baptist, value: 'Baptist' },
-      {
-        label: strings.pentecostalCharismatic,
-        value: 'Pentecostal/Charismatic',
+  // ========================================== Api ========================================== //
+
+  const createCommunityPost = useCallback(async () => {
+    const body = {
+      description: description,
+      coordinates: {
+        latitude: latitude,
+        longitude: longitude,
       },
-      { label: strings.lutheran, value: 'Lutheran' },
-      { label: strings.methodistWesleyan, value: 'Methodist/Wesleyan' },
-      { label: strings.anglicanEpiscopal, value: 'Anglican/Episcopal' },
-      { label: strings.presbyterianReformed, value: 'Presbyterian/Reformed' },
-      { label: strings.adventist, value: 'Adventist' },
-      { label: strings.nonDenominetionals, value: 'Non-Denominetional' },
-      { label: strings.otherProtestant, value: 'Other Protestant' },
-      { label: strings.otherCristian, value: 'Other Cristian' },
-    ],
-    [strings],
-  );
+    };
 
-  const otherDenominationData = useMemo(
-    () => [
-      { label: strings.jevovahWitness, value: 'Jehovah Witness' },
-      { label: strings.mormon, value: 'Mormon' },
-      { label: strings.messianicJew, value: 'messianic Jew' },
-      { label: strings.other, value: 'Other' },
-    ],
-    [strings],
-  );
+    try {
+      setVisible(true);
+      const response = await createCommunityPostApi(body);
+      if (response?.success) {
+        closeBottomsheet();
+        openSuccessBottomsheet();
+      } else {
+        ToastMessage(response?.message);
+      }
+      console.log('create community post response', response);
+    } catch (error) {
+      console.log('error in create community post', error);
+    } finally {
+      setVisible(false);
+    }
+  }, [description, latitude, longitude]);
 
-  const renderDenominationItem = useCallback(
-    item => <DropdownItem label={item.label} value={item.value} selected={denomination} />,
-    [denomination],
-  );
-
-  const renderProtestantItem = useCallback(
-    item => (
-      <DropdownItem label={item.label} value={item.value} selected={protestantDenominations} />
-    ),
-    [protestantDenominations],
-  );
-
-  const renderOtherDenominationItem = useCallback(
-    item => <DropdownItem label={item.label} value={item.value} selected={otherDenomination} />,
-    [otherDenomination],
-  );
+  // ========================================== End ========================================== //
 
   const openBottomsheet = useCallback(() => {
     sheetRef.current.show();
@@ -99,8 +73,43 @@ const CreateCommunityBoardScreen = () => {
     sheetRef.current.hide();
   }, []);
 
+  const openSuccessBottomsheet = useCallback(() => {
+    successSheetRef.current.show();
+  }, []);
+
+  const closeSuccessBottomsheet = useCallback(() => {
+    successSheetRef.current.hide();
+  }, []);
+
+  //   const getCurrentLocation = useCallback(async () => {
+  //     try {
+  //       const hasPermission = await requestLocationPermission();
+  //       if (!hasPermission) {
+  //         Alert.alert(
+  //           'Permission Required',
+  //           'Location permission is required to get your current location.',
+  //         );
+  //         return null;
+  //       }
+  //       if (hasPermission) {
+  //         setVisible(true);
+  //         Geolocation.getCurrentPosition(position => {
+  //           const { latitude, longitude } = position.coords;
+  //           setLatitude(latitude);
+  //           setlongitude(longitude);
+  //           openBottomsheet();
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.log('error in get current location', error);
+  //     } finally {
+  //       setVisible(false);
+  //     }
+  //   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
+      <Loader visible={visible} />
       <CustomHeader
         backArrowVisible
         firstLineTitle={strings.create}
@@ -122,83 +131,48 @@ const CreateCommunityBoardScreen = () => {
           inputStyle={styles.inputStyle}
         />
 
-        <CustomButton
-          title={strings.addGroup}
-          backgroundColor={Color.theme2}
-          buttonHeight={verticalScale(54)}
-          borderRadius={scale(30)}
-          fontSize={moderateScale(16)}
-          fontColor={Color.White}
-          fontFamily={Fonts.sfProBold}
-          rightIcon={
-            <Entypo name="plus" size={scale(19)} color={Color.Black} style={styles.plusIcon} />
-          }
-          onPress={openBottomsheet}
-          marginVertical={verticalScale(10)}
-        />
-
-        <Text style={styles.optionalText}>({strings.optional})</Text>
-        <Text style={styles.text}>{strings.communityBoardNote1}</Text>
-
-        <View style={styles.dropdownView}>
-          <CustomDropdown
-            dropdownPlaceholder={strings.denomination}
-            data={denominationData}
-            renderItem={renderDenominationItem}
-            setValue={v => {
-              keyboardDismiss();
-              setDenomination(v);
+        <View style={styles.bottomView}>
+          <Text style={styles.infoText}>{strings.communityBoardNote2}</Text>
+          <CustomButton
+            title={strings.create}
+            backgroundColor={Color.theme1}
+            borderRadius={scale(30)}
+            fontSize={moderateScale(16)}
+            fontColor={Color.Black}
+            fontFamily={Fonts.sfProBold}
+            marginTop={verticalScale(15)}
+            marginBottom={verticalScale(20)}
+            onPress={() => {
+              if (description) {
+                openBottomsheet();
+              } else {
+                ToastMessage(strings.selectDescription);
+              }
             }}
-            value={denomination}
-            dropdownStyle={styles.dropdownStyle}
-          />
-
-          <CustomDropdown
-            dropdownPlaceholder={strings.protestonDenominationData}
-            data={protestonDenominationData}
-            renderItem={renderProtestantItem}
-            setValue={v => {
-              keyboardDismiss();
-              setProtestantDenominations(v);
-            }}
-            value={protestantDenominations}
-            dropdownStyle={styles.dropdownStyle}
-          />
-
-          <CustomDropdown
-            dropdownPlaceholder={strings.otherDenomination}
-            data={otherDenominationData}
-            renderItem={renderOtherDenominationItem}
-            setValue={v => {
-              keyboardDismiss();
-              setOtherDenomination(v);
-            }}
-            value={otherDenomination}
-            dropdownStyle={styles.dropdownStyle}
           />
         </View>
-
-        <Text style={[styles.text, { textAlign: 'center' }]}>{strings.communityBoardNote2}</Text>
-
-        <CustomButton
-          title={strings.create}
-          backgroundColor={Color.theme1}
-          borderRadius={scale(30)}
-          fontSize={moderateScale(16)}
-          fontColor={Color.Black}
-          fontFamily={Fonts.sfProBold}
-          marginTop={verticalScale(15)}
-          marginBottom={verticalScale(20)}
-          onPress={() => {}}
-        />
       </View>
 
-      <CustomBottomsheet
-        ref={sheetRef}
-        gestureEnabled={true}
-        onBottomsheetClose={closeBottomsheet}
-        bottomSheetContent={<AddGroupBottomsheetContent />}
-      />
+      {blurVisible && (
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={4}
+          reducedTransparencyFallbackColor="white"
+        />
+      )}
+
+      <CustomBottomsheet ref={sheetRef} setBlurVisible={setBlurVisible}>
+        <CreateCommunityPostBottomsheet
+          latitude={latitude}
+          longitude={longitude}
+          createCommunityPost={createCommunityPost}
+        />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={successSheetRef} setBlurVisible={setBlurVisible}>
+        <CreateCommunitySuccessBottomsheet closeSuccessBottomsheet={closeSuccessBottomsheet} />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

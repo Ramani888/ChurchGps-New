@@ -1,9 +1,6 @@
 import React, { memo } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PlatformPressable } from '@react-navigation/elements';
 import { moderateScale, scale, verticalScale } from '../utils/Responsive';
 import Color from '../utils/Color';
@@ -58,9 +55,7 @@ const CustomBottomTab = memo(({ state, descriptors, navigation }) => {
                 style={[
                   styles.tile,
                   {
-                    backgroundColor: isFocused
-                      ? Color.rgba.theme1[2]
-                      : Color.White,
+                    backgroundColor: isFocused ? Color.rgba.theme1[2] : Color.White,
                   },
                 ]}
               >
@@ -69,9 +64,7 @@ const CustomBottomTab = memo(({ state, descriptors, navigation }) => {
                   style={styles.icon}
                   resizeMode="contain"
                 />
-                <View
-                  style={[styles.focusPill, { opacity: isFocused ? 1 : 0 }]}
-                />
+                <View style={[styles.focusPill, { opacity: isFocused ? 1 : 0 }]} />
               </View>
             </PlatformPressable>
           );
@@ -83,7 +76,7 @@ const CustomBottomTab = memo(({ state, descriptors, navigation }) => {
 
 const getTabIcon = name => {
   switch (name) {
-    case 'Message':
+    case 'User':
       return Images.chatIcon;
     case 'Map':
       return Images.searchIcon;
@@ -98,7 +91,7 @@ const getTabIcon = name => {
 
 const getDarkTabIcon = name => {
   switch (name) {
-    case 'Message':
+    case 'User':
       return Images.darkChatIcon;
     case 'Map':
       return Images.darkSearchIcon;

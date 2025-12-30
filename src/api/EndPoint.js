@@ -13,4 +13,5 @@ export const Api = {
   saveGathering: '/gathering/save',
   removeAllGetherings: 'gathering/save/all',
   getSavedGatherings: 'gathering/save',
+  community: 'community',
 };

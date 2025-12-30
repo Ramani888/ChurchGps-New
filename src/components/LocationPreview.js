@@ -146,7 +146,7 @@ import MapView, { Marker, Circle, PROVIDER_GOOGLE } from 'react-native-maps';
 import { scale, verticalScale } from '../utils/Responsive';
 import Color from '../utils/Color';
 
-const LocationPreview = ({ latitude, longitude }) => {
+const LocationPreview = ({ latitude, longitude, containerStyle }) => {
   const isValid =
     typeof latitude === 'number' &&
     !Number.isNaN(latitude) &&
@@ -169,7 +169,7 @@ const LocationPreview = ({ latitude, longitude }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
@@ -179,20 +179,16 @@ const LocationPreview = ({ latitude, longitude }) => {
         zoomEnabled={false}
         rotateEnabled={false}
         pitchEnabled={false}
-        // Huge perf boost on Android if you want more static look:
-        // liteMode={Platform.OS === 'android'}
       >
-        {/* Blue Dot */}
         <Marker coordinate={{ latitude, longitude }} anchor={{ x: 0.5, y: 0.5 }}>
           <View style={styles.dotOuter}>
             <View style={styles.dotInner} />
           </View>
         </Marker>
 
-        {/* Radius Circle */}
         <Circle
           center={{ latitude, longitude }}
-          radius={350} // meters, keep numeric, scale() here doesn't help
+          radius={350}
           strokeWidth={2}
           strokeColor="rgba(33, 150, 243, 0.9)"
           fillColor="rgba(33, 150, 243, 0.25)"

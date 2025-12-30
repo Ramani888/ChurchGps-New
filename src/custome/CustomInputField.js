@@ -1,11 +1,4 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Image,
-} from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import React, { memo } from 'react';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { moderateScale, scale, verticalScale } from '../utils/Responsive';
@@ -28,11 +21,13 @@ const CustomInputField = ({
   eye,
   secureTextEntry,
   containerStyle,
+  inputWrapperStyle,
   marginBottom,
   marginTop,
   editable,
   multiline,
   numberOfLines,
+  textAreaHeight,
   maxLength,
   keyboardType,
   rightIcon,
@@ -68,25 +63,12 @@ const CustomInputField = ({
         </Text>
       )}
 
-      <View style={styles.inputWrapper}>
+      <View style={[styles.inputWrapper, inputWrapperStyle]}>
         {leftIcon && LeftIconComponent ? (
-          <View style={styles.leftSlot}>
-            <LeftIconComponent
-              name={leftIconName}
-              size={leftIconSize}
-              color={leftIconColor}
-            />
-          </View>
+          <LeftIconComponent name={leftIconName} size={leftIconSize} color={leftIconColor} />
         ) : null}
 
-        {leftImage ? (
-          <View style={styles.leftSlot}>
-            <Image
-              source={leftImage}
-              style={[styles.iconImage, leftImageStyle]}
-            />
-          </View>
-        ) : null}
+        {leftImage ? <Image source={leftImage} style={[styles.iconImage, leftImageStyle]} /> : null}
 
         <TextInput
           placeholder={placeholder}
@@ -96,6 +78,7 @@ const CustomInputField = ({
             styles.textInput,
             inputStyle,
             multiline && styles.textAreaInput,
+            textAreaHeight && { height: textAreaHeight },
             eyeIcon && { paddingRight: scale(40) },
           ]}
           keyboardType={keyboardType}
@@ -110,39 +93,24 @@ const CustomInputField = ({
         />
         <View style={styles.rightStack}>
           {rightIcon && RightIconComponent ? (
-            <View style={styles.rightItem}>
-              <RightIconComponent
-                name={rightIconName}
-                size={rightIconSize}
-                color={rightIconColor}
-              />
-            </View>
+            <RightIconComponent name={rightIconName} size={rightIconSize} color={rightIconColor} />
           ) : null}
 
           {rightImage ? (
-            <View style={styles.rightItem}>
-              <Image
-                source={rightImage}
-                style={[styles.iconImage, rightImageStyle]}
-              />
-            </View>
+            <Image source={rightImage} style={[styles.iconImage, rightImageStyle]} />
           ) : null}
         </View>
         {eyeIcon && (
           <Pressable onPress={() => setEye(!eye)} style={styles.eyeIcon}>
-            <Ionicons
-              name={eye ? 'eye' : 'eye-off-sharp'}
-              size={scale(20)}
-              color={Color.Black}
-            />
+            <Ionicons name={eye ? 'eye' : 'eye-off-sharp'} size={scale(20)} color={Color.Black} />
           </Pressable>
         )}
-        {errors && touched && (
-          <View style={[styles.viewError, errorViewStyle]}>
-            <Text style={[styles.textError, errorTextStyle]}>{errors}</Text>
-          </View>
-        )}
       </View>
+      {errors && touched && (
+        <View style={[styles.viewError, errorViewStyle]}>
+          <Text style={[styles.textError, errorTextStyle]}>{errors}</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -156,13 +124,15 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(5),
   },
   inputWrapper: {
-    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   textInput: {
     color: Color.Black,
     fontFamily: Fonts.interRegular,
     paddingHorizontal: scale(15),
     textAlignVertical: 'center',
+    width: '100%',
   },
   textAreaInput: {
     textAlignVertical: 'top',
@@ -171,11 +141,11 @@ const styles = StyleSheet.create({
   },
   // Left slot (absolute)
   leftSlot: {
-    position: 'absolute',
-    left: scale(12),
-    height: INPUT_H,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // position: 'rela',
+    // left: scale(12),
+    // height: INPUT_H,
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
 
   // Right visuals stack (absolute, row)

@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    marginBottom: verticalScale(-6),
   },
   heading: {
     fontSize: moderateScale(16),

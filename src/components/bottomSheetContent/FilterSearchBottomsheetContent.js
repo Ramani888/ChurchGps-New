@@ -1,5 +1,5 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { strings } from '../../language/strings';
 import GradientText from '../GradientText';
 import Color from '../../utils/Color';
@@ -27,6 +27,8 @@ const SmallCard = memo(({ label, imageSource }) => {
 });
 
 const FilterSearchBottomsheetContent = () => {
+  const [enterGroupCode, setEnterGroupCode] = useState('');
+
   const getCategoryImage = useCallback(name => {
     switch (name) {
       case 'Music':
@@ -75,12 +77,10 @@ const FilterSearchBottomsheetContent = () => {
 
       <CustomInputField
         placeholder={strings.enterGroupcode}
-        onChangeText={handleChange('email')}
-        onBlur={handleBlur('email')}
-        value={values.email}
-        errors={errors.email}
-        touched={touched.email}
-        inputStyle={styles.inputStyle}
+        onChangeText={setEnterGroupCode}
+        value={enterGroupCode}
+        leftImage={Images.searchIcon1}
+        inputWrapperStyle={styles.inputWrapperStyle}
       />
 
       <View style={styles.gatheringListView}>
@@ -152,6 +152,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingTop: verticalScale(5),
     paddingBottom: verticalScale(10),
+  },
+  inputWrapperStyle: {
+    backgroundColor: Color.rgba.Gray[1],
+    width: scale(331),
+    height: verticalScale(44),
+    alignSelf: 'center',
+    borderRadius: scale(16),
   },
   gatheringListView: {
     backgroundColor: Color.White,

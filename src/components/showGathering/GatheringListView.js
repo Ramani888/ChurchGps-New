@@ -21,7 +21,7 @@ import { Api } from '../../api/EndPoint';
 import Loader from '../../utils/Loader';
 import { apiDelete, apiGet, apiPost } from '../../api/ApiServices';
 import ToastMessage from '../../utils/ToastMessage';
-import { all } from 'axios';
+import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
 
 const CARD_WIDTH = scale(155.5);
 const CARD_HEIGHT = scale(70);
@@ -149,9 +149,23 @@ const GatheringItem = memo(
               style={styles.icon}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
-            <Image source={Images.removeIcon} style={styles.icon} />
-          </TouchableOpacity>
+          <Menu>
+            <MenuTrigger>
+              <Image source={Images.removeIcon} style={styles.icon} />
+            </MenuTrigger>
+            <MenuOptions
+              customStyles={{
+                optionsContainer: styles.menuPopup,
+              }}
+            >
+              <MenuOption onSelect={() => alert(`Report`)}>
+                <View style={styles.menuView}>
+                  <Image source={Images.deleteIcon} style={styles.menuImage} />
+                  <Text style={styles.menuText}>{strings.report}</Text>
+                </View>
+              </MenuOption>
+            </MenuOptions>
+          </Menu>
         </View>
       </View>
     );
@@ -400,4 +414,14 @@ const styles = StyleSheet.create({
     gap: scale(10),
   },
   icon: { width: scale(20), height: scale(20) },
+  menuPopup: {
+    width: scale(160),
+    paddingHorizontal: scale(16),
+    paddingVertical: verticalScale(12),
+    marginTop: verticalScale(-70),
+    borderRadius: scale(20),
+  },
+  menuView: { flexDirection: 'row', alignItems: 'center', gap: scale(8) },
+  menuImage: { width: scale(20), height: scale(20) },
+  menuText: { fontSize: moderateScale(16), fontFamily: Fonts.interRegular },
 });

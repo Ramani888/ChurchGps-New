@@ -298,7 +298,6 @@
 
 // export default memo(FilterScreen);
 
-
 import { FlatList, ScrollView, Text, View } from 'react-native';
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -316,6 +315,7 @@ import CustomButton from '../../../custome/CustomButton';
 import { Fonts } from '../../../utils/Font';
 import CustomBottomsheet from '../../../custome/CustomBottomsheet';
 import FilterSearchBottomsheetContent from '../../../components/bottomSheetContent/FilterSearchBottomsheetContent';
+import { BlurView } from '@react-native-community/blur';
 
 const DropdownItem = memo(({ label, value, selected }) => {
   return (
@@ -342,11 +342,9 @@ const INITIAL_FILTER = {
 const FilterScreen = () => {
   const sheetRef = useRef();
 
-  // ✅ Draft filter = changes while user selects
   const [filterDraft, setFilterDraft] = useState(INITIAL_FILTER);
-
-  // ✅ Saved filter = final object after pressing Save
   const [savedFilter, setSavedFilter] = useState(INITIAL_FILTER);
+  const [blurVisible, setBlurVisible] = useState(false);
 
   const gatheringData = useMemo(
     () => [
@@ -416,9 +414,7 @@ const FilterScreen = () => {
   const toggleOption = useCallback((key, type) => {
     setFilterDraft(prev => {
       const current = prev[type] || [];
-      const updated = current.includes(key)
-        ? current.filter(i => i !== key)
-        : [...current, key];
+      const updated = current.includes(key) ? current.filter(i => i !== key) : [...current, key];
 
       return { ...prev, [type]: updated };
     });
@@ -449,19 +445,31 @@ const FilterScreen = () => {
 
   // ✅ Dropdown render items
   const renderDenominationItem = useCallback(
-    item => <DropdownItem label={item.label} value={item.value} selected={filterDraft.denomination} />,
+    item => (
+      <DropdownItem label={item.label} value={item.value} selected={filterDraft.denomination} />
+    ),
     [filterDraft.denomination],
   );
 
   const renderProtestantItem = useCallback(
-    item =>
-      <DropdownItem label={item.label} value={item.value} selected={filterDraft.protestantDenomination} />,
+    item => (
+      <DropdownItem
+        label={item.label}
+        value={item.value}
+        selected={filterDraft.protestantDenomination}
+      />
+    ),
     [filterDraft.protestantDenomination],
   );
 
   const renderOtherDenominationItem = useCallback(
-    item =>
-      <DropdownItem label={item.label} value={item.value} selected={filterDraft.otherDenomination} />,
+    item => (
+      <DropdownItem
+        label={item.label}
+        value={item.value}
+        selected={filterDraft.otherDenomination}
+      />
+    ),
     [filterDraft.otherDenomination],
   );
 
@@ -503,9 +511,7 @@ const FilterScreen = () => {
           <View style={styles.locationView}>
             <LocationPreview latitude={22.263} longitude={70.7863} />
           </View>
-          <Text style={[styles.heading, { fontSize: moderateScale(16) }]}>
-            {strings.location}
-          </Text>
+          <Text style={[styles.heading, { fontSize: moderateScale(16) }]}>{strings.location}</Text>
         </Shadow>
 
         <Shadow
@@ -520,7 +526,7 @@ const FilterScreen = () => {
               data={gatheringData}
               renderItem={({ item }) => renderOption(item, 'GatheringOption')}
               numColumns={3}
-              keyExtractor={(item) => item.key}
+              keyExtractor={item => item.key}
               scrollEnabled={false}
             />
           </View>
@@ -539,7 +545,7 @@ const FilterScreen = () => {
               data={locationData}
               renderItem={({ item }) => renderOption(item, 'LocationOption')}
               numColumns={4}
-              keyExtractor={(item) => item.key}
+              keyExtractor={item => item.key}
               scrollEnabled={false}
             />
           </View>
@@ -553,9 +559,7 @@ const FilterScreen = () => {
             data={denominationData}
             renderItem={renderDenominationItem}
             value={filterDraft.denomination}
-            setValue={(value) =>
-              setFilterDraft(prev => ({ ...prev, denomination: value }))
-            }
+            setValue={value => setFilterDraft(prev => ({ ...prev, denomination: value }))}
             dropdownStyle={styles.dropdownStyle}
           />
 
@@ -564,9 +568,7 @@ const FilterScreen = () => {
             data={protestonDenominationData}
             renderItem={renderProtestantItem}
             value={filterDraft.protestantDenomination}
-            setValue={(value) =>
-              setFilterDraft(prev => ({ ...prev, protestantDenomination: value }))
-            }
+            setValue={value => setFilterDraft(prev => ({ ...prev, protestantDenomination: value }))}
             dropdownStyle={styles.dropdownStyle}
           />
 
@@ -575,9 +577,7 @@ const FilterScreen = () => {
             data={otherDenominationData}
             renderItem={renderOtherDenominationItem}
             value={filterDraft.otherDenomination}
-            setValue={(value) =>
-              setFilterDraft(prev => ({ ...prev, otherDenomination: value }))
-            }
+            setValue={value => setFilterDraft(prev => ({ ...prev, otherDenomination: value }))}
             dropdownStyle={styles.dropdownStyle}
           />
         </View>
@@ -608,10 +608,20 @@ const FilterScreen = () => {
         />
       </ScrollView>
 
-      <CustomBottomsheet
-        ref={sheetRef}
-        bottomSheetContent={<FilterSearchBottomsheetContent />}
-      />
+      {blurVisible && (
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={4}
+          reducedTransparencyFallbackColor="white"
+        />
+      )}
+
+      <CustomBottomsheet ref={sheetRef} bottomSheetContent={<FilterSearchBottomsheetContent />} />
+
+      <CustomBottomsheet ref={sheetRef} setBlurVisible={setBlurVisible}>
+        <FilterSearchBottomsheetContent />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

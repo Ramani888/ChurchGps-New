@@ -33,6 +33,7 @@ export const styles = StyleSheet.create({
     marginBlock: verticalScale(12),
     borderRadius: scale(16),
     height: verticalScale(46),
+    width: '100%',
   },
   devider: {
     height: verticalScale(1),

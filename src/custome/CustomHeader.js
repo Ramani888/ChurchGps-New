@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   title: { textAlign: 'center', paddingBottom: verticalScale(3) },
   rightIconView: {
     position: 'absolute',
-    right: scale(12),
+    right: scale(15),
     flexDirection: 'row',
     alignItems: 'center',
     gap: scale(15),

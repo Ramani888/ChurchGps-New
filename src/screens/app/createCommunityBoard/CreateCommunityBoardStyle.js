@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     marginTop: verticalScale(7),
     borderRadius: scale(16),
     height: verticalScale(46),
+    width: '100%',
   },
   plusIcon: {
     backgroundColor: Color.White,
@@ -56,5 +57,20 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     fontFamily: Fonts.interRegular,
     color: Color.Black,
+  },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+  bottomView: { position: 'absolute', bottom: verticalScale(5), width: '100%' },
+  infoText: {
+    fontSize: moderateScale(12),
+    fontFamily: Fonts.interRegular,
+    color: Color.Black,
+    textAlign: 'center',
+    lineHeight: verticalScale(18),
   },
 });

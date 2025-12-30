@@ -58,4 +58,11 @@ export const styles = StyleSheet.create({
     borderBottomWidth: scale(0.5),
     borderColor: Color.rgba.Gray[2],
   },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 });

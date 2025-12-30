@@ -10,31 +10,28 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { flushQueue, navigationRef } from './src/navigation/NavigationService';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { configureGoogleSignIn } from './src/config/googleSignIn';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const App = () => {
   useEffect(() => {
-    // Initialize Google Sign-In configuration on app start
     configureGoogleSignIn();
   }, []);
 
   const errorHandler = (error, stackTrace) => {
     console.log('Logged error:', error);
     console.log('stackTrace', stackTrace);
-    // send to Sentry, Firebase, etc.
   };
 
   return (
     <ErrorBoundary onError={errorHandler}>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       <KeyboardProvider>
         <NavigationContainer ref={navigationRef} onReady={flushQueue}>
           <AppProvider>
             <GestureHandlerRootView>
-              <AppNav />
+              <MenuProvider>
+                <AppNav />
+              </MenuProvider>
             </GestureHandlerRootView>
           </AppProvider>
         </NavigationContainer>
