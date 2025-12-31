@@ -28,19 +28,15 @@ const OnBoardingScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+
       <Image
         source={Images.gpsMobileImage}
         style={styles.gpsImage}
         resizeMode="contain"
         fadeDuration={0}
       />
-      
+
       <View style={styles.fadeContainer}>
         <BottomFadeLinear
           height={350}
@@ -50,27 +46,24 @@ const OnBoardingScreen = () => {
           midAt={0.5}
         />
       </View>
-      
+
       <View style={styles.titleView}>
-        <GradientText
-          text={strings.churchGps}
-          colors={Color.gradientColor1}
-          style={styles.title}
-        />
+        <GradientText text={strings.churchGps} colors={Color.gradientColor1} style={styles.title} />
         <Text style={styles.subTitle}>{strings.createOrJoinString}</Text>
       </View>
-      
+
       <CustomButton
         title={strings.login}
         backgroundColor={Color.theme1}
         borderRadius={scale(30)}
+        marginTop={verticalScale(15)}
         marginBottom={verticalScale(10)}
         fontSize={moderateScale(16)}
         fontColor={Color.Black}
         fontFamily={Fonts.sfProBold}
         onPress={handleLoginPress}
       />
-      
+
       <CustomButton
         title={strings.signup}
         backgroundColor={Color.theme2}
