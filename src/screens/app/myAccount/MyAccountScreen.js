@@ -194,26 +194,28 @@ const MyAccountScreen = () => {
         username: user?.username ?? '',
         profileName: values?.profileName ?? '',
         // Only include below section data if not skipped
-        ...(skipBelowSection ? {} : {
-          bio: values?.bio ?? '',
-          denomination: values?.denomination ?? '',
-          protestantDenomination: values?.protestantDenomination ?? '',
-          otherDenomination: values?.otherDenomination ?? '',
-          questionnaire: answers ?? [],
-        }),
+        ...(skipBelowSection
+          ? {}
+          : {
+              bio: values?.bio ?? '',
+              denomination: values?.denomination ?? '',
+              protestantDenomination: values?.protestantDenomination ?? '',
+              otherDenomination: values?.otherDenomination ?? '',
+              questionnaire: answers ?? [],
+            }),
       };
 
       try {
         setVisible(true);
         const response = await saveAccount(JSON.stringify(body));
-        
+
         // Only upload image if image section is not skipped
         if (!skipImageSection && profileImage?.uri && !profileImage?.uri?.startsWith('http')) {
           const formData = new FormData();
           formData.append('image', profileImage);
           formData.append('_id', user?._id);
           const uploadResponse = await uploadProfileImage(formData);
-          
+
           if (uploadResponse?.success && uploadResponse?.user) {
             setProfileData(uploadResponse?.user);
             onUpdateProfile(uploadResponse?.user);
@@ -222,7 +224,7 @@ const MyAccountScreen = () => {
             }
           }
         }
-        
+
         if (response?.success) {
           ToastMessage(response?.message);
           if (visibleEditAccount === false) {
@@ -230,7 +232,19 @@ const MyAccountScreen = () => {
             resetForm();
             navigation.reset({
               index: 0,
-              routes: [{ name: screenName.login }],
+              routes: [
+                {
+                  name: screenName.tabStack,
+                  state: {
+                    index: 0,
+                    routes: [
+                      {
+                        name: screenName.map,
+                      },
+                    ],
+                  },
+                },
+              ],
             });
           }
         }
@@ -276,7 +290,7 @@ const MyAccountScreen = () => {
       { label: strings.anglicanEpiscopal, value: 'Anglican/Episcopal' },
       { label: strings.presbyterianReformed, value: 'Presbyterian/Reformed' },
       { label: strings.adventist, value: 'Adventist' },
-      { label: strings.otherProtestant, value: 'Other Protestant' }
+      { label: strings.otherProtestant, value: 'Other Protestant' },
     ],
     [strings],
   );
@@ -363,7 +377,27 @@ const MyAccountScreen = () => {
     );
   };
 
-  const schema = useMemo(() => AccountSchema(skipBelowSection, skipImageSection), [skipBelowSection, skipImageSection]);
+  const schema = useMemo(
+    () => AccountSchema(skipBelowSection, skipImageSection),
+    [skipBelowSection, skipImageSection],
+  );
+
+  const initialValues = useMemo(
+    () => ({
+      userName: user?.username ?? '',
+      profileName: visibleEditAccount ? profileData?.profileName ?? '' : '',
+      profileImage: visibleEditAccount
+        ? profileData?.profileUrl
+          ? { uri: profileData.profileUrl }
+          : null
+        : null,
+      bio: visibleEditAccount ? profileData?.bio ?? '' : '',
+      denomination: visibleEditAccount ? profileData?.denomination ?? '' : '',
+      protestantDenomination: visibleEditAccount ? profileData?.protestantDenomination ?? '' : '',
+      otherDenomination: visibleEditAccount ? profileData?.otherDenomination ?? '' : '',
+    }),
+    [user?._id, visibleEditAccount, profileData?._id],
+  );
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -383,15 +417,7 @@ const MyAccountScreen = () => {
         extraKeyboardSpace={0}
       >
         <Formik
-          initialValues={{
-            userName: user?.username ?? '',
-            profileName: visibleEditAccount ? profileData?.profileName : '',
-            profileImage: profileImage?.uri ? profileImage : null,
-            bio: visibleEditAccount ? profileData?.bio : '',
-            denomination: visibleEditAccount ? profileData?.denomination : '',
-            protestantDenomination: visibleEditAccount ? profileData?.protestantDenomination : '',
-            otherDenomination: visibleEditAccount ? profileData?.otherDenomination : '',
-          }}
+          initialValues={initialValues}
           enableReinitialize
           validationSchema={schema}
           onSubmit={(values, { resetForm }) => {
@@ -452,25 +478,32 @@ const MyAccountScreen = () => {
                 <View>
                   <Image
                     source={
-                      profileImage?.uri
-                        ? { uri: profileImage?.uri }
-                        : Images.profileImageIcon
+                      profileImage?.uri ? { uri: profileImage?.uri } : Images.profileImageIcon
                     }
                     style={styles.accountIconImage}
                   />
                   <Text style={styles.name}>{strings.myPicture}</Text>
                 </View>
                 <View style={styles.btnMainView}>
-                  <Pressable onPress={() => handleGallery((file) => handleImageUpload(file, setFieldValue))}>
+                  <Pressable
+                    onPress={() => handleGallery(file => handleImageUpload(file, setFieldValue))}
+                  >
                     <ActionButton icon={Images.plusIcon} label={strings.upload} />
                   </Pressable>
-                  <Pressable onPress={() => handleCamera((file) => handleImageUpload(file, setFieldValue))}>
+                  <Pressable
+                    onPress={() => handleCamera(file => handleImageUpload(file, setFieldValue))}
+                  >
                     <ActionButton icon={Images.cameraIcon} label={strings.takeSelfi} />
                   </Pressable>
                 </View>
               </SectionBlock>
               {!skipImageSection && touched.profileImage && errors.profileImage && (
-                <Text style={[styles.errorText, { marginTop: verticalScale(10), textAlign: 'center', color: Color.Red }]}>
+                <Text
+                  style={[
+                    styles.errorText,
+                    { marginTop: verticalScale(10), textAlign: 'center', color: Color.Red },
+                  ]}
+                >
                   {errors.profileImage}
                 </Text>
               )}
@@ -558,7 +591,9 @@ const MyAccountScreen = () => {
                     <CustomDropdown
                       dropdownPlaceholder={strings.otherDenomination}
                       data={otherDenominationData}
-                      renderItem={item => renderOtherDenominationItem(item, values.otherDenomination)}
+                      renderItem={item =>
+                        renderOtherDenominationItem(item, values.otherDenomination)
+                      }
                       setValue={v => {
                         keyboardDismiss();
                         setFieldValue('otherDenomination', v);
