@@ -10,13 +10,19 @@ import { screenName } from '../../utils/NavigationKey';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUserDetail } from '../../context/UserContext';
 
-const SuccessBottomsheetContent = () => {
+const SuccessBottomsheetContent = ({ closeSuccessBottomsheet }) => {
   const navigation = useNavigation();
   const { user } = useUserDetail();
 
   const handleProfileNavigate = useCallback(async () => {
     await AsyncStorage.setItem(`SETUP_ACCOUNT_${user?._id}`, 'false');
-    navigation.navigate(screenName.myAccount);
+    closeSuccessBottomsheet();
+    setTimeout(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: screenName.myAccount }],
+      });
+    }, 10);
   }, [navigation]);
 
   return (

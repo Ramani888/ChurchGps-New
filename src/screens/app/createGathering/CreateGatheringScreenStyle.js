@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     marginTop: verticalScale(10),
   },
   shadowView: {
-    height: screenHeight - verticalScale(200),
+    height: screenHeight - verticalScale(150),
     backgroundColor: Color.White,
     padding: scale(12),
     marginHorizontal: scale(16),

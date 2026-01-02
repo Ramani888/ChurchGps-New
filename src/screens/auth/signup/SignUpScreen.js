@@ -32,6 +32,7 @@ import Loader from '../../../utils/Loader';
 import ToastMessage from '../../../utils/ToastMessage';
 
 import { styles } from './SignupStyle';
+import { login } from '../login/useLogin';
 
 const SignUpScreen = () => {
   const otpRef = useRef();
@@ -54,7 +55,7 @@ const SignUpScreen = () => {
   const { currentLanguage } = useLanguage();
   const { signIn } = useUserDetail();
 
-  const calculateAge = useCallback((birthDate) => {
+  const calculateAge = useCallback(birthDate => {
     if (!birthDate) return 0;
     const today = new Date();
     const birth = new Date(birthDate);
@@ -76,27 +77,30 @@ const SignUpScreen = () => {
     otpRef.current?.clear();
   }, []);
 
-  const getOtp = useCallback(async email => {
-    try {
-      if (!email) {
-        ToastMessage(strings.pleaseEnterEmail);
-        return;
+  const getOtp = useCallback(
+    async email => {
+      try {
+        if (!email) {
+          ToastMessage(strings.pleaseEnterEmail);
+          return;
+        }
+        setIsLoading(true);
+        const response = await sendOtp({ email: email });
+        if (response?.success) {
+          clearOtp();
+          setEnableOtpField(true);
+          ToastMessage(response?.message);
+        }
+      } catch (error) {
+        console.log('error in sent otp api', error);
+        const msg = error.message || strings.somethingWentWrong;
+        ToastMessage(msg);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(true);
-      const response = await sendOtp({ email: email });
-      if (response?.success) {
-        clearOtp();
-        setEnableOtpField(true);
-        ToastMessage(response?.message);
-      }
-    } catch (error) {
-      console.log('error in sent otp api', error);
-      const msg = error.message || strings.somethingWentWrong;
-      ToastMessage(msg);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [clearOtp]);
+    },
+    [clearOtp],
+  );
 
   const handleOtpFilled = useCallback(async (otp, email) => {
     try {
@@ -117,41 +121,68 @@ const SignUpScreen = () => {
   }, []);
 
   const goToNext = useCallback(
-    async user => {
-      await AsyncStorage.setItem('USER', JSON.stringify(user));
+    async (token, user, message) => {
+      await AsyncStorage.multiSet([
+        ['TOKEN', token],
+        ['USER', JSON.stringify(user)],
+        [`SETUP_ACCOUNT_${user?._id}`, 'false'],
+      ]);
+      global.token = token;
       signIn();
       openSuccessBottomsheet();
     },
-    [signIn, openSuccessBottomsheet],
+    [navigation],
   );
 
-  const handleCreateAccount = useCallback(async values => {
+  const handleLogin = useCallback(async (email, password) => {
     try {
-      if (isUnder18) {
-        setShowAgeError(true);
-        ToastMessage(strings.must18Plus);
-        return;
-      }
-      
       setIsLoading(true);
-      const response = await signUp({
-        email: values.email,
-        password: values.password,
-        dob: values.dob,
-        acceptedTnC: values.termsAndCondition,
+      const response = await login({
+        email: email,
+        password: password,
       });
-      
       if (response?.success) {
-        goToNext(response?.user);
+        goToNext(response?.user?.token, response?.user);
       }
     } catch (error) {
-      console.log('error in sign up api', error);
+      console.log('error in login api', error);
       const msg = error.message || strings.somethingWentWrong;
       ToastMessage(msg);
     } finally {
       setIsLoading(false);
     }
-  }, [goToNext, isUnder18]);
+  });
+
+  const handleCreateAccount = useCallback(
+    async values => {
+      try {
+        if (isUnder18) {
+          setShowAgeError(true);
+          ToastMessage(strings.must18Plus);
+          return;
+        }
+
+        setIsLoading(true);
+        const response = await signUp({
+          email: values.email,
+          password: values.password,
+          dob: values.dob,
+          acceptedTnC: values.termsAndCondition,
+        });
+
+        if (response?.success) {
+          handleLogin(values.email, values.password);
+        }
+      } catch (error) {
+        console.log('error in sign up api', error);
+        const msg = error.message || strings.somethingWentWrong;
+        ToastMessage(msg);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [goToNext, isUnder18],
+  );
 
   const handleGoogleSignUp = useCallback(async () => {
     try {
@@ -192,16 +223,8 @@ const SignUpScreen = () => {
     languageSheetRef.current.show();
   };
 
-  const closeLanguageBottomsheet = () => {
-    languageSheetRef.current.hide();
-  };
-
   const openCalenderBottomsheet = () => {
     datePickerSheetRef.current.show();
-  };
-
-  const closeCalenderBottomsheet = () => {
-    datePickerSheetRef.current.hide();
   };
 
   const openSuccessBottomsheet = () => {
@@ -259,7 +282,6 @@ const SignUpScreen = () => {
             setFieldTouched,
           }) => (
             <View style={styles.contentContainer}>
-
               <View style={styles.btnView}>
                 <CustomButton
                   title={strings.signupWithGoogle}
@@ -324,7 +346,13 @@ const SignUpScreen = () => {
                   paddingHorizontal={scale(20)}
                   fontSize={scale(14)}
                   fontFamily={Fonts.interRegular}
-                  fontColor={isUnder18 && dob?.showDate ? '#DC143C' : (dob?.showDate ? Color.Black : Color.Gray)}
+                  fontColor={
+                    isUnder18 && dob?.showDate
+                      ? '#DC143C'
+                      : dob?.showDate
+                      ? Color.Black
+                      : Color.Gray
+                  }
                   borderWidth={isUnder18 && dob?.showDate ? scale(1) : 0}
                   borderColor={isUnder18 && dob?.showDate ? '#DC143C' : 'transparent'}
                   onPress={openCalenderBottomsheet}
@@ -484,7 +512,7 @@ const SignUpScreen = () => {
       </CustomBottomsheet>
 
       <CustomBottomsheet ref={successSheetRef} setBlurVisible={setBlurVisible}>
-        <SuccessBottomsheetContent />
+        <SuccessBottomsheetContent closeSuccessBottomsheet={closeSuccessBottomsheet} />
       </CustomBottomsheet>
     </SafeAreaView>
   );

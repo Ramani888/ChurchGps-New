@@ -13,7 +13,7 @@ import RecordVideoScreen from '../screens/app/recordVideo/RecordVideoScreen';
 import TermsAndPrivacy from '../screens/app/termsAndPrivacy/TermsAndPrivacy';
 import ForgotPasswordScreen from '../screens/auth/forgotPassword/ForgotPasswordScreen';
 import LoginScreen from '../screens/auth/login/LoginScreen';
-import MyAccountScreen from '../screens/auth/myAccount/MyAccountScreen';
+import MyAccountScreen from '../screens/app/myAccount/MyAccountScreen';
 import OnBoardingScreen from '../screens/auth/onboarding/OnBoardingScreen';
 import SignUpScreen from '../screens/auth/signup/SignUpScreen';
 import SplashScreen from '../screens/auth/SplashScreen';

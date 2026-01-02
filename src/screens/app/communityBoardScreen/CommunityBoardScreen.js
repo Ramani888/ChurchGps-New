@@ -35,12 +35,15 @@ const CommunityBoardScreen = () => {
 
   const getCoomunityDataApi = useCallback(async (latitude, longitude) => {
     try {
+      setVisible(true);
       const response = await getCommunityPostApi(latitude, longitude);
       if (response?.success) {
         setCommunityPostData(response?.data);
       }
     } catch (error) {
       console.log('error in get community post data', error);
+    } finally {
+      setVisible(false);
     }
   }, []);
 
