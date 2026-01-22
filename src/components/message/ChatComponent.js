@@ -149,9 +149,28 @@ const ChatComponent = ({
                 },
               ]}
             >
-              <TouchableOpacity onPress={() => {}}>
-                <Image source={Images.gridIcon} style={styles.icon} />
-              </TouchableOpacity>
+              <Menu>
+                <MenuTrigger customStyles={{ TriggerTouchableComponent: TouchableOpacity }}>
+                  <Image source={Images.gridIcon} style={styles.icon} />
+                </MenuTrigger>
+                <MenuOptions
+                  customStyles={{
+                    optionsContainer: styles.menuPopup,
+                  }}
+                >
+                  {menuActions.map((item, index) => (
+                    <>
+                      <HeaderMenuItem
+                        key={item.key}
+                        icon={item.icon}
+                        label={item.label}
+                        onSelect={item.onSelect}
+                      />
+                      {menuActions?.length - 1 !== index && <View style={styles.devider} />}
+                    </>
+                  ))}
+                </MenuOptions>
+              </Menu>
               <CustomInputField
                 placeholder={strings.message}
                 onChangeText={setMessage}
@@ -285,6 +304,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(-50),
     marginLeft: -verticalScale(8),
     borderRadius: scale(20),
+    backgroundColor: Color.White,
     zIndex: 1,
   },
   menuView: { flexDirection: 'row', alignItems: 'center', gap: scale(10) },

@@ -34,6 +34,7 @@ export const styles = StyleSheet.create({
     marginTop: verticalScale(35),
     marginLeft: -verticalScale(8),
     borderRadius: scale(20),
+    backgroundColor: Color.White,
   },
   menuView: { flexDirection: 'row', alignItems: 'center', gap: scale(8) },
   menuImage: { width: scale(20), height: scale(20) },
