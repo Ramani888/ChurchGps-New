@@ -190,7 +190,7 @@
 // });
 
 import React, { memo, useCallback, useMemo, useState } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ToggleSwitch from 'toggle-switch-react-native';
 
@@ -226,6 +226,7 @@ const SettingRow = memo(({ label, isOn, onToggle }) => {
 const AdminRightsBottomsheetContent = ({
   closeAdminRightsBottomsheet,
   openTransferOwnerBottomsheet,
+  openRemoveAdminBottomsheet,
 }) => {
   const [rights, setRights] = useState({
     deleteMessage: false,
@@ -268,7 +269,9 @@ const AdminRightsBottomsheetContent = ({
 
       <ScrollView>
         <View>
-          <Image source={Images.deleteIcon} tintColor={Color.Pink} style={styles.deleteIcon} />
+          <TouchableOpacity onPress={openRemoveAdminBottomsheet}>
+            <Image source={Images.deleteIcon} tintColor={Color.Pink} style={styles.deleteIcon} />
+          </TouchableOpacity>
           <Image source={ADMIN_AVATAR_SOURCE} style={styles.image} />
           <Text style={styles.adminName}>Alfredo Bator</Text>
         </View>

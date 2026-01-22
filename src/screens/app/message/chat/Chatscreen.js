@@ -170,11 +170,11 @@ const Chatscreen = () => {
           </View>
 
           <View style={styles.headerIconView}>
-            <TouchableOpacity activeOpacity={0.7} onPress={() => openRemoveAdminBottomsheet()}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => {}}>
               <Image source={Images.pinIcon} style={styles.icon} />
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.7} onPress={() => openChangeBackgroundBottomsheet()}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => {}}>
               <Image source={Images.calenderIcon} style={styles.icon} />
             </TouchableOpacity>
 
@@ -270,6 +270,7 @@ const Chatscreen = () => {
         <AdminRightsBottomsheetContent
           closeAdminRightsBottomsheet={closeAdminRightsBottomsheet}
           openTransferOwnerBottomsheet={openTransferOwnerBottomsheet}
+          openRemoveAdminBottomsheet={openRemoveAdminBottomsheet}
         />
       </CustomBottomsheet>
 

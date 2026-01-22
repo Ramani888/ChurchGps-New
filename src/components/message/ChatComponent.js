@@ -16,7 +16,7 @@ const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
     <MenuOption onSelect={onSelect}>
       <View style={styles.menuView}>
-        <Image source={icon} style={styles.menuImage} />
+        <Image source={icon} style={styles.menuImage} tintColor={Color.Black} />
         <Text style={styles.menuText}>{label}</Text>
       </View>
     </MenuOption>
@@ -37,31 +37,31 @@ const ChatComponent = ({
     () => [
       {
         key: 'photo or video',
-        icon: Images.infoIcon,
+        icon: Images.photoOrVideoIcon,
         label: strings.photoOrVideo,
         onSelect: () => openInfoBottomsheet(),
       },
       {
         key: 'document',
-        icon: Images.chatMultiuserIcon,
+        icon: Images.reportIcon,
         label: strings.document,
         onSelect: () => openMembersBottomsheet(),
       },
       {
         key: 'groupVoiceChat',
-        icon: Images.leaveIcon,
+        icon: Images.microphoneIcon,
         label: strings.groupVoiceChat,
         onSelect: () => {},
       },
       {
         key: 'poll',
-        icon: Images.reportIcon,
+        icon: Images.pollIcon,
         label: strings.poll,
         onSelect: () => {},
       },
       {
         key: 'color',
-        icon: Images.searchIcon1,
+        icon: Images.colorIcon,
         label: strings.color,
         onSelect: () => openChangeBackgroundBottomsheet(),
       },

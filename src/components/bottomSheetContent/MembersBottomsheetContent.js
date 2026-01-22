@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { memo, useCallback, useRef, useState } from 'react';
 import GradientText from '../GradientText';
 import Color from '../../utils/Color';
@@ -13,6 +13,8 @@ import CustomButton from '../../custome/CustomButton';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import CustomBottomsheet from '../../custome/CustomBottomsheet';
 import BanBottomsheetContent from './BanBottomsheetContent';
+import { useNavigation } from '@react-navigation/native';
+import { screenName } from '../../utils/NavigationKey';
 
 const memberData = [
   {
@@ -53,13 +55,21 @@ const MembersBottomsheetContent = ({
   openAdminRightsBottomsheet,
   openMemberPermissionBottomsheet,
 }) => {
+  const navigation = useNavigation();
   const [memberName, setMemberName] = useState('');
   const [adminormember, setAdminOrMember] = useState('Members');
 
   const renderMembers = useCallback(({ item }) => {
     return (
       <View style={styles.itemContainer}>
-        <Image source={{ uri: item?.image }} style={styles.memberImage} />
+        <TouchableOpacity
+          onPress={() => {
+            closeMembersBottomsheet();
+            navigation.navigate(screenName.memberProfilescreen);
+          }}
+        >
+          <Image source={{ uri: item?.image }} style={styles.memberImage} />
+        </TouchableOpacity>
         <View>
           <Text style={styles.name}>{item?.name}</Text>
           <Text style={styles.userName}>{item?.userName}</Text>
@@ -82,7 +92,12 @@ const MembersBottomsheetContent = ({
               <Text style={styles.menuText}>{strings.ban}</Text>
             </MenuOption>
             <View style={styles.menuDevider} />
-            <MenuOption onSelect={() => {}}>
+            <MenuOption
+              onSelect={() => {
+                closeMembersBottomsheet();
+                openAdminRightsBottomsheet();
+              }}
+            >
               <Text style={styles.menuText}>{strings.promote}</Text>
             </MenuOption>
             <View style={styles.menuDevider} />
