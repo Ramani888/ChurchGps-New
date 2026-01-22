@@ -54,6 +54,7 @@ const MembersBottomsheetContent = ({
   openMemberPermissionBottomsheet,
 }) => {
   const [memberName, setMemberName] = useState('');
+  const [adminormember, setAdminOrMember] = useState('Members');
 
   const renderMembers = useCallback(({ item }) => {
     return (
@@ -98,7 +99,11 @@ const MembersBottomsheetContent = ({
     <SafeAreaView style={styles.container}>
       <View style={styles.headerView}>
         <View style={styles.emptyView} />
-        <GradientText text={strings.members} colors={Color.gradientColor1} style={styles.title} />
+        <GradientText
+          text={adminormember === 'Admins' ? strings.admins : strings.members}
+          colors={Color.gradientColor1}
+          style={styles.title}
+        />
         <Menu rendererProps={{ placement: 'auto' }}>
           <MenuTrigger>
             <Image
@@ -139,7 +144,7 @@ const MembersBottomsheetContent = ({
 
       <View style={styles.btnView}>
         <CustomButton
-          title={strings.admins}
+          title={adminormember === 'Admins' ? strings.members : strings.admins}
           buttonHeight={verticalScale(34)}
           buttonWidth={scale(92)}
           backgroundColor={Color.theme1}
@@ -148,8 +153,13 @@ const MembersBottomsheetContent = ({
           fontColor={Color.Black}
           fontFamily={Fonts.interMedium}
           onPress={() => {
-            closeMembersBottomsheet();
-            openAdminRightsBottomsheet();
+            if (adminormember === 'Admins') {
+              setAdminOrMember('Members');
+            } else {
+              setAdminOrMember('Admins');
+            }
+            // closeMembersBottomsheet();
+            // openAdminRightsBottomsheet();
           }}
         />
         <CustomButton

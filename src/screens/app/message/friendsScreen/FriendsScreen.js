@@ -14,11 +14,19 @@ import AddFriendBottomsheetContent from '../../../../components/bottomSheetConte
 import CreatePollBottomsheetContent from '../../../../components/bottomSheetContent/CreatePollBottomsheetContent';
 import VoiceChatPermissionBottomsheetContent from '../../../../components/bottomSheetContent/VoiceChatPermissionBottomsheetContent';
 import { BlurView } from '@react-native-community/blur';
+import DBRBottomsheetContent from '../../../../components/bottomSheetContent/DBRBottomsheetContent';
+import DeleteBottomsheetContent from '../../../../components/bottomSheetContent/DeleteBottomsheetContent';
+import BlockBottomsheetContent from '../../../../components/bottomSheetContent/BlockBottomsheetContent';
+import ReportBottomsheetContent from '../../../../components/bottomSheetContent/ReportBottomsheetContent';
 
 const FriendsScreen = () => {
   const addFriendSheetRef = useRef();
   const createPollSheetRef = useRef();
   const voiceChatPermissionSheetRef = useRef();
+  const DBRSheetRef = useRef();
+  const deleteSheetRef = useRef();
+  const blockSheetRef = useRef();
+  const reportSheetRef = useRef();
 
   const [search, setSearch] = useState('');
   const [blurVisible, setBlurVisible] = useState(false);
@@ -63,6 +71,26 @@ const FriendsScreen = () => {
     voiceChatPermissionSheetRef.current.show();
   }, []);
 
+  const openDBRBottomsheet = useCallback(() => {
+    DBRSheetRef.current.show();
+  }, []);
+
+  const closeDBRBottomsheet = useCallback(() => {
+    DBRSheetRef.current.hide();
+  }, []);
+
+  const openDeleteBottomsheet = useCallback(() => {
+    deleteSheetRef.current.show();
+  }, []);
+
+  const openBlockBottomsheet = useCallback(() => {
+    blockSheetRef.current.show();
+  }, []);
+
+  const openReportBottomsheet = useCallback(() => {
+    reportSheetRef.current.show();
+  }, []);
+
   const renderFreinds = useCallback(({ item }) => {
     return (
       <View style={styles.itemContainer}>
@@ -71,7 +99,7 @@ const FriendsScreen = () => {
         <TouchableOpacity onPress={() => openCreatePollBottomsheet()}>
           <Ionicons name="chatbubble-ellipses-outline" size={scale(24)} color={Color.Black} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => openAddFriendBottomsheet()}>
+        <TouchableOpacity onPress={() => openDBRBottomsheet()}>
           <MaterialDesignIcons name="dots-vertical" size={scale(24)} color={Color.Black} />
         </TouchableOpacity>
       </View>
@@ -134,6 +162,27 @@ const FriendsScreen = () => {
         setBlurVisible={setBlurVisible}
       >
         <VoiceChatPermissionBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={DBRSheetRef} setBlurVisible={setBlurVisible}>
+        <DBRBottomsheetContent
+          closeDBRBottomsheet={closeDBRBottomsheet}
+          openDeleteBottomsheet={openDeleteBottomsheet}
+          openReportBottomsheet={openReportBottomsheet}
+          openBlockBottomsheet={openBlockBottomsheet}
+        />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={deleteSheetRef} setBlurVisible={setBlurVisible}>
+        <DeleteBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={blockSheetRef} setBlurVisible={setBlurVisible}>
+        <BlockBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={reportSheetRef} setBlurVisible={setBlurVisible}>
+        <ReportBottomsheetContent />
       </CustomBottomsheet>
     </SafeAreaView>
   );

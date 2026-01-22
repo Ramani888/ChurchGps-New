@@ -17,6 +17,7 @@ import MyAccountScreen from '../screens/app/myAccount/MyAccountScreen';
 import OnBoardingScreen from '../screens/auth/onboarding/OnBoardingScreen';
 import SignUpScreen from '../screens/auth/signup/SignUpScreen';
 import SplashScreen from '../screens/auth/SplashScreen';
+import CalenderScreen from '../screens/app/calender/CalenderScreen';
 
 export const screenName = {
   // auth
@@ -38,6 +39,7 @@ export const screenName = {
   createCommunityBoard: 'CreateCommunityBoard',
   friendsScreen: 'FriendsScreen',
   chatScreen: 'ChatScreen',
+  calenderScreen: 'CalenderScreen',
 
   // TabScreen
   user: 'User',
@@ -65,6 +67,7 @@ export const screen = {
   CreateCommunityBoardScreen,
   FriendsScreen,
   Chatscreen,
+  CalenderScreen,
 
   // Tabscreen
   UserScreen,

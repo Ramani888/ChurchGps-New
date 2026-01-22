@@ -13,9 +13,6 @@ import { Images } from '../../../../utils/Images';
 import { strings } from '../../../../language/strings';
 import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
 import InfoBottomsheetContent from '../../../../components/bottomSheetContent/InfoBottomsheetContent';
-import LeaveBottomsheetContent from '../../../../components/bottomSheetContent/LeaveBottomsheetContent';
-import DeleteBottomsheetContent from '../../../../components/bottomSheetContent/DeleteBottomsheetContent';
-import ReportBottomsheetContent from '../../../../components/bottomSheetContent/ReportBottomsheetContent';
 import MembersBottomsheetContent from '../../../../components/bottomSheetContent/MembersBottomsheetContent';
 import BanBottomsheetContent from '../../../../components/bottomSheetContent/BanBottomsheetContent';
 import AdminRightsBottomsheetContent from '../../../../components/bottomSheetContent/AdminRightsBottomsheetContent';
@@ -43,9 +40,6 @@ const Chatscreen = () => {
   const navigation = useNavigation();
   const infoSheetRef = useRef();
   const membersSheetRef = useRef();
-  const leaveSheetRef = useRef();
-  const deleteSheetRef = useRef();
-  const reportSheetRef = useRef();
   const banSheetRef = useRef();
   const adminRightsSheetRef = useRef();
   const transferOwnerSheetRef = useRef();
@@ -85,13 +79,13 @@ const Chatscreen = () => {
         key: 'leave',
         icon: Images.leaveIcon,
         label: strings.leave,
-        onSelect: () => openLeaveBottomsheet(),
+        onSelect: () => {},
       },
       {
         key: 'report',
         icon: Images.reportIcon,
         label: strings.report,
-        onSelect: () => openReportBottomsheet(),
+        onSelect: () => {},
       },
       {
         key: 'search',
@@ -121,18 +115,6 @@ const Chatscreen = () => {
 
   const openBanBottomsheet = useCallback(() => {
     banSheetRef.current.show();
-  }, []);
-
-  const openLeaveBottomsheet = useCallback(() => {
-    leaveSheetRef.current.show();
-  }, []);
-
-  const openDeleteBottomsheet = useCallback(() => {
-    deleteSheetRef.current.show();
-  }, []);
-
-  const openReportBottomsheet = useCallback(() => {
-    reportSheetRef.current.show();
   }, []);
 
   const openAdminRightsBottomsheet = useCallback(() => {
@@ -250,6 +232,7 @@ const Chatscreen = () => {
       <ChatComponent
         searchFieldVisible={searchFieldVisible}
         setSearchFieldVisible={setSearchFieldVisible}
+        openChangeBackgroundBottomsheet={openChangeBackgroundBottomsheet}
       />
 
       {blurVisible && (
@@ -276,18 +259,6 @@ const Chatscreen = () => {
 
       <CustomBottomsheet ref={banSheetRef} setBlurVisible={setBlurVisible}>
         <BanBottomsheetContent />
-      </CustomBottomsheet>
-
-      <CustomBottomsheet ref={leaveSheetRef} setBlurVisible={setBlurVisible}>
-        <LeaveBottomsheetContent />
-      </CustomBottomsheet>
-
-      <CustomBottomsheet ref={deleteSheetRef} setBlurVisible={setBlurVisible}>
-        <DeleteBottomsheetContent />
-      </CustomBottomsheet>
-
-      <CustomBottomsheet ref={reportSheetRef} setBlurVisible={setBlurVisible}>
-        <ReportBottomsheetContent />
       </CustomBottomsheet>
 
       <CustomBottomsheet

@@ -15,6 +15,10 @@ import ShowMessageFromBottomsheetContent from '../../../../components/bottomShee
 import StartVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/StartVoiceChatBottomsheetContent';
 import EndVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/EndVoiceChatBottomsheetContent';
 import { BlurView } from '@react-native-community/blur';
+import DBRBottomsheetContent from '../../../../components/bottomSheetContent/DBRBottomsheetContent';
+import DeleteBottomsheetContent from '../../../../components/bottomSheetContent/DeleteBottomsheetContent';
+import ReportBottomsheetContent from '../../../../components/bottomSheetContent/ReportBottomsheetContent';
+import BlockBottomsheetContent from '../../../../components/bottomSheetContent/BlockBottomsheetContent';
 
 const USER_DATA = [
   {
@@ -98,6 +102,10 @@ const MessageScreen = () => {
   const showMessageFromSheetRef = useRef();
   const startVoiceChatSheetRef = useRef();
   const endVoiceChatSheetRef = useRef();
+  const DBRSheetRef = useRef();
+  const deleteSheetRef = useRef();
+  const blockSheetRef = useRef();
+  const reportSheetRef = useRef();
 
   const [blurVisible, setBlurVisible] = useState(false);
 
@@ -107,12 +115,32 @@ const MessageScreen = () => {
     showMessageFromSheetRef.current.show();
   }, []);
 
-  const openStartVoiceChatBottomsheet = useCallback(() => {
-    startVoiceChatSheetRef.current.show();
+  // const openStartVoiceChatBottomsheet = useCallback(() => {
+  //   startVoiceChatSheetRef.current.show();
+  // }, []);
+
+  // const openEndVoiceChatBottomsheet = useCallback(() => {
+  //   endVoiceChatSheetRef.current.show();
+  // }, []);
+
+  const openDBRBottomsheet = useCallback(() => {
+    DBRSheetRef.current.show();
   }, []);
 
-  const openEndVoiceChatBottomsheet = useCallback(() => {
-    endVoiceChatSheetRef.current.show();
+  const closeDBRBottomsheet = useCallback(() => {
+    DBRSheetRef.current.hide();
+  }, []);
+
+  const openDeleteBottomsheet = useCallback(() => {
+    deleteSheetRef.current.show();
+  }, []);
+
+  const openBlockBottomsheet = useCallback(() => {
+    blockSheetRef.current.show();
+  }, []);
+
+  const openReportBottomsheet = useCallback(() => {
+    reportSheetRef.current.show();
   }, []);
 
   const onRowPress = useCallback(
@@ -127,7 +155,7 @@ const MessageScreen = () => {
 
   const onMenuPress = useCallback(item => {
     console.log('Menu pressed for:', item?.id, item?.title);
-    openEndVoiceChatBottomsheet();
+    openDBRBottomsheet();
   }, []);
 
   const renderItem = useCallback(
@@ -154,7 +182,7 @@ const MessageScreen = () => {
           />
           <TabButton
             image={Images.chatNotificationIcon}
-            onPress={() => openStartVoiceChatBottomsheet()}
+            onPress={() => navigation.navigate(screenName.calenderScreen)}
           />
           <TabButton
             image={Images.chatMultiuserIcon}
@@ -195,6 +223,27 @@ const MessageScreen = () => {
 
       <CustomBottomsheet ref={endVoiceChatSheetRef} setBlurVisible={setBlurVisible}>
         <EndVoiceChatBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={DBRSheetRef} setBlurVisible={setBlurVisible}>
+        <DBRBottomsheetContent
+          closeDBRBottomsheet={closeDBRBottomsheet}
+          openDeleteBottomsheet={openDeleteBottomsheet}
+          openReportBottomsheet={openReportBottomsheet}
+          openBlockBottomsheet={openBlockBottomsheet}
+        />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={deleteSheetRef} setBlurVisible={setBlurVisible}>
+        <DeleteBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={blockSheetRef} setBlurVisible={setBlurVisible}>
+        <BlockBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={reportSheetRef} setBlurVisible={setBlurVisible}>
+        <ReportBottomsheetContent />
       </CustomBottomsheet>
     </SafeAreaView>
   );

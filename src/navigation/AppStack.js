@@ -32,6 +32,7 @@ const AppStack = () => {
       />
       <Stack.Screen name={screenName.friendsScreen} component={screen.FriendsScreen} />
       <Stack.Screen name={screenName.chatScreen} component={screen.Chatscreen} />
+      <Stack.Screen name={screenName.calenderScreen} component={screen.CalenderScreen} />
     </Stack.Navigator>
   );
 };

@@ -1,5 +1,5 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { memo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStateContext } from '../../context/StateContext';
 import LinearGradient from 'react-native-linear-gradient';
@@ -10,12 +10,64 @@ import { strings } from '../../language/strings';
 import CustomButton from '../../custome/CustomButton';
 import { moderateScale, scale, verticalScale } from '../../utils/Responsive';
 import { Fonts } from '../../utils/Font';
+import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
 
-const ChatComponent = ({ searchFieldVisible, setSearchFieldVisible }) => {
+const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
+  return (
+    <MenuOption onSelect={onSelect}>
+      <View style={styles.menuView}>
+        <Image source={icon} style={styles.menuImage} />
+        <Text style={styles.menuText}>{label}</Text>
+      </View>
+    </MenuOption>
+  );
+});
+
+const ChatComponent = ({
+  searchFieldVisible,
+  setSearchFieldVisible,
+  openChangeBackgroundBottomsheet,
+}) => {
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
 
   const { changeBackgroundNumber } = useStateContext();
+
+  const menuActions = useMemo(
+    () => [
+      {
+        key: 'photo or video',
+        icon: Images.infoIcon,
+        label: strings.photoOrVideo,
+        onSelect: () => openInfoBottomsheet(),
+      },
+      {
+        key: 'document',
+        icon: Images.chatMultiuserIcon,
+        label: strings.document,
+        onSelect: () => openMembersBottomsheet(),
+      },
+      {
+        key: 'groupVoiceChat',
+        icon: Images.leaveIcon,
+        label: strings.groupVoiceChat,
+        onSelect: () => {},
+      },
+      {
+        key: 'poll',
+        icon: Images.reportIcon,
+        label: strings.poll,
+        onSelect: () => {},
+      },
+      {
+        key: 'color',
+        icon: Images.searchIcon1,
+        label: strings.color,
+        onSelect: () => openChangeBackgroundBottomsheet(),
+      },
+    ],
+    [],
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -146,9 +198,28 @@ const ChatComponent = ({ searchFieldVisible, setSearchFieldVisible }) => {
           )}
 
           <View style={styles.messageInput}>
-            <TouchableOpacity onPress={() => {}}>
-              <Image source={Images.gridIcon} style={styles.icon} />
-            </TouchableOpacity>
+            <Menu>
+              <MenuTrigger customStyles={{ TriggerTouchableComponent: TouchableOpacity }}>
+                <Image source={Images.gridIcon} style={styles.icon} />
+              </MenuTrigger>
+              <MenuOptions
+                customStyles={{
+                  optionsContainer: styles.menuPopup,
+                }}
+              >
+                {menuActions.map((item, index) => (
+                  <>
+                    <HeaderMenuItem
+                      key={item.key}
+                      icon={item.icon}
+                      label={item.label}
+                      onSelect={item.onSelect}
+                    />
+                    {menuActions?.length - 1 !== index && <View style={styles.devider} />}
+                  </>
+                ))}
+              </MenuOptions>
+            </Menu>
             <CustomInputField
               placeholder={strings.message}
               onChangeText={setMessage}
@@ -208,4 +279,21 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
   },
   icon: { width: scale(24), height: scale(24) },
+  menuPopup: {
+    width: scale(211),
+    padding: scale(16),
+    marginTop: verticalScale(-50),
+    marginLeft: -verticalScale(8),
+    borderRadius: scale(20),
+    zIndex: 1,
+  },
+  menuView: { flexDirection: 'row', alignItems: 'center', gap: scale(10) },
+  menuImage: { width: scale(20), height: scale(20) },
+  menuText: { fontSize: moderateScale(16), fontFamily: Fonts.interRegular },
+  devider: {
+    width: scale(179),
+    height: verticalScale(1),
+    backgroundColor: Color.rgba.Gray[1],
+    marginVertical: verticalScale(2),
+  },
 });

@@ -4,7 +4,8 @@ export default {
   // auth
 
   churchGps: 'CHURCH GPS',
-  createOrJoinString: 'Navigate your faith - Create. Find. Meet. Connect With Christians Anywhere, Locally or Online.',
+  createOrJoinString:
+    'Navigate your faith - Create. Find. Meet. Connect With Christians Anywhere, Locally or Online.',
   login: 'Log In',
   login1: 'Login',
   signup: 'Sign Up',
@@ -113,10 +114,12 @@ export default {
   question22: 'The church is Israel, which includes both Jews and Gentiles.',
   question23: 'Christians need to abstain completely from alcohol.',
   question24: 'Marriage is only between one man and one woman.',
-  question25: 'Evangelism and the Great Commission are essential responsibilities for all believers.',
+  question25:
+    'Evangelism and the Great Commission are essential responsibilities for all believers.',
   question26: 'Modern Bible translations (not just KJV) are acceptable for Christian use.',
   question27: 'Apocryphal books are considered part of the official Scripture.',
-  question28: 'There are 2 resurrections: The resurrection of all saints throughout history, then later the resurrection of all people.',
+  question28:
+    'There are 2 resurrections: The resurrection of all saints throughout history, then later the resurrection of all people.',
   save: 'Save',
   somethingWentWrong: 'Something went wrong',
   logout: 'Logout',
@@ -347,6 +350,11 @@ ask for money)`,
   selectDescription: 'Please enter your Description',
   successCreateCommunityText: 'Successfully Created Community Post',
   continue: 'Continue',
+  photoOrVideo: 'Photo or Video',
+  document: 'Document',
+  groupVoiceChat: 'Group Voice Chat',
+  poll: 'Poll',
+  color: 'Color',
 };
 
 // userNameRequired; biji language ma baki che
