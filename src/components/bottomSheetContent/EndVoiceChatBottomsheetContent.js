@@ -8,7 +8,7 @@ import { moderateScale, scale, verticalScale } from '../../utils/Responsive';
 import { Fonts } from '../../utils/Font';
 import CustomButton from '../../custome/CustomButton';
 
-const EndVoiceChatBottomsheetContent = () => {
+const EndVoiceChatBottomsheetContent = ({ closeEndVoiceChatBottomsheet }) => {
   return (
     <SafeAreaView style={styles.container}>
       <GradientText
@@ -28,7 +28,9 @@ const EndVoiceChatBottomsheetContent = () => {
         fontFamily={Fonts.sfProBold}
         marginTop={verticalScale(20)}
         marginBottom={verticalScale(10)}
-        onPress={() => {}}
+        onPress={() => {
+          closeEndVoiceChatBottomsheet();
+        }}
       />
 
       <CustomButton

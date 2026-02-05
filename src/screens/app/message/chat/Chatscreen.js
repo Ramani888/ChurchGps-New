@@ -28,6 +28,9 @@ import CreatePollBottomsheetContent from '../../../../components/bottomSheetCont
 import StartVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/StartVoiceChatBottomsheetContent';
 import CustomButton from '../../../../custome/CustomButton';
 import { Fonts } from '../../../../utils/Font';
+import VoiceChatPermissionBottomsheetContent from '../../../../components/bottomSheetContent/VoiceChatPermissionBottomsheetContent';
+import EndVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/EndVoiceChatBottomsheetContent';
+import ShowMessageFromBottomsheetContent from '../../../../components/bottomSheetContent/ShowMessageFromBottomsheetContent';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -54,6 +57,9 @@ const Chatscreen = () => {
   const changeBackgroundSheetRef = useRef();
   const createPollSheetRef = useRef();
   const startVoiceChatSheetRef = useRef();
+  const voiceChatPermissionSheetRef = useRef();
+  const endVoiceChatSheetRef = useRef();
+  const showMessageFromSheetRef = useRef();
 
   const [notification, setNotification] = useState(false);
   const [searchFieldVisible, setSearchFieldVisible] = useState(false);
@@ -170,6 +176,26 @@ const Chatscreen = () => {
     startVoiceChatSheetRef.current.hide();
   }, []);
 
+  const openVoiceChatPermissionBottomsheet = useCallback(() => {
+    voiceChatPermissionSheetRef.current.show();
+  }, []);
+
+  const closeVoiceChatPermissionBottomsheet = useCallback(() => {
+    voiceChatPermissionSheetRef.current.hide();
+  }, []);
+
+  const openEndVoiceChatBottomsheet = useCallback(() => {
+    endVoiceChatSheetRef.current.show();
+  }, []);
+
+  const closeEndVoiceChatBottomsheet = useCallback(() => {
+    endVoiceChatSheetRef.current.hide();
+  }, []);
+
+  const openShowMessageFromBottomsheet = useCallback(() => {
+    showMessageFromSheetRef.current.show();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={Color.White} />
@@ -254,32 +280,36 @@ const Chatscreen = () => {
         </View>
       </Shadow>
 
-      {startVoiceChat && (
-        <Shadow style={styles.joinContainer}>
-          <View style={styles.topView}>
-            <View>
-              <Text style={styles.headingText}>{strings.voiceChat}</Text>
-              <Text style={[styles.headingText, styles.mediumText]}>General Discussion</Text>
-              <Text style={styles.text}>8 Members</Text>
+      <View style={styles.mainJoinContainer}>
+        {startVoiceChat && (
+          <Shadow style={styles.joinContainer}>
+            <View style={styles.topView}>
+              <View>
+                <Text style={styles.headingText}>{strings.voiceChat}</Text>
+                <Text style={[styles.headingText, styles.mediumText]}>General Discussion</Text>
+                <Text style={styles.text}>8 Members</Text>
+              </View>
+              <View style={styles.endBtnView}>
+                <CustomButton
+                  title={strings.join}
+                  buttonWidth={scale(87)}
+                  buttonHeight={verticalScale(38)}
+                  backgroundColor={Color.Pink}
+                  borderRadius={scale(30)}
+                  fontSize={moderateScale(12)}
+                  fontColor={Color.White}
+                  fontFamily={Fonts.interSemiBold}
+                  onPress={() => {
+                    openVoiceChatPermissionBottomsheet();
+                  }}
+                />
+                <Text />
+                <Text style={styles.text}>Active 43 Minutes</Text>
+              </View>
             </View>
-            <View style={styles.endBtnView}>
-              <CustomButton
-                title={strings.join}
-                buttonWidth={scale(87)}
-                buttonHeight={verticalScale(38)}
-                backgroundColor={Color.Pink}
-                borderRadius={scale(30)}
-                fontSize={moderateScale(12)}
-                fontColor={Color.White}
-                fontFamily={Fonts.interSemiBold}
-                onPress={() => {}}
-              />
-              <Text />
-              <Text style={styles.text}>Active 43 Minutes</Text>
-            </View>
-          </View>
-        </Shadow>
-      )}
+          </Shadow>
+        )}
+      </View>
 
       <ChatComponent
         searchFieldVisible={searchFieldVisible}
@@ -364,6 +394,27 @@ const Chatscreen = () => {
           closeStartVoiceChatBottomsheet={closeStartVoiceChatBottomsheet}
           setStartVoiceChat={setStartVoiceChat}
         />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet
+        ref={voiceChatPermissionSheetRef}
+        isModal={false}
+        setBlurVisible={setBlurVisible}
+      >
+        <VoiceChatPermissionBottomsheetContent
+          openEndVoiceChatBottomsheet={openEndVoiceChatBottomsheet}
+          closeVoiceChatPermissionBottomsheet={closeVoiceChatPermissionBottomsheet}
+        />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={endVoiceChatSheetRef} setBlurVisible={setBlurVisible}>
+        <EndVoiceChatBottomsheetContent
+          closeEndVoiceChatBottomsheet={closeEndVoiceChatBottomsheet}
+        />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={showMessageFromSheetRef} setBlurVisible={setBlurVisible}>
+        <ShowMessageFromBottomsheetContent />
       </CustomBottomsheet>
     </SafeAreaView>
   );

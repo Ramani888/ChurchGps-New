@@ -44,7 +44,10 @@ const memberData = [
   },
 ];
 
-const VoiceChatPermissionBottomsheetContent = () => {
+const VoiceChatPermissionBottomsheetContent = ({
+  openEndVoiceChatBottomsheet,
+  closeVoiceChatPermissionBottomsheet,
+}) => {
   const [muteMember, setMuteMember] = useState([]);
   const [mute, setMute] = useState(false);
 
@@ -119,7 +122,10 @@ const VoiceChatPermissionBottomsheetContent = () => {
               fontSize={moderateScale(12)}
               fontColor={Color.White}
               fontFamily={Fonts.interSemiBold}
-              onPress={() => {}}
+              onPress={() => {
+                openEndVoiceChatBottomsheet();
+                closeVoiceChatPermissionBottomsheet();
+              }}
             />
             <Text />
             <Text style={styles.text}>Active 43 Minutes</Text>

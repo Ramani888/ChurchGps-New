@@ -10,9 +10,6 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
 import { scale } from '../../../../utils/Responsive';
 import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
-import AddFriendBottomsheetContent from '../../../../components/bottomSheetContent/AddFriendBottomsheetContent';
-import CreatePollBottomsheetContent from '../../../../components/bottomSheetContent/CreatePollBottomsheetContent';
-import VoiceChatPermissionBottomsheetContent from '../../../../components/bottomSheetContent/VoiceChatPermissionBottomsheetContent';
 import { BlurView } from '@react-native-community/blur';
 import DBRBottomsheetContent from '../../../../components/bottomSheetContent/DBRBottomsheetContent';
 import DeleteBottomsheetContent from '../../../../components/bottomSheetContent/DeleteBottomsheetContent';
@@ -20,7 +17,6 @@ import BlockBottomsheetContent from '../../../../components/bottomSheetContent/B
 import ReportBottomsheetContent from '../../../../components/bottomSheetContent/ReportBottomsheetContent';
 
 const FriendsScreen = () => {
-  const voiceChatPermissionSheetRef = useRef();
   const DBRSheetRef = useRef();
   const deleteSheetRef = useRef();
   const blockSheetRef = useRef();
@@ -56,10 +52,6 @@ const FriendsScreen = () => {
       title: 'Omar',
     },
   ];
-
-  const openVoiceChatPermissionBottomsheet = useCallback(() => {
-    voiceChatPermissionSheetRef.current.show();
-  }, []);
 
   const openDBRBottomsheet = useCallback(() => {
     DBRSheetRef.current.show();
@@ -132,14 +124,6 @@ const FriendsScreen = () => {
           reducedTransparencyFallbackColor="white"
         />
       )}
-
-      <CustomBottomsheet
-        ref={voiceChatPermissionSheetRef}
-        isModal={false}
-        setBlurVisible={setBlurVisible}
-      >
-        <VoiceChatPermissionBottomsheetContent />
-      </CustomBottomsheet>
 
       <CustomBottomsheet ref={DBRSheetRef} setBlurVisible={setBlurVisible}>
         <DBRBottomsheetContent

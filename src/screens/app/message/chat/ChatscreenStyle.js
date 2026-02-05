@@ -53,6 +53,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
+  mainJoinContainer: { padding: scale(20), paddingVertical: verticalScale(25) },
   joinContainer: { width: '100%' },
   topView: {
     backgroundColor: '#FAFFEA',

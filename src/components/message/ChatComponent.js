@@ -29,6 +29,7 @@ const ChatComponent = ({
   openChangeBackgroundBottomsheet,
   openCreatePollBottomsheet,
   openStartVoiceChatBottomsheet,
+  openShowMessageFromBottomsheet,
 }) => {
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
@@ -41,13 +42,13 @@ const ChatComponent = ({
         key: 'photo or video',
         icon: Images.photoOrVideoIcon,
         label: strings.photoOrVideo,
-        onSelect: () => openInfoBottomsheet(),
+        onSelect: () => {},
       },
       {
         key: 'document',
         icon: Images.reportIcon,
         label: strings.document,
-        onSelect: () => openMembersBottomsheet(),
+        onSelect: () => {},
       },
       {
         key: 'groupVoiceChat',
@@ -121,7 +122,7 @@ const ChatComponent = ({
                     value={search}
                     inputStyle={styles.inputStyle}
                   />
-                  <TouchableOpacity onPress={() => {}}>
+                  <TouchableOpacity onPress={() => openShowMessageFromBottomsheet()}>
                     <Image source={Images.userIcon} style={styles.icon} tintColor={Color.Gray} />
                   </TouchableOpacity>
                 </View>

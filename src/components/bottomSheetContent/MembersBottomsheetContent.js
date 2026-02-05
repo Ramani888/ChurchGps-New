@@ -11,8 +11,6 @@ import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-m
 import CustomInputField from '../../custome/CustomInputField';
 import CustomButton from '../../custome/CustomButton';
 import MaterialDesignIcons from '@react-native-vector-icons/material-design-icons';
-import CustomBottomsheet from '../../custome/CustomBottomsheet';
-import BanBottomsheetContent from './BanBottomsheetContent';
 import { useNavigation } from '@react-navigation/native';
 import { screenName } from '../../utils/NavigationKey';
 

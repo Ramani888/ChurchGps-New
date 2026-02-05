@@ -11,9 +11,6 @@ import Color from '../../../../utils/Color';
 import { scale } from '../../../../utils/Responsive';
 import { screenName } from '../../../../utils/NavigationKey';
 import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
-import ShowMessageFromBottomsheetContent from '../../../../components/bottomSheetContent/ShowMessageFromBottomsheetContent';
-import StartVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/StartVoiceChatBottomsheetContent';
-import EndVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/EndVoiceChatBottomsheetContent';
 import { BlurView } from '@react-native-community/blur';
 import DBRBottomsheetContent from '../../../../components/bottomSheetContent/DBRBottomsheetContent';
 import DeleteBottomsheetContent from '../../../../components/bottomSheetContent/DeleteBottomsheetContent';
@@ -99,8 +96,6 @@ const UserRow = memo(function UserRow({ item, onRowPress, onMenuPress }) {
 
 const MessageScreen = () => {
   const navigation = useNavigation();
-  const showMessageFromSheetRef = useRef();
-  const endVoiceChatSheetRef = useRef();
   const DBRSheetRef = useRef();
   const deleteSheetRef = useRef();
   const blockSheetRef = useRef();
@@ -109,18 +104,6 @@ const MessageScreen = () => {
   const [blurVisible, setBlurVisible] = useState(false);
 
   const userData = useMemo(() => USER_DATA, []);
-
-  const openShowMessageFromBottomsheet = useCallback(() => {
-    showMessageFromSheetRef.current.show();
-  }, []);
-
-  // const openStartVoiceChatBottomsheet = useCallback(() => {
-  //   startVoiceChatSheetRef.current.show();
-  // }, []);
-
-  // const openEndVoiceChatBottomsheet = useCallback(() => {
-  //   endVoiceChatSheetRef.current.show();
-  // }, []);
 
   const openDBRBottomsheet = useCallback(() => {
     DBRSheetRef.current.show();
@@ -211,14 +194,6 @@ const MessageScreen = () => {
           reducedTransparencyFallbackColor="white"
         />
       )}
-
-      <CustomBottomsheet ref={showMessageFromSheetRef} setBlurVisible={setBlurVisible}>
-        <ShowMessageFromBottomsheetContent />
-      </CustomBottomsheet>
-
-      <CustomBottomsheet ref={endVoiceChatSheetRef} setBlurVisible={setBlurVisible}>
-        <EndVoiceChatBottomsheetContent />
-      </CustomBottomsheet>
 
       <CustomBottomsheet ref={DBRSheetRef} setBlurVisible={setBlurVisible}>
         <DBRBottomsheetContent
