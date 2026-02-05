@@ -280,7 +280,7 @@ const Chatscreen = () => {
         </View>
       </Shadow>
 
-      <View style={styles.mainJoinContainer}>
+      <View style={startVoiceChat ? styles.mainJoinContainer : {}}>
         {startVoiceChat && (
           <Shadow style={styles.joinContainer}>
             <View style={styles.topView}>
@@ -317,6 +317,7 @@ const Chatscreen = () => {
         openChangeBackgroundBottomsheet={openChangeBackgroundBottomsheet}
         openCreatePollBottomsheet={openCreatePollBottomsheet}
         openStartVoiceChatBottomsheet={openStartVoiceChatBottomsheet}
+        openShowMessageFromBottomsheet={openShowMessageFromBottomsheet}
       />
 
       {blurVisible && (

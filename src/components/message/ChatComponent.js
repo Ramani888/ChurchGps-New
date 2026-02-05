@@ -200,7 +200,7 @@ const ChatComponent = ({
                   value={search}
                   inputStyle={styles.inputStyle}
                 />
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => openShowMessageFromBottomsheet()}>
                   <Image source={Images.userIcon} style={styles.icon} tintColor={Color.Gray} />
                 </TouchableOpacity>
               </View>
