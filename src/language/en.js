@@ -336,7 +336,7 @@ ask for money)`,
   question: 'Question',
   options: 'Options',
   enterQuestion: 'Enter Question',
-  max10: '10 MAX',
+  max: 'MAX',
   pollEnds: 'Poll Ends',
   voiceChat: 'Voice Chat',
   end: 'End',
@@ -355,6 +355,8 @@ ask for money)`,
   groupVoiceChat: 'Group Voice Chat',
   poll: 'Poll',
   color: 'Color',
+  leaveGroup: 'Leave Group',
+  join: 'Join',
 };
 
 // userNameRequired; biji language ma baki che

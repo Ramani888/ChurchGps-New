@@ -1,7 +1,8 @@
 // Korean
 export default {
   churchGps: '처치 GPS',
-  createOrJoinString: '믿음을 탐색하세요 - 만들기. 찾기. 만나기. 지역 또는 온라인에서 어디서나 크리스천들과 연결하세요.',
+  createOrJoinString:
+    '믿음을 탐색하세요 - 만들기. 찾기. 만나기. 지역 또는 온라인에서 어디서나 크리스천들과 연결하세요.',
   login: '로그인',
   login1: '로그인',
   signup: '회원가입',
@@ -100,7 +101,8 @@ export default {
   question25: '전도와 대위임령은 모든 신자에게 필수적인 책임입니다.',
   question26: '현대 성경 번역본(단지 KJV만이 아님)은 기독교인 사용에 적합합니다.',
   question27: '외경 서적은 공식 성경의 일부로 간주됩니다.',
-  question28: '부활은 2번 있습니다: 역사를 통틀어 모든 성도의 부활, 그리고 나중에 모든 사람의 부활.',
+  question28:
+    '부활은 2번 있습니다: 역사를 통틀어 모든 성도의 부활, 그리고 나중에 모든 사람의 부활.',
   save: '저장',
   somethingWentWrong: '문제가 발생했습니다',
   logout: '로그아웃',
@@ -307,7 +309,7 @@ export default {
   question: '질문',
   options: '옵션',
   enterQuestion: '질문 입력',
-  max10: '최대 10',
+  max: '최대',
   pollEnds: '투표 종료',
   voiceChat: '음성 채팅',
   end: '종료',

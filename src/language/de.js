@@ -2,7 +2,8 @@
 
 export default {
   churchGps: 'KIRCHE GPS',
-  createOrJoinString: 'Navigiere deinen Glauben - Erstellen. Finden. Treffen. Verbinde dich mit Christen überall, lokal oder online.',
+  createOrJoinString:
+    'Navigiere deinen Glauben - Erstellen. Finden. Treffen. Verbinde dich mit Christen überall, lokal oder online.',
   login: 'Anmelden',
   login1: 'Login',
   signup: 'Registrieren',
@@ -106,9 +107,11 @@ export default {
   question23: 'Christen müssen vollständig auf Alkohol verzichten.',
   question24: 'Die Ehe ist nur zwischen einem Mann und einer Frau.',
   question25: 'Evangelisation und der Missionsbefehl sind wesentliche Aufgaben aller Gläubigen.',
-  question26: 'Moderne Bibelübersetzungen (nicht nur die KJV) sind für den christlichen Gebrauch akzeptabel.',
+  question26:
+    'Moderne Bibelübersetzungen (nicht nur die KJV) sind für den christlichen Gebrauch akzeptabel.',
   question27: 'Apokryphen werden als Teil der offiziellen Heiligen Schrift betrachtet.',
-  question28: 'Es gibt zwei Auferstehungen: Die Auferstehung aller Heiligen im Laufe der Geschichte und später die Auferstehung aller Menschen.',
+  question28:
+    'Es gibt zwei Auferstehungen: Die Auferstehung aller Heiligen im Laufe der Geschichte und später die Auferstehung aller Menschen.',
   save: 'Speichern',
   somethingWentWrong: 'Etwas ist schiefgelaufen',
   logout: 'Abmelden',
@@ -152,8 +155,10 @@ export default {
   recordNew: 'Neu aufnehmen',
   introVideoInfotext:
     'Ein einfacher Weg, damit Nutzer Sie schnell kennenlernen. Teilen Sie kurz Ihre Geschichte, Überzeugungen, Ziele oder alles, was andere wissen sollten',
-  profileNameRequired: 'Profilname ist erforderlich',  userNameRequired: 'Benutzername ist erforderlich',
-  profileImageRequired: 'Bitte wählen Sie ein Profilbild aus',  bioValidation: 'Die Biografie darf 500 Zeichen nicht überschreiten',
+  profileNameRequired: 'Profilname ist erforderlich',
+  userNameRequired: 'Benutzername ist erforderlich',
+  profileImageRequired: 'Bitte wählen Sie ein Profilbild aus',
+  bioValidation: 'Die Biografie darf 500 Zeichen nicht überschreiten',
   bioRequired: 'Bio ist erforderlich',
   denominationRequired: 'Konfession ist erforderlich',
   protestantDenominationRequired: 'Protestantische Konfession ist erforderlich',
@@ -321,7 +326,7 @@ export default {
   question: 'Frage',
   options: 'Optionen',
   enterQuestion: 'Frage eingeben',
-  max10: 'Max. 10',
+  max: 'Max',
   pollEnds: 'Umfrage endet',
   voiceChat: 'Sprachchat',
   end: 'Beenden',

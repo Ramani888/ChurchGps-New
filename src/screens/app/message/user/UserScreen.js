@@ -100,7 +100,6 @@ const UserRow = memo(function UserRow({ item, onRowPress, onMenuPress }) {
 const MessageScreen = () => {
   const navigation = useNavigation();
   const showMessageFromSheetRef = useRef();
-  const startVoiceChatSheetRef = useRef();
   const endVoiceChatSheetRef = useRef();
   const DBRSheetRef = useRef();
   const deleteSheetRef = useRef();
@@ -215,10 +214,6 @@ const MessageScreen = () => {
 
       <CustomBottomsheet ref={showMessageFromSheetRef} setBlurVisible={setBlurVisible}>
         <ShowMessageFromBottomsheetContent />
-      </CustomBottomsheet>
-
-      <CustomBottomsheet ref={startVoiceChatSheetRef} setBlurVisible={setBlurVisible}>
-        <StartVoiceChatBottomsheetContent />
       </CustomBottomsheet>
 
       <CustomBottomsheet ref={endVoiceChatSheetRef} setBlurVisible={setBlurVisible}>

@@ -78,7 +78,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { GestureScrollView } from 'react-native-gesture-handler';
 import CustomButton from '../../custome/CustomButton';
 
-const MAX_OPTIONS = 10;
+const MAX_OPTIONS = 5;
 const MIN_OPTIONS = 2;
 
 const OptionRow = memo(function OptionRow({ value, index, onChange, onRemove }) {
@@ -212,7 +212,7 @@ const CreatePollBottomsheetContent = () => {
             </View>
           </Pressable>
 
-          <Text style={styles.maxText}>{`(${strings?.max10})`}</Text>
+          <Text style={styles.maxText}>{`(${MAX_OPTIONS} ${strings?.max})`}</Text>
         </View>
 
         <View>

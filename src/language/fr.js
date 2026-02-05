@@ -2,7 +2,8 @@
 
 export default {
   churchGps: 'ÉGLISE GPS',
-  createOrJoinString: 'Naviguez votre foi - Créer. Trouver. Rencontrer. Connectez-vous avec des chrétiens partout, localement ou en ligne.',
+  createOrJoinString:
+    'Naviguez votre foi - Créer. Trouver. Rencontrer. Connectez-vous avec des chrétiens partout, localement ou en ligne.',
   login: 'Se connecter',
   login1: 'Connexion',
   signup: 'S’inscrire',
@@ -102,13 +103,17 @@ export default {
     'Il y aura un règne terrestre littéral et physique de 1000 ans de Christ (règne millénaire).',
   question20: 'Le règne millénaire est un événement futur.',
   question21: 'Il y aura un enlèvement pré-tribulation distinct du retour visible du Christ.',
-  question22: 'L\'église est Israël, qui comprend à la fois les Juifs et les Gentils.',
+  question22: "L'église est Israël, qui comprend à la fois les Juifs et les Gentils.",
   question23: 'Les chrétiens doivent s’abstenir complètement d’alcool.',
   question24: 'Le mariage est uniquement entre un homme et une femme.',
-  question25: 'L’évangélisation et la Grande Commission sont des responsabilités essentielles pour tous les croyants.',
-  question26: 'Les traductions modernes de la Bible (pas seulement la KJV) sont acceptables pour l’usage chrétien.',
-  question27: 'Les livres apocryphes sont considérés comme faisant partie des Écritures officielles.',
-  question28: 'Il y a 2 résurrections : la résurrection de tous les saints à travers l’histoire, puis plus tard la résurrection de toutes les personnes.',
+  question25:
+    'L’évangélisation et la Grande Commission sont des responsabilités essentielles pour tous les croyants.',
+  question26:
+    'Les traductions modernes de la Bible (pas seulement la KJV) sont acceptables pour l’usage chrétien.',
+  question27:
+    'Les livres apocryphes sont considérés comme faisant partie des Écritures officielles.',
+  question28:
+    'Il y a 2 résurrections : la résurrection de tous les saints à travers l’histoire, puis plus tard la résurrection de toutes les personnes.',
   save: 'Enregistrer',
   somethingWentWrong: 'Une erreur est survenue',
   logout: 'Se déconnecter',
@@ -323,7 +328,7 @@ export default {
   question: 'Question',
   options: 'Options',
   enterQuestion: 'Entrer la question',
-  max10: 'Max. 10',
+  max: 'Max',
   pollEnds: 'Le sondage se termine',
   voiceChat: 'Chat vocal',
   end: 'Terminer',

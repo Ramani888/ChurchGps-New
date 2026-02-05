@@ -1,7 +1,8 @@
 // Japanese
 export default {
   churchGps: 'チャーチGPS',
-  createOrJoinString: 'あなたの信仰をナビゲート - 作成。発見。会う。地元やオンラインでどこでもクリスチャンとつながる。',
+  createOrJoinString:
+    'あなたの信仰をナビゲート - 作成。発見。会う。地元やオンラインでどこでもクリスチャンとつながる。',
   login: 'ログイン',
   login1: 'ログイン',
   signup: 'サインアップ',
@@ -304,7 +305,7 @@ export default {
   question: '質問',
   options: '選択肢',
   enterQuestion: '質問を入力',
-  max10: '最大10',
+  max: '最大',
   pollEnds: '投票終了',
   voiceChat: '音声チャット',
   end: '終了',

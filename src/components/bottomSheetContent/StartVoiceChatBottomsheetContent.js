@@ -10,7 +10,10 @@ import CustomInputField from '../../custome/CustomInputField';
 import ToggleSwitch from 'toggle-switch-react-native';
 import CustomButton from '../../custome/CustomButton';
 
-const StartVoiceChatBottomsheetContent = () => {
+const StartVoiceChatBottomsheetContent = ({
+  closeStartVoiceChatBottomsheet,
+  setStartVoiceChat,
+}) => {
   const [discussion, setDiscussion] = useState('');
   const [switchOn, setSwitchOn] = useState(false);
 
@@ -57,7 +60,10 @@ const StartVoiceChatBottomsheetContent = () => {
         fontColor={Color.Black}
         fontFamily={Fonts.sfProBold}
         marginVertical={verticalScale(21)}
-        onPress={() => {}}
+        onPress={() => {
+          setStartVoiceChat(true);
+          closeStartVoiceChatBottomsheet();
+        }}
       />
     </SafeAreaView>
   );

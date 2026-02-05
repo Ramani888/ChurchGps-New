@@ -5,12 +5,13 @@ import { Fonts } from '../../../../utils/Font';
 
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Color.White },
-  bodyContainer: { margin: scale(22), marginTop: verticalScale(-52) },
+  header: { alignItems: 'flex-end', height: verticalScale(40) },
+  rightIconStyle: { alignItems: 'flex-end', gap: scale(13) },
+  bodyContainer: { margin: scale(22) },
   profileImage: {
     width: scale(80),
     height: scale(80),
     alignSelf: 'center',
-    marginTop: scale(15),
     marginBottom: scale(10),
     borderRadius: scale(40),
   },
@@ -91,5 +92,12 @@ export const styles = StyleSheet.create({
   optionTextSelected: {
     color: Color.Black,
     fontFamily: Fonts.interRegular,
+  },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
   },
 });

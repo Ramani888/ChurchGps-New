@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Fonts } from '../utils/Font';
 
 const CustomHeader = ({
+  headerContainerStyle,
   backArrowVisible,
   firstLineTitle,
   gradientTitle,
@@ -25,11 +26,18 @@ const CustomHeader = ({
   searchIconPress,
   infoIcon,
   infoIconPress,
+  userPlusIcon,
+  userPlusIconPress,
+  userChatIcon,
+  userChatIconPress,
+  userRightIcon,
+  userRightIconPress,
+  rightIconContainerStyle,
 }) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, headerContainerStyle]}>
       {backArrowVisible && (
         <Pressable onPress={() => navigation.goBack()} style={styles.backBtn}>
           <AntDesign name="left" size={scale(16)} color={Color.Black} />
@@ -76,7 +84,7 @@ const CustomHeader = ({
         )}
       </View>
 
-      <View style={styles.rightIconView}>
+      <View style={[styles.rightIconView, rightIconContainerStyle]}>
         {languageIcon && (
           <Pressable onPress={languageIconPress}>
             <Image source={languageIcon} style={styles.languageIcon} />
@@ -95,6 +103,21 @@ const CustomHeader = ({
         {infoIcon && (
           <Pressable onPress={infoIconPress}>
             <Image source={infoIcon} style={styles.infoIcon} />
+          </Pressable>
+        )}
+        {userPlusIcon && (
+          <Pressable onPress={userPlusIconPress}>
+            <Image source={userPlusIcon} style={styles.icon} resizeMode="contain" />
+          </Pressable>
+        )}
+        {userChatIcon && (
+          <Pressable onPress={userChatIconPress}>
+            <Image source={userChatIcon} style={styles.icon} resizeMode="contain" />
+          </Pressable>
+        )}
+        {userRightIcon && (
+          <Pressable onPress={userRightIconPress}>
+            <Image source={userRightIcon} style={styles.icon} resizeMode="contain" />
           </Pressable>
         )}
       </View>

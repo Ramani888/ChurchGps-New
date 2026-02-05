@@ -125,4 +125,7 @@ export const Images = {
   photoOrVideoIcon: require('../assets/image/photoOrVideo.png'),
   pollIcon: require('../assets/image/poll.png'),
   colorIcon: require('../assets/image/color.png'),
+  userPlusIcon: require('../assets/image/userPlusIcon.png'),
+  userRightIcon: require('../assets/image/userRightIcon.png'),
+  userChatIcon: require('../assets/image/userChatIcon.png'),
 };

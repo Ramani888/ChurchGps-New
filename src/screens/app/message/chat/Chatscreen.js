@@ -23,6 +23,11 @@ import ChangeBackgroundBottomsheetContent from '../../../../components/bottomShe
 import ChatComponent from '../../../../components/message/ChatComponent';
 import { Shadow } from 'react-native-shadow-2';
 import { BlurView } from '@react-native-community/blur';
+import LeaveBottomsheetContent from '../../../../components/bottomSheetContent/LeaveBottomsheetContent';
+import CreatePollBottomsheetContent from '../../../../components/bottomSheetContent/CreatePollBottomsheetContent';
+import StartVoiceChatBottomsheetContent from '../../../../components/bottomSheetContent/StartVoiceChatBottomsheetContent';
+import CustomButton from '../../../../custome/CustomButton';
+import { Fonts } from '../../../../utils/Font';
 
 const HeaderMenuItem = memo(function HeaderMenuItem({ icon, label, onSelect }) {
   return (
@@ -40,16 +45,20 @@ const Chatscreen = () => {
   const navigation = useNavigation();
   const infoSheetRef = useRef();
   const membersSheetRef = useRef();
+  const leaveSheetRef = useRef();
   const banSheetRef = useRef();
   const adminRightsSheetRef = useRef();
   const transferOwnerSheetRef = useRef();
   const removeAdminSheetRef = useRef();
   const memberPermissionSheetRef = useRef();
   const changeBackgroundSheetRef = useRef();
+  const createPollSheetRef = useRef();
+  const startVoiceChatSheetRef = useRef();
 
   const [notification, setNotification] = useState(false);
   const [searchFieldVisible, setSearchFieldVisible] = useState(false);
   const [blurVisible, setBlurVisible] = useState(false);
+  const [startVoiceChat, setStartVoiceChat] = useState(false);
 
   const { userName = '', image = '' } = route?.params ?? {};
 
@@ -79,7 +88,7 @@ const Chatscreen = () => {
         key: 'leave',
         icon: Images.leaveIcon,
         label: strings.leave,
-        onSelect: () => {},
+        onSelect: () => openLeaveBottomsheet(),
       },
       {
         key: 'report',
@@ -113,6 +122,10 @@ const Chatscreen = () => {
     membersSheetRef.current.hide();
   }, []);
 
+  const openLeaveBottomsheet = useCallback(() => {
+    leaveSheetRef.current.show();
+  }, []);
+
   const openBanBottomsheet = useCallback(() => {
     banSheetRef.current.show();
   }, []);
@@ -143,6 +156,18 @@ const Chatscreen = () => {
 
   const closeChangeBackgroundBottomsheet = useCallback(() => {
     changeBackgroundSheetRef.current.hide();
+  }, []);
+
+  const openCreatePollBottomsheet = useCallback(() => {
+    createPollSheetRef.current.show();
+  }, []);
+
+  const openStartVoiceChatBottomsheet = useCallback(() => {
+    startVoiceChatSheetRef.current.show();
+  }, []);
+
+  const closeStartVoiceChatBottomsheet = useCallback(() => {
+    startVoiceChatSheetRef.current.hide();
   }, []);
 
   return (
@@ -229,10 +254,39 @@ const Chatscreen = () => {
         </View>
       </Shadow>
 
+      {startVoiceChat && (
+        <Shadow style={styles.joinContainer}>
+          <View style={styles.topView}>
+            <View>
+              <Text style={styles.headingText}>{strings.voiceChat}</Text>
+              <Text style={[styles.headingText, styles.mediumText]}>General Discussion</Text>
+              <Text style={styles.text}>8 Members</Text>
+            </View>
+            <View style={styles.endBtnView}>
+              <CustomButton
+                title={strings.join}
+                buttonWidth={scale(87)}
+                buttonHeight={verticalScale(38)}
+                backgroundColor={Color.Pink}
+                borderRadius={scale(30)}
+                fontSize={moderateScale(12)}
+                fontColor={Color.White}
+                fontFamily={Fonts.interSemiBold}
+                onPress={() => {}}
+              />
+              <Text />
+              <Text style={styles.text}>Active 43 Minutes</Text>
+            </View>
+          </View>
+        </Shadow>
+      )}
+
       <ChatComponent
         searchFieldVisible={searchFieldVisible}
         setSearchFieldVisible={setSearchFieldVisible}
         openChangeBackgroundBottomsheet={openChangeBackgroundBottomsheet}
+        openCreatePollBottomsheet={openCreatePollBottomsheet}
+        openStartVoiceChatBottomsheet={openStartVoiceChatBottomsheet}
       />
 
       {blurVisible && (
@@ -255,6 +309,10 @@ const Chatscreen = () => {
           openAdminRightsBottomsheet={openAdminRightsBottomsheet}
           openMemberPermissionBottomsheet={openMemberPermissionBottomsheet}
         />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={leaveSheetRef} setBlurVisible={setBlurVisible}>
+        <LeaveBottomsheetContent />
       </CustomBottomsheet>
 
       <CustomBottomsheet ref={banSheetRef} setBlurVisible={setBlurVisible}>
@@ -289,6 +347,22 @@ const Chatscreen = () => {
       <CustomBottomsheet ref={changeBackgroundSheetRef} setBlurVisible={setBlurVisible}>
         <ChangeBackgroundBottomsheetContent
           closeChangeBackgroundBottomsheet={closeChangeBackgroundBottomsheet}
+        />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet
+        ref={createPollSheetRef}
+        gestureEnabled={false}
+        height={'93%'}
+        setBlurVisible={setBlurVisible}
+      >
+        <CreatePollBottomsheetContent />
+      </CustomBottomsheet>
+
+      <CustomBottomsheet ref={startVoiceChatSheetRef} setBlurVisible={setBlurVisible}>
+        <StartVoiceChatBottomsheetContent
+          closeStartVoiceChatBottomsheet={closeStartVoiceChatBottomsheet}
+          setStartVoiceChat={setStartVoiceChat}
         />
       </CustomBottomsheet>
     </SafeAreaView>

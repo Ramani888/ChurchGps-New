@@ -1,16 +1,26 @@
 import { View, Text, Image, Pressable, ScrollView, FlatList, TouchableOpacity } from 'react-native';
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './MemberProfileScreenStyle';
 import CustomHeader from '../../../../custome/CustomHeader';
 import { Images } from '../../../../utils/Images';
 import { strings } from '../../../../language/strings';
 import { useNavigation } from '@react-navigation/native';
-import { scale } from '../../../../utils/Responsive';
+import { scale, verticalScale } from '../../../../utils/Responsive';
+import CustomBottomsheet from '../../../../custome/CustomBottomsheet';
+import { BlurView } from '@react-native-community/blur';
+import AddFriendBottomsheetContent from '../../../../components/bottomSheetContent/AddFriendBottomsheetContent';
 
 const MemberProfileScreen = () => {
   const navigation = useNavigation();
-  const [answers, setAnswers] = useState({});
+  const addFriendSheetRef = useRef();
+
+  const [answers, setAnswers] = useState([]);
+  const [blurVisible, setBlurVisible] = useState(false);
+
+  const openAddFriendBottomsheet = useCallback(() => {
+    addFriendSheetRef.current.show();
+  }, []);
 
   const questionsData = useMemo(() => {
     return Array.from({ length: 28 }, (_, index) => {
@@ -84,7 +94,17 @@ const MemberProfileScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CustomHeader backArrowVisible={true} />
+      <CustomHeader
+        backArrowVisible={true}
+        headerContainerStyle={styles.header}
+        userPlusIcon={Images.userPlusIcon}
+        userPlusIconPress={() => openAddFriendBottomsheet()}
+        userChatIcon={Images.userChatIcon}
+        userChatIconPress={() => {}}
+        userRightIcon={Images.userRightIcon}
+        userRightIconPress={() => {}}
+        rightIconContainerStyle={styles.rightIconStyle}
+      />
 
       <ScrollView style={styles.bodyContainer} showsVerticalScrollIndicator={false}>
         <View>
@@ -131,6 +151,19 @@ const MemberProfileScreen = () => {
           </View>
         </View>
       </ScrollView>
+
+      {blurVisible && (
+        <BlurView
+          style={styles.absolute}
+          blurType="light"
+          blurAmount={4}
+          reducedTransparencyFallbackColor="white"
+        />
+      )}
+
+      <CustomBottomsheet ref={addFriendSheetRef} setBlurVisible={setBlurVisible}>
+        <AddFriendBottomsheetContent />
+      </CustomBottomsheet>
     </SafeAreaView>
   );
 };

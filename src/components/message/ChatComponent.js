@@ -27,6 +27,8 @@ const ChatComponent = ({
   searchFieldVisible,
   setSearchFieldVisible,
   openChangeBackgroundBottomsheet,
+  openCreatePollBottomsheet,
+  openStartVoiceChatBottomsheet,
 }) => {
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
@@ -51,13 +53,13 @@ const ChatComponent = ({
         key: 'groupVoiceChat',
         icon: Images.microphoneIcon,
         label: strings.groupVoiceChat,
-        onSelect: () => {},
+        onSelect: () => openStartVoiceChatBottomsheet(),
       },
       {
         key: 'poll',
         icon: Images.pollIcon,
         label: strings.poll,
-        onSelect: () => {},
+        onSelect: () => openCreatePollBottomsheet(),
       },
       {
         key: 'color',

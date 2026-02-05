@@ -20,8 +20,6 @@ import BlockBottomsheetContent from '../../../../components/bottomSheetContent/B
 import ReportBottomsheetContent from '../../../../components/bottomSheetContent/ReportBottomsheetContent';
 
 const FriendsScreen = () => {
-  const addFriendSheetRef = useRef();
-  const createPollSheetRef = useRef();
   const voiceChatPermissionSheetRef = useRef();
   const DBRSheetRef = useRef();
   const deleteSheetRef = useRef();
@@ -58,14 +56,6 @@ const FriendsScreen = () => {
       title: 'Omar',
     },
   ];
-
-  const openAddFriendBottomsheet = useCallback(() => {
-    addFriendSheetRef.current.show();
-  }, []);
-
-  const openCreatePollBottomsheet = useCallback(() => {
-    createPollSheetRef.current.show();
-  }, []);
 
   const openVoiceChatPermissionBottomsheet = useCallback(() => {
     voiceChatPermissionSheetRef.current.show();
@@ -142,19 +132,6 @@ const FriendsScreen = () => {
           reducedTransparencyFallbackColor="white"
         />
       )}
-
-      <CustomBottomsheet ref={addFriendSheetRef} setBlurVisible={setBlurVisible}>
-        <AddFriendBottomsheetContent />
-      </CustomBottomsheet>
-
-      <CustomBottomsheet
-        ref={createPollSheetRef}
-        gestureEnabled={false}
-        height={'93%'}
-        setBlurVisible={setBlurVisible}
-      >
-        <CreatePollBottomsheetContent />
-      </CustomBottomsheet>
 
       <CustomBottomsheet
         ref={voiceChatPermissionSheetRef}

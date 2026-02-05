@@ -1,7 +1,8 @@
 // Spanish
 export default {
   churchGps: 'IGLESIA GPS',
-  createOrJoinString: 'Navega tu fe - Crear. Encontrar. Reunirse. Conecta con cristianos en cualquier lugar, localmente o en línea.',
+  createOrJoinString:
+    'Navega tu fe - Crear. Encontrar. Reunirse. Conecta con cristianos en cualquier lugar, localmente o en línea.',
   login: 'Iniciar sesión',
   login1: 'Login',
   signup: 'Registrarse',
@@ -102,10 +103,13 @@ export default {
   question22: 'La iglesia es Israel, que incluye tanto a judíos como a gentiles.',
   question23: 'Los cristianos deben abstenerse completamente del alcohol.',
   question24: 'El matrimonio es solo entre un hombre y una mujer.',
-  question25: 'La evangelización y la Gran Comisión son responsabilidades esenciales para todos los creyentes.',
-  question26: 'Las traducciones modernas de la Biblia (no solo la KJV) son aceptables para el uso cristiano.',
+  question25:
+    'La evangelización y la Gran Comisión son responsabilidades esenciales para todos los creyentes.',
+  question26:
+    'Las traducciones modernas de la Biblia (no solo la KJV) son aceptables para el uso cristiano.',
   question27: 'Los libros apócrifos se consideran parte de las Escrituras oficiales.',
-  question28: 'Hay 2 resurrecciones: La resurrección de todos los santos a lo largo de la historia, y luego la resurrección de todas las personas.',
+  question28:
+    'Hay 2 resurrecciones: La resurrección de todos los santos a lo largo de la historia, y luego la resurrección de todas las personas.',
   save: 'Guardar',
   somethingWentWrong: 'Algo salió mal',
   logout: 'Cerrar sesión',
@@ -317,7 +321,7 @@ export default {
   question: 'Pregunta',
   options: 'Opciones',
   enterQuestion: 'Introducir pregunta',
-  max10: 'Máx. 10',
+  max: 'Máx',
   pollEnds: 'La encuesta termina',
   voiceChat: 'Chat de voz',
   end: 'Finalizar',
