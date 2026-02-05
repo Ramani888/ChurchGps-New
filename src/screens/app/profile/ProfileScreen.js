@@ -67,7 +67,14 @@ const ProfileScreen = () => {
       { image: Images.twitterIcon, name: strings.x },
       { image: Images.facebookIcon, name: strings.facebook },
     ],
-    [strings.copyLink, strings.whatsapp, strings.telegram, strings.message, strings.x, strings.facebook],
+    [
+      strings.copyLink,
+      strings.whatsapp,
+      strings.telegram,
+      strings.message,
+      strings.x,
+      strings.facebook,
+    ],
   );
 
   const refferalBadgesData = useMemo(
@@ -182,7 +189,6 @@ const ProfileScreen = () => {
                 <TouchableOpacity
                   key={key}
                   style={[styles.optionButton, isSelected && styles.optionButtonSelected]}
-                  // onPress={() => handleAnswer(item.id, key)}
                 >
                   <Text style={[styles.optionText, isSelected && styles.optionTextSelected]}>
                     {value}
